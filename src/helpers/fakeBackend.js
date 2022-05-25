@@ -4,7 +4,7 @@ function fakeBackend() {
   let users = [
     {
       id: 1,
-      username: "test",
+      email: "test",
       password: "test",
       firstName: "Test",
       lastName: "User",
@@ -33,9 +33,9 @@ function fakeBackend() {
       // route functions
 
       function authenticate() {
-        const { username, password } = body();
+        const { email, password } = body();
         const user = users.find(
-          (x) => x.username === username && x.password === password
+          (x) => x.email === email && x.password === password
         );
 
         if (!user) return error("emailOrPasswordincorrect");
@@ -43,7 +43,7 @@ function fakeBackend() {
         // return basic user details on success
         return ok({
           id: user.id,
-          username: user.username,
+          email: user.email,
           firstName: user.firstName,
           lastName: user.lastName,
         });

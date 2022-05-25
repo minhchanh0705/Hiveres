@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 
 import { authAtom } from "@/recoil/atoms";
 import { useRecoilState } from "recoil";
-import companyLogo from "../assets/icon/logo.png";
+import companyLogo from "@/assets/icon/logo.png";
 import { US, VN } from "country-flag-icons/react/3x2";
 import Modal from "react-modal";
 import styles from "./modalStyle";
@@ -21,6 +21,7 @@ import {
   Grid,
 } from "@mui/material";
 import { useUserActions } from "@/recoil/actions";
+import { sizeRatio } from "@/theme";
 
 const Header = () => {
   const { t, i18n } = useTranslation();
@@ -32,7 +33,7 @@ const Header = () => {
   const signOut = () => {
     localStorage.removeItem("user");
     setAuth(null);
-    navigate("/home");
+    navigate("/");
     setIsModalSignUpOpen(false);
     setIsModalSignInOpen(false);
   };
@@ -94,8 +95,8 @@ const Header = () => {
       <Navbar.Brand href="/home">
         <img
           src={companyLogo}
-          width="290"
-          height="90"
+          width={sizeRatio(29)}
+          height={sizeRatio(90)}
           className="d-inline-block align-top"
           alt="React Bootstrap logo"
         />
@@ -116,9 +117,9 @@ const Header = () => {
                   <US
                     style={{
                       borderRadius: 4,
-                      width: "35px",
-                      height: "22px",
-                      marginRight: "5px",
+                      width: sizeRatio(35),
+                      height: sizeRatio(22),
+                      marginRight: sizeRatio(5),
                     }}
                   ></US>
                   {t(i18n.language)}
@@ -128,9 +129,9 @@ const Header = () => {
                   <VN
                     style={{
                       borderRadius: 4,
-                      width: "35px",
-                      height: "22px",
-                      marginRight: "5px",
+                      width: sizeRatio(35),
+                      height: sizeRatio(22),
+                      marginRight: sizeRatio(5),
                     }}
                   ></VN>
                   {t(i18n.language)}
@@ -172,11 +173,11 @@ const Header = () => {
                       firstName: "Test",
                       id: 1,
                       lastName: "User",
-                      username: "test",
+                      email: "test",
                     })
                   }
                 >
-                  <div className="mt-30px">
+                  <div style={{ marginTop: sizeRatio(30) }}>
                     <TextField
                       required
                       fullWidth
@@ -187,7 +188,7 @@ const Header = () => {
                       autoFocus
                     />
                   </div>
-                  <div className="mt-30px">
+                  <div style={{ marginTop: sizeRatio(30) }}>
                     <TextField
                       required
                       fullWidth
@@ -198,13 +199,13 @@ const Header = () => {
                       autoComplete="current-password"
                     />
                   </div>
-                  <div className="mt-15px">
+                  <div style={{ marginTop: sizeRatio(15) }}>
                     <FormControlLabel
                       control={<Checkbox value="remember" color="primary" />}
                       label={t("rememberMe")}
                     />
                   </div>
-                  <div className="mt-10px">
+                  <div style={{ marginTop: sizeRatio(10) }}>
                     <Button
                       type="submit"
                       fullWidth
@@ -214,7 +215,7 @@ const Header = () => {
                       {t("signIn")}
                     </Button>
                   </div>
-                  <div className="mt-25px">
+                  <div style={{ marginTop: sizeRatio(25) }}>
                     <Grid container>
                       <Grid item xs>
                         <Link
@@ -255,11 +256,11 @@ const Header = () => {
                       firstName: "Test",
                       id: 1,
                       lastName: "User",
-                      username: "test",
+                      email: "test",
                     })
                   }
                 >
-                  <div className="mt-30px">
+                  <div style={{ marginTop: sizeRatio(30) }}>
                     <TextField
                       required
                       fullWidth
@@ -271,7 +272,7 @@ const Header = () => {
                       autoFocus
                     />
                   </div>
-                  <div className="mt-30px">
+                  <div style={{ marginTop: sizeRatio(30) }}>
                     <TextField
                       required
                       fullWidth
@@ -283,7 +284,7 @@ const Header = () => {
                       autoComplete="current-password"
                     />
                   </div>
-                  <div className="mt-30px">
+                  <div style={{ marginTop: sizeRatio(30) }}>
                     <TextField
                       required
                       fullWidth
@@ -296,7 +297,7 @@ const Header = () => {
                     />
                   </div>
 
-                  <div className="mt-40px">
+                  <div style={{ marginTop: sizeRatio(40) }}>
                     <Button
                       type="submit"
                       fullWidth
@@ -306,7 +307,7 @@ const Header = () => {
                       {t("signUp")}
                     </Button>
                   </div>
-                  <div className="mt-25px">
+                  <div style={{ marginTop: sizeRatio(25) }}>
                     <Grid container style={styles.haveAccount}>
                       <Grid item>
                         <Link
@@ -342,11 +343,11 @@ const Header = () => {
                       firstName: "Test",
                       id: 1,
                       lastName: "User",
-                      username: "test",
+                      email: "test",
                     })
                   }
                 >
-                  <div className="mt-30px">
+                  <div style={{ marginTop: sizeRatio(30) }}>
                     <TextField
                       required
                       fullWidth
@@ -357,8 +358,10 @@ const Header = () => {
                       autoFocus
                     />
                   </div>
-                  <div className="mt-15px">Send us your email address</div>
-                  <div className="mt-25px">
+                  <div style={{ marginTop: sizeRatio(15) }}>
+                    Send us your email address
+                  </div>
+                  <div style={{ marginTop: sizeRatio(25) }}>
                     <Button
                       type="submit"
                       fullWidth
@@ -368,7 +371,7 @@ const Header = () => {
                       {t("send")}
                     </Button>
                   </div>
-                  <div className="mt-25px">
+                  <div style={{ marginTop: sizeRatio(25) }}>
                     <Grid container style={styles.haveAccount}>
                       <Grid item xs>
                         <Link

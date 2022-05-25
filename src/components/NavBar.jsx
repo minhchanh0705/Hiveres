@@ -1,4 +1,4 @@
-import * as React from "react";
+import { useState } from "react";
 import Container from "@mui/material/Container";
 import { useTranslation } from "react-i18next";
 import { Dropdown, Nav, NavDropdown } from "react-bootstrap";
@@ -12,277 +12,413 @@ import { authAtom, currentTabAtom } from "@/recoil/atoms";
 import { RiArrowDownSLine } from "react-icons/ri";
 import { BsPencilSquare } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
+import { sizeRatio } from "@/theme";
+import { styled, alpha } from "@mui/material/styles";
+import { Button, Divider, Menu, MenuItem } from "@mui/material";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+
+const StyledMenu = styled((props) => (
+  <Menu
+    elevation={0}
+    anchorOrigin={{
+      vertical: "bottom",
+      horizontal: "right",
+    }}
+    transformOrigin={{
+      vertical: "top",
+      horizontal: "right",
+    }}
+    {...props}
+  />
+))(({ theme }) => ({
+  "& .MuiPaper-root": {
+    borderRadius: 6,
+    marginTop: theme.spacing(1),
+    minWidth: sizeRatio(430),
+    color:
+      theme.palette.mode === "light"
+        ? "rgb(55, 65, 81)"
+        : theme.palette.grey[300],
+    boxShadow:
+      "rgb(255, 255, 255) 0px 0px 0px 0px, rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px",
+    "& .MuiMenu-list": {
+      paddingTop: sizeRatio(24),
+      paddingBottom: sizeRatio(24),
+    },
+    "& .MuiMenuItem-root": {
+      "& .MuiSvgIcon-root": {
+        fontSize: 18,
+        color: theme.palette.text.secondary,
+        marginRight: theme.spacing(1.5),
+      },
+      "&:active": {
+        backgroundColor: alpha(
+          theme.palette.primary.main,
+          theme.palette.action.selectedOpacity
+        ),
+      },
+    },
+  },
+}));
 
 const NavBar = () => {
   const { t } = useTranslation();
   const [auth, setAuth] = useRecoilState(authAtom);
-  console.log(JSON.parse(auth)?.uname);
   const setCurrentTab = useSetRecoilState(currentTabAtom);
   const currTab = useRecoilValue(currentTabAtom);
   const handleCurrentTab = (tab) => {
-    typeof tab == "string" && console.log(tab);
     typeof tab == "string" && !tab.includes("/") && setCurrentTab(tab);
   };
   let navigate = useNavigate();
   const signOut = () => {
     localStorage.removeItem("user");
     setAuth(null);
-    navigate("/main");
+    navigate("/");
   };
+
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+  const handleMenuChosen = (chosenMenu) => {
+    setAnchorEl(null);
+    if (chosenMenu === "Profile") {
+      navigate("/Profile");
+    } else if (chosenMenu === "Support") {
+      navigate("/Profile");
+    } else if (chosenMenu === "Privacy") {
+      // navigate("/Profile");
+    } else if (chosenMenu === "ChangePassword") {
+      // navigate("/Profile");
+    } else if (chosenMenu === "LogOut") {
+      // navigate("/Profile");
+    }
+  };
+
   return (
-    <div id="dashboardNav">
-      <Nav
-        className="justify-content-around py-2"
-        activeKey="/home"
-        style={{ alignItems: "center" }}
-        onSelect={handleCurrentTab}
+    <Nav
+      activeKey="/"
+      onSelect={handleCurrentTab}
+      style={{
+        height: sizeRatio(80),
+        paddingInline: sizeRatio(32),
+        justifyContent: "space-between",
+        alignItems: "center",
+        backgroundColor: "#FFFFFF",
+        boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.2)",
+      }}
+    >
+      <div>
+        <a href="/">
+          <img
+            src={logo}
+            width={sizeRatio(131)}
+            height={sizeRatio(38)}
+            alt="Logo"
+          />
+        </a>
+      </div>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "center",
+        }}
       >
-        <div className="row col-6 col-sm-12 col-md-12 col-lg-2 col-xl-2 align-items-center justify-content-center">
-          <Nav.Item>
-            <Nav.Link href="/home">
-              <img
-                src={logo}
-                width="200"
-                height="58"
-                className="d-inline-block align-top "
-                alt="React Bootstrap logo"
-              />
-            </Nav.Link>
-          </Nav.Item>
+        <div
+          style={{
+            fontFamily: "Archivo",
+            fontWeight: 400,
+            fontSize: sizeRatio(16),
+          }}
+        >
+          {moment(new Date()).format("MMM DD, YYYY")}
         </div>
-        <div className="row col-6 col-sm-12 col-md-12 col-lg-3 col-xl-4 align-items-center justify-content-center">
-          <Nav.Item>
-            <Nav.Link
-              eventKey="Dashboard"
-              className={
-                currTab === "Dashboard"
-                  ? "text-white bg-dark rounded"
-                  : "text-white bg-secondary rounded"
-              }
-              style={{
-                width: "180px",
-                textAlign: "center",
-                margin: "8px",
-              }}
-              onClick={handleCurrentTab}
-            >
-              <MdOutlineDashboard
+        <div>
+          <FiMessageSquare
+            style={{
+              borderWidth: sizeRatio(2),
+              width: sizeRatio(18),
+              height: sizeRatio(18),
+              marginLeft: sizeRatio(54),
+            }}
+          />
+        </div>
+        <div>
+          <FiBell
+            style={{
+              borderWidth: sizeRatio(2),
+              width: sizeRatio(18),
+              height: sizeRatio(18),
+              marginInline: sizeRatio(24),
+            }}
+          />
+        </div>
+        {!auth ? (
+          <>
+            <div>
+              <Nav.Link
+                href="/signIn"
                 style={{
-                  width: "20px",
-                  height: "20px",
-                  marginRight: "5px",
-                }}
-              />
-              {t("dashboard")}
-            </Nav.Link>
-          </Nav.Item>
-          <Nav.Item>
-            <Nav.Link
-              eventKey="Market"
-              className={
-                currTab === "Market"
-                  ? "text-white bg-dark rounded "
-                  : "text-white bg-secondary rounded "
-              }
-              style={{
-                width: "180px",
-                textAlign: "center",
-                margin: "8px",
-              }}
-              onClick={handleCurrentTab}
-            >
-              {t("market")}
-            </Nav.Link>
-          </Nav.Item>
-        </div>
-        <div className="row col-sm-12 col-md-12 col-lg-2 col-xl-2 align-items-center justify-content-center justify-content-lg-end ">
-          <Nav.Item>{moment(new Date()).format("MMM DD, YYYY")}</Nav.Item>
-        </div>
-        {/* <div className="row col-3 col-sm-4 col-md-6 col-lg-2 col-xl-1  align-items-center justify-content-center justify-content-sm-start justify-content-lg-end mx-2">
-        
-        </div> */}
-        <div className="row col-12 col-md-12 col-lg-5 col-xl-4  align-items-center justify-content-end  justify-content-lg-end">
-          <Nav.Item>
-            <FiMessageSquare
-              style={{
-                borderWidth: "2px",
-                width: "18px",
-                height: "18px",
-              }}
-            />
-          </Nav.Item>
-          <Nav.Item>
-            <FiBell
-              style={{
-                borderWidth: "2px",
-                width: "18px",
-                height: "18px",
-                marginInline: "15px",
-              }}
-            />
-          </Nav.Item>
-          {!auth ? (
-            <>
-              <Nav.Item>
-                <Nav.Link href="/signIn" style={{ color: "#0F172A" }}>
-                  {t("signIn")}
-                </Nav.Link>
-              </Nav.Item>
-              <Nav.Item>
-                <Nav.Link href="/signUp" style={{ color: "#0F172A" }}>
-                  {t("signUp")}
-                </Nav.Link>
-              </Nav.Item>
-            </>
-          ) : (
-            <NavDropdown
-              // id="nav-dropdown-dark-example"
-              title={
-                <div className="row align-items-center px-4">
-                  <div
-                    style={{
-                      width: "32px",
-                      height: "32px",
-                      borderWidth: 2,
-                      borderStyle: "solid",
-                      borderColor: "grey",
-                      borderRadius: 16,
-                    }}
-                  ></div>
-                  <div
-                    className="ml-2 text-truncate"
-                    style={{
-                      fontFamily: "Archivo",
-                      fontWeight: 600,
-                      color: "#0F172A",
-                      maxWidth: "230px",
-                    }}
-                  >
-                    {JSON.parse(auth).uname}
-                    Nguyen Minh Chanh
-                  </div>
-                  <div
-                    className="text-truncate"
-                    style={{
-                      fontFamily: "Archivo",
-                      fontWeight: 600,
-                      color: "#0F172A",
-                    }}
-                  >
-                    <RiArrowDownSLine
-                      style={{
-                        borderWidth: "2px",
-                        width: "22px",
-                        height: "22px",
-                      }}
-                    />
-                  </div>
-                </div>
-              }
-            >
-              <NavDropdown.Item
-                disabled
-                style={{
-                  paddingLeft: "31px",
-                  paddingBlock: "10px",
+                  color: "#0F172A",
+                  padding: "0px",
                 }}
               >
-                <div className="row align-items-center ">
-                  <div
-                    style={{
-                      width: "32px",
-                      height: "32px",
-                      borderWidth: 2,
-                      borderStyle: "solid",
-                      borderColor: "grey",
-                      borderRadius: 16,
-                    }}
-                  ></div>
-                  <div
-                    className="mx-2"
-                    style={{
-                      fontFamily: "Archivo",
-                      fontWeight: 600,
-                      color: "#0F172A",
-                    }}
-                  >
-                    {JSON.parse(auth).uname}
-                    Nguyen Minh Chanh
-                  </div>
-                </div>
-              </NavDropdown.Item>
-              <NavDropdown.Divider style={{ margin: 0 }} />
-              <NavDropdown.Item
-                href="#action/3.2"
+                {t("signIn")}
+              </Nav.Link>
+            </div>
+            <div>
+              <Nav.Link
+                href="/signUp"
                 style={{
-                  paddingLeft: "20px",
-                  paddingBlock: "15px",
+                  color: "#0F172A",
+                  padding: "0px",
+                  marginLeft: sizeRatio(24),
+                }}
+              >
+                {t("signUp")}
+              </Nav.Link>
+            </div>
+          </>
+        ) : (
+          <div>
+            <Button
+              id="profile-button"
+              aria-controls={open ? "profile-button" : undefined}
+              aria-haspopup="true"
+              aria-expanded={open ? "true" : undefined}
+              disableElevation
+              onClick={handleClick}
+              endIcon={
+                <RiArrowDownSLine
+                  style={{
+                    borderWidth: sizeRatio(2),
+                    width: sizeRatio(22),
+                    height: sizeRatio(22),
+                    color: "#0F172A",
+                  }}
+                />
+              }
+            >
+              <div
+                style={{
+                  width: sizeRatio(32),
+                  height: sizeRatio(32),
+                  borderWidth: 2,
+                  borderStyle: "solid",
+                  borderColor: "grey",
+                  borderRadius: 16,
+                }}
+              ></div>
+              <div
+                style={{
+                  fontFamily: "Archivo",
+                  fontWeight: 300,
+                  fontSize: sizeRatio(24),
+                  color: "#0F172A",
+                  maxWidth: sizeRatio(230),
+                  marginLeft: sizeRatio(12),
+                }}
+              >
+                {JSON.parse(auth).email}
+              </div>
+            </Button>
+            <StyledMenu
+              id="profile-menu"
+              MenuListProps={{
+                "aria-labelledby": "profile-button",
+              }}
+              anchorEl={anchorEl}
+              open={open}
+              onClose={handleClose}
+            >
+              <MenuItem
+                onClick={() => handleMenuChosen("Profile")}
+                disableRipple
+                style={{
+                  marginBottom: sizeRatio(12),
+                }}
+              >
+                <div
+                  style={{
+                    width: sizeRatio(32),
+                    height: sizeRatio(32),
+                    borderWidth: 2,
+                    borderStyle: "solid",
+                    borderColor: "grey",
+                    borderRadius: 20,
+                  }}
+                ></div>
+                <div
+                  style={{
+                    fontFamily: "Archivo",
+                    fontWeight: 400,
+                    fontSize: sizeRatio(20),
+                    color: "#0F172A",
+                    marginLeft: sizeRatio(12),
+                    marginBlock: sizeRatio(9),
+                  }}
+                >
+                  {JSON.parse(auth).email}
+                </div>
+              </MenuItem>
+              <Divider
+                sx={{
+                  my: 0.5,
+                }}
+              />
+              <MenuItem
+                onClick={() => handleMenuChosen("Support")}
+                disableRipple
+                style={{
+                  marginTop: sizeRatio(12),
                 }}
               >
                 <BsPencilSquare
                   style={{
-                    borderWidth: "2px",
-                    width: "22px",
-                    height: "22px",
-                    marginRight: "10px",
+                    borderWidth: sizeRatio(2),
+                    width: sizeRatio(22),
+                    height: sizeRatio(22),
+                    marginRight: sizeRatio(8),
+                    marginBlock: sizeRatio(8),
                   }}
                 />
-                Write Feedback
-              </NavDropdown.Item>
-              <NavDropdown.Divider style={{ margin: 0 }} />
-              <NavDropdown.Item
-                href="#action/3.2"
-                style={{ paddingLeft: "20px", paddingBlock: "15px" }}
-              >
-                <FiSettings
-                  style={{
-                    borderWidth: "2px",
-                    width: "22px",
-                    height: "22px",
-                    marginRight: "10px",
-                  }}
-                />
-                Settings
-              </NavDropdown.Item>
-              <NavDropdown.Item
-                href="#action/3.2"
-                style={{ paddingLeft: "20px", paddingBlock: "15px" }}
+                Support
+              </MenuItem>
+              <MenuItem
+                onClick={() => handleMenuChosen("Privacy")}
+                disableRipple
               >
                 <MdOutlinePrivacyTip
                   style={{
-                    borderWidth: "2px",
-                    width: "22px",
-                    height: "22px",
-                    marginRight: "10px",
+                    borderWidth: sizeRatio(2),
+                    width: sizeRatio(22),
+                    height: sizeRatio(22),
+                    marginRight: sizeRatio(8),
+                    marginBlock: sizeRatio(8),
                   }}
                 />
                 Privacy
-              </NavDropdown.Item>
-              <NavDropdown.Item
-                // href="#action/3.4"
-                onClick={signOut}
-                style={{
-                  paddingLeft: "20px",
-                  paddingTop: "15px",
-                  paddingBottom: "15px",
-                  marginBottom: "-8px",
-                }}
+              </MenuItem>
+              <MenuItem
+                onClick={() => handleMenuChosen("ChangePassword")}
+                disableRipple
+              >
+                <FiSettings
+                  style={{
+                    borderWidth: sizeRatio(2),
+                    width: sizeRatio(22),
+                    height: sizeRatio(22),
+                    marginRight: sizeRatio(8),
+                    marginBlock: sizeRatio(8),
+                  }}
+                />
+                Change Password
+              </MenuItem>
+              <MenuItem
+                onClick={() => handleMenuChosen("LogOut")}
+                disableRipple
               >
                 <FiLogOut
                   style={{
-                    borderWidth: "2px",
-                    width: "22px",
-                    height: "22px",
-                    marginRight: "10px",
+                    borderWidth: sizeRatio(2),
+                    width: sizeRatio(22),
+                    height: sizeRatio(22),
+                    marginRight: sizeRatio(8),
+                    marginBlock: sizeRatio(8),
                   }}
                 />
                 Log Out
-              </NavDropdown.Item>
-            </NavDropdown>
-          )}
-        </div>
-      </Nav>
-    </div>
+              </MenuItem>
+            </StyledMenu>
+          </div>
+          //   <NavDropdown
+          //     title={
+
+          //     }
+          //   >
+          //     <NavDropdown.Item href="/Profile">
+          //       <div
+          //         style={{
+          //           width: sizeRatio(350),
+          //           display: "flex",
+          //           alignItems: "center",
+          //           paddingBlock: sizeRatio(12),
+          //         }}
+          //       >
+          //         <div
+          //           style={{
+          //             width: sizeRatio(32),
+          //             height: sizeRatio(32),
+          //             borderWidth: 2,
+          //             borderStyle: "solid",
+          //             borderRadius: 16,
+          //             marginRight: sizeRatio(12),
+          //           }}
+          //         ></div>
+          //         <div
+          //           style={{
+          //             fontFamily: "Archivo",
+          //             fontWeight: 600,
+          //           }}
+          //         >
+          //           {JSON.parse(auth).email}
+          //         </div>
+          //       </div>
+          //     </NavDropdown.Item>
+          //     <NavDropdown.Divider style={{ margin: 0 }} />
+          //     <NavDropdown.Item
+          //       href="#action/3.2"
+          //       style={{
+          //         paddingBlock: sizeRatio(15),
+          //       }}
+          //     >
+          //       <BsPencilSquare
+          //         style={{
+          //           borderWidth: sizeRatio(2),
+          //           width: sizeRatio(22),
+          //           height: sizeRatio(22),
+          //           marginRight: sizeRatio(10),
+          //         }}
+          //       />
+          //       Support
+          //     </NavDropdown.Item>
+
+          //     <NavDropdown.Item
+          //       href="#action/3.2"
+          //       style={{
+          //         paddingBlock: sizeRatio(15),
+          //       }}
+          //     >
+
+          //     </NavDropdown.Item>
+          //     <NavDropdown.Item
+          //       href="#action/3.2"
+          //       style={{
+          //         paddingBlock: sizeRatio(15),
+          //       }}
+          //     >
+
+          //     </NavDropdown.Item>
+          //     <NavDropdown.Item
+          //       // href="#action/3.4"
+          //       onClick={signOut}
+          //       style={{
+          //         paddingTop: sizeRatio(15),
+          //         paddingBottom: sizeRatio(15),
+          //         marginBottom: -sizeRatio(8),
+          //       }}
+          //     >
+
+          //     </NavDropdown.Item>
+          //   </NavDropdown>
+        )}
+      </div>
+    </Nav>
   );
 };
 export default NavBar;

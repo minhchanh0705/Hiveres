@@ -18,15 +18,15 @@ function useUserActions() {
     getAll,
   };
 
-  async function login(username, password) {
-    // console.log({ username, password });
+  async function login(email, password) {
+    // console.log({ email, password });
     const user = await fetchWrapper.post(`${baseUrl}/authenticate`, {
-      username,
+      email,
       password,
     });
     // update recoil state with user object + basic auth data and
     // store in local storage to stay logged in between page refreshes
-    user.authdata = window.btoa(username + ":" + password);
+    user.authdata = window.btoa(email + ":" + password);
     setAuth(user);
     localStorage.setItem("user", JSON.stringify(user));
     // get return url from location state or default to home page

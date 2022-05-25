@@ -1,9 +1,9 @@
 import axiosClient from "./axiosClient";
 
 const authAPI = {
-  getAll: (params) => {
-    const url = "/products";
-    return axiosClient.get(url, { params });
+  register: ({ email, password }) => {
+    const url = "/register";
+    return axiosClient.get(url, email, password);
   },
 };
 export default authAPI;

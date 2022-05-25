@@ -9,39 +9,44 @@ if (
 ) {
   isMobile = true;
 }
-const font = "Poppins";
+const font = "Helvetica";
 // const font = import.meta.env.VITE_FONT;
 
+export const sizeRatio = (size) => `${(1440 * size) / 1440}px`;
 let theme = createTheme({
   typography: {
     fontFamily: font,
-    fontSize: 14,
-    button: { textTransform: "none", fontWeight: "bold", fontSize: 15 },
+    fontSize: 16,
+    button: {
+      textTransform: "none",
+      fontWeight: "bold",
+      fontSize: sizeRatio(15),
+    },
     ERROR: {
       fontFamily: font,
       color: red[600],
-      fontSize: 14,
+      fontSize: sizeRatio(14),
       fontWeight: "bold",
     },
     mandatoryStar: {
       fontFamily: font,
       color: red[600],
-      fontSize: 17,
+      fontSize: sizeRatio(17),
       fontWeight: "bold",
     },
     HELPER: {
       fontFamily: font,
       color: lightBlue[800],
-      fontSize: 14,
+      fontSize: sizeRatio(14),
       fontWeight: "bold",
     },
     WARNING: {
       fontFamily: font,
       color: orange[500],
-      fontSize: 14,
+      fontSize: sizeRatio(14),
       fontWeight: "bold",
     },
-    inputFieldLabel: { fontFamily: font, fontSize: 15 },
+    inputFieldLabel: { fontFamily: font, fontSize: sizeRatio(15) },
   },
   palette: {
     text: {
@@ -71,7 +76,7 @@ let theme = createTheme({
     MuiInputBase: {
       styleOverrides: {
         root: {
-          fontSize: 15,
+          fontSize: sizeRatio(15),
           background: "#ffffff",
         },
       },

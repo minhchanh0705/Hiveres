@@ -25,6 +25,7 @@ import { authAtom } from "@/recoil/atoms";
 import { useUserActions } from "@/recoil/actions";
 import { useForm } from "react-hook-form";
 import * as Yup from "yup";
+import { sizeRatio } from "@/theme";
 
 const Header = () => {
   const { t, i18n } = useTranslation();
@@ -133,9 +134,9 @@ const Header = () => {
                   <US
                     style={{
                       borderRadius: 4,
-                      width: "35px",
-                      height: "22px",
-                      marginRight: "5px",
+                      width: sizeRatio ( 35,
+                      height: sizeRatio ( 22,
+                      marginRight: sizeRatio ( 5,
                     }}
                   ></US>
                   {t(i18n.language)}
@@ -145,9 +146,9 @@ const Header = () => {
                   <VN
                     style={{
                       borderRadius: 4,
-                      width: "35px",
-                      height: "22px",
-                      marginRight: "5px",
+                      width: sizeRatio ( 35,
+                      height: sizeRatio ( 22,
+                      marginRight: sizeRatio ( 5,
                     }}
                   ></VN>
                   {t(i18n.language)}
@@ -243,7 +244,7 @@ const Header = () => {
                     })
                   }
                 >
-                  <div className="mt-30px">
+                  <div style={{ marginTop: sizeRatio ( 30 }}>
                     <TextField
                       required
                       fullWidth
@@ -254,7 +255,7 @@ const Header = () => {
                       autoFocus
                     />
                   </div>
-                  <div className="mt-30px">
+                  <div style={{ marginTop: sizeRatio ( 30 }}>
                     <TextField
                       required
                       fullWidth
@@ -265,13 +266,13 @@ const Header = () => {
                       autoComplete="current-password"
                     />
                   </div>
-                  <div className="mt-15px">
+                  <div style={{ marginTop: sizeRatio ( 15 }}>
                     <FormControlLabel
                       control={<Checkbox value="remember" color="primary" />}
                       label={t("rememberMe")}
                     />
                   </div>
-                  <div className="mt-10px">
+                  <div style={{ marginTop: sizeRatio ( 10 }}>
                     <Button
                       type="submit"
                       fullWidth
@@ -281,7 +282,7 @@ const Header = () => {
                       {t("signIn")}
                     </Button>
                   </div>
-                  <div className="mt-25px">
+                  <div style={{ marginTop: sizeRatio ( 25 }}>
                     <Grid container>
                       <Grid item xs>
                         <Link
@@ -325,7 +326,7 @@ const Header = () => {
                     })
                   }
                 >
-                  <div className="mt-30px">
+                  <div style={{ marginTop: sizeRatio ( 30 }}>
                     <TextField
                       required
                       fullWidth
@@ -337,7 +338,7 @@ const Header = () => {
                       autoFocus
                     />
                   </div>
-                  <div className="mt-30px">
+                  <div style={{ marginTop: sizeRatio ( 30 }}>
                     <TextField
                       required
                       fullWidth
@@ -349,7 +350,7 @@ const Header = () => {
                       autoComplete="current-password"
                     />
                   </div>
-                  <div className="mt-30px">
+                  <div style={{ marginTop: sizeRatio ( 30 }}>
                     <TextField
                       required
                       fullWidth
@@ -362,7 +363,7 @@ const Header = () => {
                     />
                   </div>
 
-                  <div className="mt-40px">
+                  <div style={{ marginTop: sizeRatio ( 240 }}>
                     <Button
                       type="submit"
                       fullWidth
@@ -372,7 +373,7 @@ const Header = () => {
                       {t("signUp")}
                     </Button>
                   </div>
-                  <div className="mt-25px">
+                  <div style={{ marginTop: sizeRatio ( 25 }}>
                     <Grid container style={styles.haveAccount}>
                       <Grid item>
                         <Link
@@ -411,7 +412,7 @@ const Header = () => {
                     })
                   }
                 >
-                  <div className="mt-30px">
+                  <div style={{ marginTop: sizeRatio ( 30 }}>
                     <TextField
                       required
                       fullWidth
@@ -422,8 +423,10 @@ const Header = () => {
                       autoFocus
                     />
                   </div>
-                  <div className="mt-15px">Send us your email address</div>
-                  <div className="mt-25px">
+                  <div style={{ marginTop: sizeRatio ( 15 }}>
+                    Send us your email address
+                  </div>
+                  <div style={{ marginTop: sizeRatio ( 25 }}>
                     <Button
                       type="submit"
                       fullWidth
@@ -433,7 +436,7 @@ const Header = () => {
                       {t("send")}
                     </Button>
                   </div>
-                  <div className="mt-25px">
+                  <div style={{ marginTop: sizeRatio ( 25 }}>
                     <Grid container style={styles.haveAccount}>
                       <Grid item xs>
                         <Link

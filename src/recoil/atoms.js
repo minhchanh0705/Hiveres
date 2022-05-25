@@ -17,6 +17,16 @@ const currentTabAtom = atom({
 
 const currentSectionAtom = atom({
   key: "section",
-  default: "Overview",
+  default: "Wallet",
 });
-export { usersAtom, authAtom, currentTabAtom, currentSectionAtom };
+const isExpandAtom = atom({
+  key: "isExpand",
+  default: false,
+});
+export {
+  usersAtom,
+  authAtom,
+  currentTabAtom,
+  currentSectionAtom,
+  isExpandAtom,
+};

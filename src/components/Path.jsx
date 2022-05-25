@@ -1,14 +1,14 @@
 import { Box } from "@mui/material";
-import { currentSectionAtom, currentTabAtom } from "@/recoil/atoms";
+import { currentSectionAtom } from "@/recoil/atoms";
 import { useRecoilValue } from "recoil";
 
 const Path = () => {
-  const currTab = useRecoilValue(currentTabAtom);
+  // const currTab = useRecoilValue(currentTabAtom);
   const currSection = useRecoilValue(currentSectionAtom);
   return (
     <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
       <div className="row">
-        <div
+        {/* <div
           style={{
             fontFamily: "Archivo",
             fontWeight: 700,
@@ -21,11 +21,11 @@ const Path = () => {
           style={{
             fontFamily: "Archivo",
             fontWeight: 600,
-            paddingInline: "17px",
+            paddingInline: sizeRatio ( 17,
           }}
         >
           {">"}
-        </div>
+        </div> */}
         <div
           style={{
             fontFamily: "Archivo",

@@ -36,7 +36,7 @@ const SignInSide = () => {
   const handleSubmit = (event) => {
     setAuth(JSON.stringify(event));
     localStorage.setItem("user", JSON.stringify(event));
-    navigate("/home");
+    navigate("/");
   };
   const { t } = useTranslation();
 

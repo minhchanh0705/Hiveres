@@ -1,0 +1,106 @@
+.app {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  height: 100vh;
+  font-family: Archivo, Georgia, Times, "Times New Roman", serif;
+}
+.container {
+  flex-direction: column;
+  height: 700px;
+}
+input[type="text"] {
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
+  height: 60px;
+  padding-left: 15px;
+}
+input[type="password"] {
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
+  height: 60px;
+  padding-left: 15px;
+}
+
+input[type="submit"] {
+  margin-top: 15px;
+  cursor: pointer;
+  font-size: 15px;
+  background: #3d576e;
+  border: 1px solid #3d576e;
+  color: #fff;
+  padding: 17px;
+  font-weight: 700;
+  font-size: 24px;
+  border-radius: 8px;
+  width: 530px;
+}
+
+input[type="submit"]:hover {
+  background-color: #374c5e;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  width: 530px;
+}
+.login-left {
+  display: flex;
+  justify-content: center;
+  flex: 1;
+  height: 650px;
+}
+.imgBanner {
+  height: 650px;
+  width: 530px;
+}
+
+#loginForm {
+  background-color: rgba(0, 191, 255, 0.3);
+  z-index: 2;
+  transition: background-color 0.3s ease-out;
+}
+
+@keyframes slide {
+  from {
+    margin-right: -528px;
+  }
+  to {
+    margin-left: 0px;
+  }
+}
+
+.bgg {
+  background-color: green;
+}
+.login-right {
+  display: flex;
+  flex: 1;
+  height: 650px;
+  justify-content: center;
+}
+
+.list-container {
+  display: flex;
+}
+
+.error {
+  color: red;
+  font-size: 12px;
+}
+
+.title {
+  font-size: 25px;
+  margin-bottom: 32px;
+}
+
+.input-container {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 5px;
+  width: 530px;
+}
+.input-box {
+  margin-bottom: 5px;
+}
