@@ -28,8 +28,6 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import NavBar from "@/components/NavBar";
 import DrawerComponent from "@/components/DrawerComponent";
 import { useRecoilValue, useSetRecoilState } from "recoil";
@@ -149,23 +147,23 @@ const Earning = () => {
               width: sizeRatio(229.6),
             }}
           >
-            <div
+            <Box
               style={{
                 display: "flex",
                 justifyContent: "center",
               }}
             >
               {row.pets.map((url, i) => (
-                <div
+                <Box
                   key={i}
                   style={{
                     paddingInline: sizeRatio(2),
                   }}
                 >
                   <img alt="iconPet" src={url} width={sizeRatio(32)}></img>
-                </div>
+                </Box>
               ))}
-            </div>
+            </Box>
           </TableCell>
           <TableCell
             align="center"
@@ -290,7 +288,7 @@ const Earning = () => {
   };
 
   return (
-    <div style={{ backgroundColor: "#F1F5F9" }}>
+    <Box style={{ backgroundColor: "#F1F5F9" }}>
       <NavBar />
       <Box
         style={{
@@ -299,575 +297,549 @@ const Earning = () => {
         }}
       >
         <DrawerComponent />
-        <div
-          style={{
-            flex: 1,
-            flexDirection: "row",
-            justifyContent: "center",
-          }}
-        >
-          <Box style={{ display: "flex", flexDirection: "row" }}>
-            {/* <div
+        <Box
           style={{
             display: "flex",
             flex: 1,
-            alignItems: "center",
             flexDirection: "column",
+            alignItems: "center",
+            marginBottom: sizeRatio(42),
           }}
-        > */}
+        >
+          <Box
+            style={{
+              width: sizeRatio(isExpand ? 1080 : 1212),
+              marginTop: sizeRatio(32),
+              marginBottom: sizeRatio(42),
+              fontFamily: "Helvetica",
+              fontWeight: 700,
+              fontSize: sizeRatio(20),
+            }}
+          >
+            Earning
+          </Box>
+          <ButtonGroup variant="light">
+            <Button
+              style={{
+                width: sizeRatio(198),
+                height: sizeRatio(34),
+                marginInline: sizeRatio(12),
+                borderRadius: "8px",
+                backgroundColor:
+                  tabEarning === "invest" ? "#061123" : "#E2E8F0",
+                color: tabEarning === "invest" ? "#F8FAFC" : "#94A3BB",
+              }}
+              onClick={() => setTabEarning("invest")}
+            >
+              <Typography
+                style={{
+                  fontSize: sizeRatio(16),
+                  fontWeight: 700,
+                }}
+              >
+                Invest
+              </Typography>
+            </Button>
+            <Button
+              style={{
+                width: sizeRatio(198),
+                height: sizeRatio(34),
+                marginInline: sizeRatio(12),
+                borderRadius: "8px",
+                backgroundColor: tabEarning === "jobs" ? "#061123" : "#E2E8F0",
+                color: tabEarning === "jobs" ? "#F8FAFC" : "#94A3BB",
+              }}
+              onClick={() => setTabEarning("jobs")}
+            >
+              <Typography
+                style={{
+                  fontSize: sizeRatio(16),
+                  fontWeight: 700,
+                }}
+              >
+                Jobs
+              </Typography>
+            </Button>
+          </ButtonGroup>
+          <Box
+            style={{
+              width: sizeRatio(isExpand ? 1080 : 1212),
 
-            <div
+              display: "flex",
+              backgroundColor: "#FFFFFF",
+              borderRadius: sizeRatio(12),
+              justifyContent: "space-between",
+              paddingBlock: sizeRatio(15),
+              paddingInline: sizeRatio(24),
+              marginBlock: sizeRatio(24),
+            }}
+          >
+            <Box
               style={{
                 display: "flex",
-                flex: 1,
+                flexDirection: "row",
                 alignItems: "center",
-                justifyContent: "center",
-                flexDirection: "column",
               }}
             >
-              <div
+              <BsPersonCheck
                 style={{
-                  width: sizeRatio(isExpand ? 948 : 1080),
+                  color: "#0F172A",
+                  fontSize: sizeRatio(27),
+                  marginRight: sizeRatio(25),
+                }}
+              />
+              <Box>
+                <Typography
+                  style={{
+                    fontFamily: "Helvetica",
+                    fontWeight: 700,
+                    fontSize: sizeRatio(20),
+                  }}
+                >
+                  Active Accounts
+                </Typography>
+                <Typography
+                  style={{
+                    fontFamily: "Helvetica",
+                    fontWeight: 400,
+                    fontSize: sizeRatio(16),
+                  }}
+                >
+                  12/20
+                </Typography>
+              </Box>
+            </Box>
+            <Box
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+              }}
+            >
+              <IoSchoolOutline
+                style={{
+                  color: "#0F172A",
+                  fontSize: sizeRatio(27),
+                  marginRight: sizeRatio(25),
+                }}
+              />
+              <Box>
+                <Typography
+                  style={{
+                    fontFamily: "Helvetica",
+                    fontWeight: 700,
+                    fontSize: sizeRatio(20),
+                  }}
+                >
+                  Yesterday Revenue
+                </Typography>
+                <Typography
+                  style={{
+                    fontFamily: "Helvetica",
+                    fontWeight: 400,
+                    fontSize: sizeRatio(16),
+                  }}
+                >
+                  48
+                </Typography>
+              </Box>
+            </Box>
+            <Box
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+              }}
+            >
+              <img
+                style={{
+                  width: sizeRatio(27),
+                  marginRight: sizeRatio(25),
+                }}
+                src="../../../src/assets/icon/SLP.png"
+                alt=""
+              />
 
+              <Box>
+                <Typography
+                  style={{
+                    fontFamily: "Helvetica",
+                    fontWeight: 700,
+                    fontSize: sizeRatio(20),
+                  }}
+                >
+                  Total Payout
+                </Typography>
+                <Typography
+                  style={{
+                    fontFamily: "Helvetica",
+                    fontWeight: 400,
+                    fontSize: sizeRatio(16),
+                  }}
+                >
+                  314
+                </Typography>
+              </Box>
+            </Box>
+            <Box
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+              }}
+            >
+              <BsCashCoin
+                style={{
+                  color: "#0F172A",
+                  fontSize: sizeRatio(27),
+                  marginRight: sizeRatio(25),
+                }}
+              />
+              <Box>
+                <Typography
+                  style={{
+                    fontFamily: "Helvetica",
+                    fontWeight: 700,
+                    fontSize: sizeRatio(20),
+                  }}
+                >
+                  Total Revenue
+                </Typography>
+                <Typography
+                  style={{
+                    fontFamily: "Helvetica",
+                    fontWeight: 400,
+                    fontSize: sizeRatio(16),
+                  }}
+                >
+                  314,567
+                </Typography>
+              </Box>
+            </Box>
+          </Box>
+          <Box
+            style={{
+              width: sizeRatio(isExpand ? 1080 : 1212),
+
+              height: sizeRatio(510),
+              display: "flex",
+              backgroundColor: "#FFFFFF",
+              borderRadius: sizeRatio(12),
+              paddingBlock: sizeRatio(15),
+              paddingInline: sizeRatio(25),
+              marginTop: sizeRatio(24),
+            }}
+          >
+            <Bar
+              options={{
+                indexAxis: "x",
+                elements: {
+                  bar: {
+                    borderWidth: 0.1,
+                  },
+                },
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                  x: {
+                    stacked: true,
+                  },
+                  y: {
+                    stacked: true,
+                  },
+                },
+                plugins: {
+                  legend: {
+                    position: "top",
+                  },
+                  title: {
+                    display: true,
+                    text: "Monthly Revenue",
+                    align: "start",
+                    color: "#0F172A",
+                    font: {
+                      family: "Helvetica",
+                      weight: 700,
+                      size: sizeRatio(20),
+                    },
+                  },
+                },
+              }}
+              data={{
+                labels: [
+                  ...Array(
+                    period === "monthly"
+                      ? 31
+                      : period === "7days"
+                      ? 7
+                      : period === "yearly" && 12
+                  ).keys(),
+                ].map((e) => e + 1),
+                datasets: [
+                  // {
+                  //   label: "Total",
+                  //   type: "line",
+                  //   borderColor: "#64748B",
+                  //   borderWidth: 1,
+                  //   pointBorderWidth: 0,
+                  //   pointBackgroundColor: "#64748B",
+                  //   borderJoinStyle: "round",
+                  //   tension: 0.5,
+                  //   data: total,
+                  // },
+                  {
+                    label: "Profit",
+                    data: profitBarChart(period),
+                    backgroundColor: "#475569",
+                  },
+                  {
+                    label: "Payout",
+                    data: payoutBarChart(period),
+                    backgroundColor: "#94A3BB",
+                    borderRadius: 8,
+                  },
+                ],
+              }}
+            />
+            <ButtonGroup
+              variant="light"
+              style={{
+                height: sizeRatio(22),
+                position: "relative",
+                top: "40px",
+                right: sizeRatio(340),
+              }}
+            >
+              <Button
+                style={{
+                  width: sizeRatio(105),
+                  borderRadius: "8px",
+                  backgroundColor: period === "7days" ? "#061123" : "#E2E8F0",
+                  color: "#94A3BB",
+                  fontFamily: "Helvetica",
+                  fontWeight: 400,
+                  fontSize: sizeRatio(12),
+                }}
+                onClick={() => setPeriod("7days")}
+              >
+                Last 7 days
+              </Button>
+              <Button
+                style={{
+                  width: sizeRatio(105),
+                  marginInline: sizeRatio(12),
+                  borderRadius: "8px",
+                  backgroundColor: period === "monthly" ? "#061123" : "#E2E8F0",
+                  color: "#94A3BB",
+                  fontFamily: "Helvetica",
+                  fontWeight: 400,
+                  fontSize: sizeRatio(12),
+                }}
+                onClick={() => setPeriod("monthly")}
+              >
+                Monthly
+              </Button>
+              <Button
+                style={{
+                  width: sizeRatio(105),
+                  borderRadius: "8px",
+                  backgroundColor: period === "yearly" ? "#061123" : "#E2E8F0",
+                  color: "#94A3BB",
+                  fontFamily: "Helvetica",
+                  fontWeight: 400,
+                  fontSize: sizeRatio(12),
+                }}
+                onClick={() => setPeriod("yearly")}
+              >
+                Yearly
+              </Button>
+            </ButtonGroup>
+          </Box>
+          <Paper
+            sx={{
+              width: sizeRatio(isExpand ? 1080 : 1212),
+
+              borderRadius: sizeRatio(16),
+              marginTop: sizeRatio(24),
+              paddingInline: sizeRatio(32),
+              backgroundColor: "#FFFFFF",
+              paddingBottom: sizeRatio(16),
+            }}
+          >
+            <Box
+              style={{
+                marginTop: sizeRatio(35),
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <Typography
+                style={{
                   fontFamily: "Helvetica",
                   fontWeight: 700,
-                  fontSize: sizeRatio(20),
-                  marginTop: sizeRatio(32),
-                  marginBottom: sizeRatio(42),
+                  fontSize: sizeRatio(24),
                 }}
               >
-                Earning
-              </div>
-              <ToggleButtonGroup
-                color="secondary"
-                value={tabEarning}
-                exclusive
-                onChange={handleChange}
-              >
-                <ToggleButton
-                  value="invest"
-                  sx={{
-                    "&.Mui-selected, &.Mui-selected:hover": {
-                      color: "#F8FAFC",
-                      backgroundColor: "#061123",
-                    },
-                  }}
+                Accounts list
+              </Typography>
+              <Box>
+                <input
+                  // ref={}
+                  type="text"
+                  name="searchAccount"
+                  autoComplete="off"
                   style={{
-                    width: sizeRatio(198),
-                    height: sizeRatio(34),
-                    fontFamily: "Helvetica",
-                    fontWeight: 400,
-                    fontSize: sizeRatio(16),
+                    height: sizeRatio(32),
                   }}
-                >
-                  Invest
-                </ToggleButton>
-                <ToggleButton
-                  value="jobs"
-                  sx={{
-                    "&.Mui-selected, &.Mui-selected:hover": {
-                      color: "#F8FAFC",
-                      backgroundColor: "#061123",
-                    },
-                  }}
-                  style={{
-                    width: sizeRatio(198),
-                    height: sizeRatio(34),
-                    fontFamily: "Helvetica",
-                    fontWeight: 400,
-                    fontSize: sizeRatio(16),
-                  }}
-                >
-                  Jobs
-                </ToggleButton>
-              </ToggleButtonGroup>
-              <div
-                style={{
-                  width: sizeRatio(isExpand ? 948 : 1080),
-
-                  display: "flex",
-                  backgroundColor: "#FFFFFF",
-                  borderRadius: sizeRatio(12),
-                  justifyContent: "space-between",
-                  paddingBlock: sizeRatio(15),
-                  paddingInline: sizeRatio(24),
-                  marginBlock: sizeRatio(24),
-                }}
-              >
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    alignItems: "center",
-                  }}
-                >
-                  <BsPersonCheck
-                    style={{
-                      color: "#0F172A",
-                      fontSize: sizeRatio(27),
-                      marginRight: sizeRatio(25),
-                    }}
-                  />
-                  <div>
-                    <div
-                      style={{
-                        fontFamily: "Helvetica",
-                        fontWeight: 700,
-                        fontSize: sizeRatio(20),
-                      }}
-                    >
-                      Active Accounts
-                    </div>
-                    <div
-                      style={{
-                        fontFamily: "Helvetica",
-                        fontWeight: 400,
-                        fontSize: sizeRatio(16),
-                      }}
-                    >
-                      12/20
-                    </div>
-                  </div>
-                </div>
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    alignItems: "center",
-                  }}
-                >
-                  <IoSchoolOutline
-                    style={{
-                      color: "#0F172A",
-                      fontSize: sizeRatio(27),
-                      marginRight: sizeRatio(25),
-                    }}
-                  />
-                  <div>
-                    <div
-                      style={{
-                        fontFamily: "Helvetica",
-                        fontWeight: 700,
-                        fontSize: sizeRatio(20),
-                      }}
-                    >
-                      Yesterday Revenue
-                    </div>
-                    <div
-                      style={{
-                        fontFamily: "Helvetica",
-                        fontWeight: 400,
-                        fontSize: sizeRatio(16),
-                      }}
-                    >
-                      48
-                    </div>
-                  </div>
-                </div>
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    alignItems: "center",
-                  }}
-                >
-                  <img
-                    style={{
-                      width: sizeRatio(27),
-                      marginRight: sizeRatio(25),
-                    }}
-                    src="../../../src/assets/icon/SLP.png"
-                    alt=""
-                  />
-
-                  <div>
-                    <div
-                      style={{
-                        fontFamily: "Helvetica",
-                        fontWeight: 700,
-                        fontSize: sizeRatio(20),
-                      }}
-                    >
-                      Total Payout
-                    </div>
-                    <div
-                      style={{
-                        fontFamily: "Helvetica",
-                        fontWeight: 400,
-                        fontSize: sizeRatio(16),
-                      }}
-                    >
-                      314
-                    </div>
-                  </div>
-                </div>
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    alignItems: "center",
-                  }}
-                >
-                  <BsCashCoin
-                    style={{
-                      color: "#0F172A",
-                      fontSize: sizeRatio(27),
-                      marginRight: sizeRatio(25),
-                    }}
-                  />
-                  <div>
-                    <div
-                      style={{
-                        fontFamily: "Helvetica",
-                        fontWeight: 700,
-                        fontSize: sizeRatio(20),
-                      }}
-                    >
-                      Total Revenue
-                    </div>
-                    <div
-                      style={{
-                        fontFamily: "Helvetica",
-                        fontWeight: 400,
-                        fontSize: sizeRatio(16),
-                      }}
-                    >
-                      314,567
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div
-                style={{
-                  width: sizeRatio(isExpand ? 948 : 1080),
-
-                  height: sizeRatio(510),
-                  display: "flex",
-                  backgroundColor: "#FFFFFF",
-                  borderRadius: sizeRatio(12),
-                  paddingBlock: sizeRatio(15),
-                  paddingInline: sizeRatio(25),
-                  marginTop: sizeRatio(24),
-                }}
-              >
-                <Bar
-                  options={{
-                    indexAxis: "x",
-                    elements: {
-                      bar: {
-                        borderWidth: 0.1,
-                      },
-                    },
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                      x: {
-                        stacked: true,
-                      },
-                      y: {
-                        stacked: true,
-                      },
-                    },
-                    plugins: {
-                      legend: {
-                        position: "top",
-                      },
-                      title: {
-                        display: true,
-                        text: "Monthly Revenue",
-                        align: "start",
-                        color: "#0F172A",
-                        font: {
-                          family: "Helvetica",
-                          weight: 700,
-                          size: sizeRatio(20),
-                        },
-                      },
-                    },
-                  }}
-                  data={{
-                    labels: [
-                      ...Array(
-                        period === "monthly"
-                          ? 31
-                          : period === "7days"
-                          ? 7
-                          : period === "yearly" && 12
-                      ).keys(),
-                    ].map((e) => e + 1),
-                    datasets: [
-                      // {
-                      //   label: "Total",
-                      //   type: "line",
-                      //   borderColor: "#64748B",
-                      //   borderWidth: 1,
-                      //   pointBorderWidth: 0,
-                      //   pointBackgroundColor: "#64748B",
-                      //   borderJoinStyle: "round",
-                      //   tension: 0.5,
-                      //   data: total,
-                      // },
-                      {
-                        label: "Profit",
-                        data: profitBarChart(period),
-                        backgroundColor: "#475569",
-                      },
-                      {
-                        label: "Payout",
-                        data: payoutBarChart(period),
-                        backgroundColor: "#94A3BB",
-                        borderRadius: 8,
-                      },
-                    ],
-                  }}
+                  placeholder="Search..."
+                  onChange={(e) => searchAccount(e.target.value)}
+                  // onFocus={() => }
+                  // onBlur={() => }
                 />
                 <ButtonGroup
                   variant="light"
                   style={{
                     height: sizeRatio(22),
-                    position: "relative",
-                    top: "40px",
-                    right: sizeRatio(340),
                   }}
                 >
                   <Button
                     style={{
-                      width: sizeRatio(105),
-                      borderRadius: "8px",
-                      backgroundColor:
-                        period === "7days" ? "#061123" : "#E2E8F0",
-                      color: "#94A3BB",
-                      fontFamily: "Helvetica",
-                      fontWeight: 400,
-                      fontSize: sizeRatio(12),
-                    }}
-                    onClick={() => setPeriod("7days")}
-                  >
-                    Last 7 days
-                  </Button>
-                  <Button
-                    style={{
-                      width: sizeRatio(105),
+                      width: sizeRatio(70),
+                      height: sizeRatio(32),
                       marginInline: sizeRatio(12),
                       borderRadius: "8px",
-                      backgroundColor:
-                        period === "monthly" ? "#061123" : "#E2E8F0",
-                      color: "#94A3BB",
-                      fontFamily: "Helvetica",
-                      fontWeight: 400,
-                      fontSize: sizeRatio(12),
+                      backgroundColor: "#0F172A",
                     }}
                     onClick={() => setPeriod("monthly")}
                   >
-                    Monthly
+                    <Typography
+                      style={{
+                        color: "#FFFFFF",
+                        fontFamily: "Helvetica",
+                        fontWeight: 400,
+                        fontSize: sizeRatio(14),
+                      }}
+                    >
+                      All
+                    </Typography>
+                    <FiChevronDown
+                      style={{
+                        color: "#FFFFFF",
+                        fontSize: sizeRatio(24),
+                        marginLeft: sizeRatio(5),
+                      }}
+                    />
                   </Button>
                   <Button
                     style={{
-                      width: sizeRatio(105),
+                      width: sizeRatio(140),
+                      height: sizeRatio(32),
                       borderRadius: "8px",
-                      backgroundColor:
-                        period === "yearly" ? "#061123" : "#E2E8F0",
-                      color: "#94A3BB",
-                      fontFamily: "Helvetica",
-                      fontWeight: 400,
-                      fontSize: sizeRatio(12),
+                      backgroundColor: "#0F172A",
                     }}
-                    onClick={() => setPeriod("yearly")}
+                    onClick={() => setPeriod("monthly")}
                   >
-                    Yearly
-                  </Button>
-                </ButtonGroup>
-              </div>
-              <Paper
-                sx={{
-                  width: sizeRatio(isExpand ? 948 : 1080),
-
-                  borderRadius: sizeRatio(16),
-                  marginTop: sizeRatio(24),
-                  paddingInline: sizeRatio(32),
-                  backgroundColor: "#FFFFFF",
-                  paddingBottom: sizeRatio(16),
-                }}
-              >
-                <div
-                  style={{
-                    marginTop: sizeRatio(35),
-                    display: "flex",
-                    flexDirection: "row",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                  }}
-                >
-                  <div
-                    style={{
-                      fontFamily: "Helvetica",
-                      fontWeight: 700,
-                      fontSize: sizeRatio(24),
-                    }}
-                  >
-                    Accounts list
-                  </div>
-                  <div>
-                    <input
-                      // ref={}
-                      type="text"
-                      name="searchAccount"
-                      autoComplete="off"
+                    <Typography
                       style={{
-                        height: sizeRatio(32),
-                      }}
-                      placeholder="Search..."
-                      onChange={(e) => searchAccount(e.target.value)}
-                      // onFocus={() => }
-                      // onBlur={() => }
-                    />
-                    <ButtonGroup
-                      variant="light"
-                      style={{
-                        height: sizeRatio(22),
+                        color: "#FFFFFF",
+                        fontFamily: "Helvetica",
+                        fontWeight: 400,
+                        fontSize: sizeRatio(14),
+                        marginRight: sizeRatio(5),
                       }}
                     >
-                      <Button
-                        style={{
-                          width: sizeRatio(70),
-                          height: sizeRatio(32),
-                          marginInline: sizeRatio(12),
-                          borderRadius: "8px",
-                          backgroundColor: "#0F172A",
-                        }}
-                        onClick={() => setPeriod("monthly")}
-                      >
-                        <div
-                          style={{
-                            color: "#FFFFFF",
-                            fontFamily: "Helvetica",
-                            fontWeight: 400,
-                            fontSize: sizeRatio(14),
-                          }}
-                        >
-                          All
-                        </div>
-                        <FiChevronDown
-                          style={{
-                            color: "#FFFFFF",
-                            fontSize: sizeRatio(24),
-                            marginLeft: sizeRatio(5),
-                          }}
-                        />
-                      </Button>
-                      <Button
-                        style={{
-                          width: sizeRatio(140),
-                          height: sizeRatio(32),
-                          borderRadius: "8px",
-                          backgroundColor: "#0F172A",
-                        }}
-                        onClick={() => setPeriod("monthly")}
-                      >
-                        <div
-                          style={{
-                            color: "#FFFFFF",
-                            fontFamily: "Helvetica",
-                            fontWeight: 400,
-                            fontSize: sizeRatio(14),
-                            marginRight: sizeRatio(5),
-                          }}
-                        >
-                          Add Account
-                        </div>
-                        <IoIosAddCircleOutline
-                          style={{
-                            color: "#FFFFFF",
-                            fontSize: sizeRatio(24),
-                          }}
-                        />
-                      </Button>
-                    </ButtonGroup>
-                  </div>
-                </div>
-                <TableContainer>
-                  <Table aria-label="collapsible table">
-                    <TableHead>
-                      <TableRow>
-                        <TableCell
-                          align="center"
-                          style={{
-                            fontFamily: "Helvetica",
-                            fontWeight: 700,
-                            fontSize: sizeRatio(16),
-                          }}
-                        >
-                          Name
-                        </TableCell>
-                        <TableCell
-                          align="center"
-                          style={{
-                            fontFamily: "Helvetica",
-                            fontWeight: 700,
-                            fontSize: sizeRatio(16),
-                          }}
-                        >
-                          Pets
-                        </TableCell>
-                        <TableCell
-                          align="center"
-                          style={{
-                            fontFamily: "Helvetica",
-                            fontWeight: 700,
-                            fontSize: sizeRatio(16),
-                          }}
-                        >
-                          Status
-                        </TableCell>
-                        <TableCell
-                          align="center"
-                          style={{
-                            fontFamily: "Helvetica",
-                            fontWeight: 700,
-                            fontSize: sizeRatio(16),
-                          }}
-                        >
-                          SLP/Yesterday
-                        </TableCell>
-                        <TableCell
-                          align="center"
-                          style={{
-                            fontFamily: "Helvetica",
-                            fontWeight: 700,
-                            fontSize: sizeRatio(16),
-                          }}
-                        >
-                          KPI
-                        </TableCell>
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      {rows
-                        .slice(
-                          page * rowsPerPage,
-                          page * rowsPerPage + rowsPerPage
-                        )
-                        .map((row) => {
-                          return <Row key={row.id} row={row} />;
-                        })}
-                    </TableBody>
-                  </Table>
-                </TableContainer>
-                <TablePagination
-                  rowsPerPageOptions={[5, 25, 100]}
-                  component="div"
-                  count={rows.length}
-                  rowsPerPage={rowsPerPage}
-                  page={page}
-                  onPageChange={handleChangePage}
-                  onRowsPerPageChange={handleChangeRowsPerPage}
-                />
-              </Paper>
-            </div>
-          </Box>{" "}
-        </div>
+                      Add Account
+                    </Typography>
+                    <IoIosAddCircleOutline
+                      style={{
+                        color: "#FFFFFF",
+                        fontSize: sizeRatio(24),
+                      }}
+                    />
+                  </Button>
+                </ButtonGroup>
+              </Box>
+            </Box>
+            <TableContainer>
+              <Table aria-label="collapsible table">
+                <TableHead>
+                  <TableRow>
+                    <TableCell
+                      align="center"
+                      style={{
+                        fontFamily: "Helvetica",
+                        fontWeight: 700,
+                        fontSize: sizeRatio(16),
+                      }}
+                    >
+                      Name
+                    </TableCell>
+                    <TableCell
+                      align="center"
+                      style={{
+                        fontFamily: "Helvetica",
+                        fontWeight: 700,
+                        fontSize: sizeRatio(16),
+                      }}
+                    >
+                      Pets
+                    </TableCell>
+                    <TableCell
+                      align="center"
+                      style={{
+                        fontFamily: "Helvetica",
+                        fontWeight: 700,
+                        fontSize: sizeRatio(16),
+                      }}
+                    >
+                      Status
+                    </TableCell>
+                    <TableCell
+                      align="center"
+                      style={{
+                        fontFamily: "Helvetica",
+                        fontWeight: 700,
+                        fontSize: sizeRatio(16),
+                      }}
+                    >
+                      SLP/Yesterday
+                    </TableCell>
+                    <TableCell
+                      align="center"
+                      style={{
+                        fontFamily: "Helvetica",
+                        fontWeight: 700,
+                        fontSize: sizeRatio(16),
+                      }}
+                    >
+                      KPI
+                    </TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {rows
+                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                    .map((row) => {
+                      return <Row key={row.id} row={row} />;
+                    })}
+                </TableBody>
+              </Table>
+            </TableContainer>
+            <TablePagination
+              rowsPerPageOptions={[5, 25, 100]}
+              component="div"
+              count={rows.length}
+              rowsPerPage={rowsPerPage}
+              page={page}
+              onPageChange={handleChangePage}
+              onRowsPerPageChange={handleChangeRowsPerPage}
+            />
+          </Paper>
+        </Box>
       </Box>
-    </div>
+    </Box>
   );
 };
 export default Earning;

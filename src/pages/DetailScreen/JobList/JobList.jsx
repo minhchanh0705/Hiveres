@@ -1,13 +1,8 @@
-import { Button, ButtonGroup, Paper, TablePagination } from "@mui/material";
+import { Paper, TablePagination, Typography } from "@mui/material";
 import { Fragment, useEffect, useState } from "react";
-import { BsPersonCheck, BsCashCoin } from "react-icons/bs";
-import { IoIosAddCircleOutline } from "react-icons/io";
-import { FiChevronDown, FiAward } from "react-icons/fi";
-import { IoSchoolOutline, IoArrowBackCircleOutline } from "react-icons/io5";
 import { sizeRatio } from "@/theme";
 import PropTypes from "prop-types";
 import Box from "@mui/material/Box";
-import Collapse from "@mui/material/Collapse";
 
 import {
   Table,
@@ -16,20 +11,16 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Typography,
 } from "@mui/material";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import NavBar from "@/components/NavBar";
 import DrawerComponent from "@/components/DrawerComponent";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { currentSectionAtom, isExpandAtom } from "@/recoil/atoms";
-import { height } from "@mui/system";
 import { useNavigate } from "react-router-dom";
+import { FiAward } from "react-icons/fi";
 
 const JobList = () => {
   const isExpand = useRecoilValue(isExpandAtom);
-  const [period, setPeriod] = useState("monthly");
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [keywordSearch, setKeywordSearch] = useState("");
@@ -142,23 +133,23 @@ const JobList = () => {
               width: sizeRatio(353.33),
             }}
           >
-            <div
+            <Box
               style={{
                 display: "flex",
                 justifyContent: "center",
               }}
             >
               {row.pets.map((url, i) => (
-                <div
+                <Box
                   key={i}
                   style={{
                     paddingInline: sizeRatio(2),
                   }}
                 >
                   <img alt="iconPet" src={url} width={sizeRatio(32)}></img>
-                </div>
+                </Box>
               ))}
-            </div>
+            </Box>
           </TableCell>
 
           <TableCell
@@ -186,7 +177,7 @@ const JobList = () => {
   };
 
   return (
-    <div style={{ backgroundColor: "#F1F5F9" }}>
+    <Box style={{ backgroundColor: "#F1F5F9" }}>
       <NavBar />
       <Box
         style={{
@@ -195,138 +186,127 @@ const JobList = () => {
         }}
       >
         <DrawerComponent />
-        <div
+        <Box
           style={{
+            display: "flex",
             flex: 1,
-            flexDirection: "row",
-            justifyContent: "center",
+            flexDirection: "column",
+            alignItems: "center",
+            marginBottom: sizeRatio(42),
           }}
         >
           <Box
             style={{
-              display: "flex",
-              // width: sizeRatio(isExpand ? 948 : 1080),
-              flex: 1,
-              alignItems: "center",
-              flexDirection: "column",
+              width: sizeRatio(isExpand ? 1080 : 1212),
+              marginTop: sizeRatio(32),
+              marginBottom: sizeRatio(42),
+              fontFamily: "Helvetica",
+              fontWeight: 700,
+              fontSize: sizeRatio(20),
             }}
           >
-            <div
+            Job List
+          </Box>
+          <Paper
+            sx={{
+              width: sizeRatio(isExpand ? 1080 : 1212),
+              borderRadius: sizeRatio(16),
+              paddingInline: sizeRatio(32),
+              backgroundColor: "#FFFFFF",
+              paddingBottom: sizeRatio(16),
+            }}
+          >
+            <Box
               style={{
-                width: sizeRatio(isExpand ? 948 : 1080),
-                marginTop: sizeRatio(32),
-                marginBottom: sizeRatio(42),
-                fontFamily: "Helvetica",
-                fontWeight: 700,
-                fontSize: sizeRatio(20),
+                marginTop: sizeRatio(35),
+                marginBottom: sizeRatio(24),
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-between",
+                alignItems: "center",
               }}
             >
-              Job List
-            </div>
-            <Paper
-              sx={{
-                width: sizeRatio(isExpand ? 948 : 1080),
-                borderRadius: sizeRatio(16),
-                paddingInline: sizeRatio(32),
-                backgroundColor: "#FFFFFF",
-                paddingBottom: sizeRatio(16),
-              }}
-            >
-              <div
+              <Typography
                 style={{
-                  marginTop: sizeRatio(35),
-                  marginBottom: sizeRatio(24),
-                  display: "flex",
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                  alignItems: "center",
+                  fontFamily: "Helvetica",
+                  fontWeight: 700,
+                  fontSize: sizeRatio(24),
                 }}
               >
-                <div
-                  style={{
-                    fontFamily: "Helvetica",
-                    fontWeight: 700,
-                    fontSize: sizeRatio(24),
-                  }}
-                >
-                  Accounts list
-                </div>
-                <input
-                  type="text"
-                  name="searchAccount"
-                  autoComplete="off"
-                  style={{
-                    height: sizeRatio(32),
-                    width: sizeRatio(280),
-                  }}
-                  placeholder="Search..."
-                  onChange={(e) => searchAccount(e.target.value)}
-                />
-              </div>
-              <TableContainer>
-                <Table aria-label="collapsible table">
-                  <TableHead>
-                    <TableRow>
-                      <TableCell></TableCell>
-                      <TableCell
-                        align="center"
-                        style={{
-                          fontFamily: "Helvetica",
-                          fontWeight: 700,
-                          fontSize: sizeRatio(16),
-                        }}
-                      >
-                        Name
-                      </TableCell>
-                      <TableCell
-                        align="center"
-                        style={{
-                          fontFamily: "Helvetica",
-                          fontWeight: 700,
-                          fontSize: sizeRatio(16),
-                        }}
-                      >
-                        Pets
-                      </TableCell>
-
-                      <TableCell
-                        align="center"
-                        style={{
-                          fontFamily: "Helvetica",
-                          fontWeight: 700,
-                          fontSize: sizeRatio(16),
-                        }}
-                      >
-                        KPI
-                      </TableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {rows
-                      .slice(
-                        page * rowsPerPage,
-                        page * rowsPerPage + rowsPerPage
-                      )
-                      .map((row) => {
-                        return <Row key={row.id} row={row} />;
-                      })}
-                  </TableBody>
-                </Table>
-              </TableContainer>
-              <TablePagination
-                rowsPerPageOptions={[5, 25, 100]}
-                component="div"
-                count={rows.length}
-                rowsPerPage={rowsPerPage}
-                page={page}
-                onPageChange={handleChangePage}
-                onRowsPerPageChange={handleChangeRowsPerPage}
+                Accounts list
+              </Typography>
+              <input
+                type="text"
+                name="searchAccount"
+                autoComplete="off"
+                style={{
+                  height: sizeRatio(32),
+                  width: sizeRatio(280),
+                }}
+                placeholder="Search..."
+                onChange={(e) => searchAccount(e.target.value)}
               />
-            </Paper>
-          </Box>
-        </div>
+            </Box>
+            <TableContainer>
+              <Table aria-label="collapsible table">
+                <TableHead>
+                  <TableRow>
+                    <TableCell></TableCell>
+                    <TableCell
+                      align="center"
+                      style={{
+                        fontFamily: "Helvetica",
+                        fontWeight: 700,
+                        fontSize: sizeRatio(16),
+                      }}
+                    >
+                      Name
+                    </TableCell>
+                    <TableCell
+                      align="center"
+                      style={{
+                        fontFamily: "Helvetica",
+                        fontWeight: 700,
+                        fontSize: sizeRatio(16),
+                      }}
+                    >
+                      Pets
+                    </TableCell>
+
+                    <TableCell
+                      align="center"
+                      style={{
+                        fontFamily: "Helvetica",
+                        fontWeight: 700,
+                        fontSize: sizeRatio(16),
+                      }}
+                    >
+                      KPI
+                    </TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {rows
+                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                    .map((row) => {
+                      return <Row key={row.id} row={row} />;
+                    })}
+                </TableBody>
+              </Table>
+            </TableContainer>
+            <TablePagination
+              rowsPerPageOptions={[5, 25, 100]}
+              component="div"
+              count={rows.length}
+              rowsPerPage={rowsPerPage}
+              page={page}
+              onPageChange={handleChangePage}
+              onRowsPerPageChange={handleChangeRowsPerPage}
+            />
+          </Paper>
+        </Box>
       </Box>
-    </div>
+    </Box>
   );
 };
 export default JobList;

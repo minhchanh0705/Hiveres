@@ -1,8 +1,12 @@
-import SignIn from "@/pages/Auth/SignIn";
-import SignUp from "@/pages/Auth/SignUp";
+import SignIn from "@/pages/Auth/SignIn/SignIn";
+import SignUp from "@/pages/Auth/SignUp/SignUp";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
-import { authAtom } from "@/recoil/atoms";
-import { useRecoilValue } from "recoil";
+import {
+  authAtom,
+  sentEmailSignUpAtom,
+  verifiedCodeSignUpAtom,
+} from "@/recoil/atoms";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { createBrowserHistory } from "history";
 import Wallet from "./pages/DetailScreen/Wallet/Wallet";
 import Earning from "./pages/DetailScreen/Earning/Earning";
@@ -10,10 +14,7 @@ import JobList from "./pages/DetailScreen/JobList/JobList";
 import Profile from "./pages/DetailScreen/Profile/Profile";
 
 import AccountDetail from "./pages/DetailScreen/JobList/AccountDetail/AccountDetail";
-import NavBar from "./components/NavBar";
-import { Box } from "@mui/material";
-import DrawerComponent from "./components/DrawerComponent";
-import { sizeRatio } from "./theme";
+import ForgotPassword from "./pages/Auth/ForgotPassword/ForgotPassword";
 
 const App = () => {
   const auth = useRecoilValue(authAtom);
@@ -34,6 +35,10 @@ const App = () => {
         <Route
           path="/signUp"
           element={!auth ? <SignUp /> : <Navigate to="/" replace />}
+        ></Route>
+        <Route
+          path="/forgotPassword"
+          element={auth ? <Navigate to="/" replace /> : <ForgotPassword />}
         ></Route>
       </Routes>
     </BrowserRouter>

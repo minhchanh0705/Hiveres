@@ -10,9 +10,13 @@ if (
   isMobile = true;
 }
 const font = "Helvetica";
-// const font = import.meta.env.VITE_FONT;
-
-export const sizeRatio = (size) => `${(1440 * size) / 1440}px`;
+let windowWidth = window.innerWidth;
+if (window.innerWidth < 1080) {
+  windowWidth = 1080;
+} else if (window.innerWidth > 1800) {
+  windowWidth = 1800;
+}
+export const sizeRatio = (size) => `${(windowWidth * size) / 1440}px`;
 let theme = createTheme({
   typography: {
     fontFamily: font,
@@ -34,6 +38,7 @@ let theme = createTheme({
       fontSize: sizeRatio(17),
       fontWeight: "bold",
     },
+
     HELPER: {
       fontFamily: font,
       color: lightBlue[800],
@@ -72,12 +77,21 @@ let theme = createTheme({
       contrastText: "#fff",
     },
   },
+
   components: {
     MuiInputBase: {
       styleOverrides: {
         root: {
-          fontSize: sizeRatio(15),
-          background: "#ffffff",
+          fontSize: sizeRatio(20),
+        },
+      },
+    },
+    MuiOutlinedInput: {
+      styleOverrides: {
+        root: {
+          // "& .MuiOutlinedInput-notchedOutline": {
+          //   border: "none",
+          // },
         },
       },
     },
@@ -91,7 +105,26 @@ let theme = createTheme({
         disableElevation: true,
       },
     },
+    MuiTablePagination: {
+      styleOverrides: {
+        root: {
+          fontSize: sizeRatio(16),
+          fontWeight: 400,
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        },
+
+        selectLabel: {
+          margin: 0,
+        },
+        displayedRows: {
+          margin: 0,
+        },
+      },
+    },
   },
 });
 
 export default theme;
+// css-ugc96i-MuiTablePagination-selectLabel

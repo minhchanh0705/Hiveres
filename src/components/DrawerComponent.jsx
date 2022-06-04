@@ -3,9 +3,9 @@ import { styled } from "@mui/material/styles";
 import {
   List,
   ListItem,
-  ListItemButton,
   ListItemIcon,
   ListItemText,
+  Typography,
 } from "@mui/material";
 
 import MuiDrawer from "@mui/material/Drawer";
@@ -15,11 +15,7 @@ import { AiOutlineMenuFold } from "react-icons/ai";
 
 import { IoList } from "react-icons/io5";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import {
-  currentSectionAtom,
-  currentTabAtom,
-  isExpandAtom,
-} from "@/recoil/atoms";
+import { currentSectionAtom, isExpandAtom } from "@/recoil/atoms";
 import { MdAccountCircle } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import { sizeRatio } from "@/theme";
@@ -201,7 +197,7 @@ const DrawerComponent = () => {
 
             <ListItemText
               primary={
-                <div
+                <Typography
                   style={{
                     fontSize: sizeRatio(20),
                     fontFamily: "Helvetica",
@@ -209,7 +205,7 @@ const DrawerComponent = () => {
                   }}
                 >
                   {text}
-                </div>
+                </Typography>
               }
               sx={{
                 opacity: isExpand ? 1 : 0,

@@ -1,20 +1,10 @@
-import {
-  Breadcrumbs,
-  Button,
-  ButtonGroup,
-  Link,
-  Paper,
-  Stack,
-  TablePagination,
-  TextField,
-} from "@mui/material";
+import { Breadcrumbs, Link, Paper, TablePagination } from "@mui/material";
 import { Fragment, useEffect, useState } from "react";
 import { BsCashCoin } from "react-icons/bs";
 import { ImPower } from "react-icons/im";
 import { FiAward, FiCopy, FiPercent, FiChevronDown } from "react-icons/fi";
 import { IoArrowBackCircleOutline } from "react-icons/io5";
 
-import { Bar } from "react-chartjs-2";
 import { sizeRatio } from "@/theme";
 import PropTypes from "prop-types";
 import Box from "@mui/material/Box";
@@ -29,19 +19,14 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import NavBar from "@/components/NavBar";
 import DrawerComponent from "@/components/DrawerComponent";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { currentSectionAtom, isExpandAtom } from "@/recoil/atoms";
-import { height } from "@mui/system";
 import { useNavigate } from "react-router-dom";
-import { IoIosAddCircleOutline } from "react-icons/io";
 import {
   AiOutlineFire,
   AiOutlineHeart,
-  AiOutlineStar,
   AiOutlineThunderbolt,
 } from "react-icons/ai";
 
@@ -234,7 +219,7 @@ const AccountDetail = () => {
       <Fragment>
         <TableRow
           hover
-          sx={{ "& > *": { borderWidth: "0px" }, height: sizeRatio(83) }}
+          sx={{ height: sizeRatio(83), borderWidth: "0px" }}
           onClick={() => setOpen(!open)}
         >
           <TableCell
@@ -243,9 +228,10 @@ const AccountDetail = () => {
               fontFamily: "Helvetica",
               fontWeight: 400,
               fontSize: sizeRatio(16),
+              borderWidth: "0px",
             }}
           >
-            <div
+            <Box
               style={{
                 display: "flex",
                 justifyContent: "center",
@@ -261,7 +247,7 @@ const AccountDetail = () => {
                 }}
               />
               {row.name}
-            </div>
+            </Box>
           </TableCell>
 
           <TableCell
@@ -271,6 +257,7 @@ const AccountDetail = () => {
               fontFamily: "Helvetica",
               fontWeight: 400,
               fontSize: sizeRatio(16),
+              borderWidth: "0px",
             }}
           >
             {row.skill}
@@ -282,6 +269,7 @@ const AccountDetail = () => {
               fontFamily: "Helvetica",
               fontWeight: 400,
               fontSize: sizeRatio(16),
+              borderWidth: "0px",
             }}
           >
             <AiOutlineHeart
@@ -336,38 +324,24 @@ const AccountDetail = () => {
             <span style={{}}>{row.stats.fire}</span>
           </TableCell>
         </TableRow>
-        <TableRow>
-          <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={7}>
+        <TableRow
+          style={{
+            borderTopWidth: "1px",
+            borderBottomWidth: "0px",
+          }}
+        >
+          <TableCell
+            style={{
+              paddingBottom: 0,
+              paddingTop: 0,
+            }}
+            colSpan={7}
+          >
             <Collapse in={open} timeout="auto" unmountOnExit>
               <Box sx={{ margin: 1 }}>
                 <Typography variant="h6" gutterBottom component="div">
                   History
                 </Typography>
-                <Table size="small" aria-label="purchases">
-                  <TableHead>
-                    <TableRow>
-                      <TableCell>Date</TableCell>
-                      <TableCell>Customer</TableCell>
-                      <TableCell align="right">Amount</TableCell>
-                      <TableCell align="right">Total price ($)</TableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {row.history.map((historyRow) => (
-                      <TableRow key={historyRow.date}>
-                        <TableCell component="th" scope="row">
-                          {historyRow.date}
-                        </TableCell>
-                        <TableCell>{historyRow.customerId}</TableCell>
-                        <TableCell align="right">{historyRow.amount}</TableCell>
-                        <TableCell align="right">
-                          {Math.round(historyRow.amount * row.price * 100) /
-                            100}
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
               </Box>
             </Collapse>
           </TableCell>
@@ -423,7 +397,7 @@ const AccountDetail = () => {
     </Typography>,
   ];
   return (
-    <div style={{ backgroundColor: "#F1F5F9" }}>
+    <Box style={{ backgroundColor: "#F1F5F9" }}>
       <NavBar />
       <Box
         style={{
@@ -432,390 +406,383 @@ const AccountDetail = () => {
         }}
       >
         <DrawerComponent />
-        <div
+        <Box
           style={{
+            display: "flex",
             flex: 1,
-            flexDirection: "row",
-            justifyContent: "center",
+            flexDirection: "column",
+            alignItems: "center",
+            marginBottom: sizeRatio(42),
           }}
         >
-          <div
+          <Box
             style={{
-              display: "flex",
-              flex: 1,
-              alignItems: "center",
-              flexDirection: "column",
+              width: sizeRatio(isExpand ? 1080 : 1212),
+              marginTop: sizeRatio(32),
+              marginBottom: sizeRatio(42),
             }}
           >
-            <div
+            <Breadcrumbs
+              separator={<NavigateNextIcon fontSize="small" />}
+              aria-label="breadcrumb"
+            >
+              {breadcrumbs}
+            </Breadcrumbs>
+            <IoArrowBackCircleOutline
+              onClick={() => {
+                navigate("/JobList");
+                setCurrentSectionAtom("JobList");
+              }}
               style={{
-                width: sizeRatio(isExpand ? 948 : 1080),
-                marginTop: sizeRatio(32),
-                marginBottom: sizeRatio(42),
+                marginTop: sizeRatio(40),
+                marginBottom: sizeRatio(24),
+                fontSize: sizeRatio(48),
+              }}
+            />
+            <Box
+              style={{
+                fontFamily: "Helvetica",
+                fontWeight: 700,
+                fontSize: sizeRatio(16),
               }}
             >
-              <Breadcrumbs
-                separator={<NavigateNextIcon fontSize="small" />}
-                aria-label="breadcrumb"
-              >
-                {breadcrumbs}
-              </Breadcrumbs>
-              <IoArrowBackCircleOutline
-                onClick={() => {
-                  navigate("/JobList");
-                  setCurrentSectionAtom("JobList");
-                }}
+              ronin:1248eyfehsaoidhf1351
+              <FiCopy />
+            </Box>
+            <Box
+              style={{
+                fontFamily: "Helvetica",
+                fontWeight: 300,
+                fontSize: sizeRatio(48),
+              }}
+            >
+              Axie
+              <span
                 style={{
-                  marginTop: sizeRatio(40),
-                  marginBottom: sizeRatio(24),
-                  fontSize: sizeRatio(48),
-                }}
-              />
-              <div
-                style={{
-                  fontFamily: "Helvetica",
                   fontWeight: 700,
                   fontSize: sizeRatio(16),
+                  marginLeft: sizeRatio(5),
                 }}
               >
-                ronin:1248eyfehsaoidhf1351
-                <FiCopy />
-              </div>
-              <div
+                #000123456
+              </span>
+            </Box>
+            <Box
+              style={{
+                display: "flex",
+                backgroundColor: "#475569",
+                width: sizeRatio(155),
+                height: sizeRatio(32),
+                alignItems: "center",
+                justifyContent: "center",
+                borderRadius: sizeRatio(8),
+                color: "#6EE787",
+                fontFamily: "Helvetica",
+                fontWeight: 700,
+                fontSize: sizeRatio(12),
+              }}
+            >
+              <FiAward
                 style={{
-                  fontFamily: "Helvetica",
-                  fontWeight: 300,
-                  fontSize: sizeRatio(48),
+                  fontSize: sizeRatio(16),
                 }}
-              >
-                Axie
-                <span
-                  style={{
-                    fontWeight: 700,
-                    fontSize: sizeRatio(16),
-                    marginLeft: sizeRatio(5),
-                  }}
-                >
-                  #000123456
-                </span>
-              </div>
-              <div
+              />
+              AXS REWARD 40%
+            </Box>
+            <Box
+              style={{
+                marginTop: sizeRatio(40),
+                display: "flex",
+                flex: 1,
+                fontFamily: "Helvetica",
+                fontWeight: 300,
+                fontSize: sizeRatio(20),
+              }}
+            >
+              <Box
                 style={{
                   display: "flex",
-                  backgroundColor: "#475569",
-                  width: sizeRatio(155),
-                  height: sizeRatio(32),
+                  flex: 1,
+                  flexDirection: "column",
+                  marginRight: sizeRatio(10),
+                }}
+              >
+                <Typography>Email</Typography>
+                <input
+                  defaultValue="Hiveres@gmail.com"
+                  style={{
+                    borderRadius: sizeRatio(8),
+                    borderWidth: "1px",
+                    fontFamily: "Helvetica",
+                    fontWeight: 400,
+                    fontSize: sizeRatio(20),
+                    marginTop: sizeRatio(16),
+                    paddingLeft: sizeRatio(12),
+                  }}
+                />
+              </Box>
+              <Box
+                style={{
+                  display: "flex",
+                  flex: 1,
+                  flexDirection: "column",
+                  marginLeft: sizeRatio(10),
+                }}
+              >
+                <Typography>Password</Typography>
+                <input
+                  defaultValue="Hiveres"
+                  style={{
+                    borderRadius: sizeRatio(8),
+                    borderWidth: "1px",
+                    fontFamily: "Helvetica",
+                    fontWeight: 400,
+                    fontSize: sizeRatio(20),
+                    marginTop: sizeRatio(16),
+                    paddingLeft: sizeRatio(12),
+                  }}
+                />
+              </Box>
+            </Box>
+            <Box
+              style={{
+                width: sizeRatio(isExpand ? 1080 : 1212),
+                display: "flex",
+                backgroundColor: "#FFFFFF",
+                borderRadius: sizeRatio(12),
+                justifyContent: "space-between",
+                paddingBlock: sizeRatio(15),
+                paddingInline: sizeRatio(24),
+                marginBlock: sizeRatio(24),
+              }}
+            >
+              <Box
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
                   alignItems: "center",
-                  justifyContent: "center",
-                  borderRadius: sizeRatio(8),
-                  color: "#6EE787",
-                  fontFamily: "Helvetica",
-                  fontWeight: 700,
-                  fontSize: sizeRatio(12),
+                }}
+              >
+                <FiPercent
+                  style={{
+                    color: "#0F172A",
+                    fontSize: sizeRatio(27),
+                    marginRight: sizeRatio(25),
+                    border: "1.5px solid black",
+                    padding: sizeRatio(2),
+                    borderRadius: 20,
+                  }}
+                />
+                <Box>
+                  <Typography
+                    style={{
+                      fontFamily: "Helvetica",
+                      fontWeight: 700,
+                      fontSize: sizeRatio(20),
+                    }}
+                  >
+                    Active Accounts
+                  </Typography>
+                  <Typography
+                    style={{
+                      fontFamily: "Helvetica",
+                      fontWeight: 400,
+                      fontSize: sizeRatio(16),
+                    }}
+                  >
+                    12/20
+                  </Typography>
+                </Box>
+              </Box>
+              <Box
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "center",
                 }}
               >
                 <FiAward
                   style={{
-                    fontSize: sizeRatio(16),
+                    color: "#0F172A",
+                    fontSize: sizeRatio(27),
+                    marginRight: sizeRatio(25),
                   }}
                 />
-                AXS REWARD 40%
-              </div>
-              <div
-                style={{
-                  marginTop: sizeRatio(40),
-                  display: "flex",
-                  flex: 1,
-                  fontFamily: "Helvetica",
-                  fontWeight: 300,
-                  fontSize: sizeRatio(20),
-                }}
-              >
-                <div
-                  style={{
-                    display: "flex",
-                    flex: 1,
-                    flexDirection: "column",
-                    marginRight: sizeRatio(10),
-                  }}
-                >
-                  <div>Email</div>
-                  <input
-                    defaultValue="Hiveres@gmail.com"
+                <Box>
+                  <Typography
                     style={{
-                      borderRadius: sizeRatio(8),
-                      borderWidth: "1px",
+                      fontFamily: "Helvetica",
+                      fontWeight: 700,
+                      fontSize: sizeRatio(20),
+                    }}
+                  >
+                    Yesterday Revenue
+                  </Typography>
+                  <Typography
+                    style={{
                       fontFamily: "Helvetica",
                       fontWeight: 400,
-                      fontSize: sizeRatio(20),
-                      marginTop: sizeRatio(16),
-                      paddingLeft: sizeRatio(12),
+                      fontSize: sizeRatio(16),
                     }}
-                  />
-                </div>
-                <div
-                  style={{
-                    display: "flex",
-                    flex: 1,
-                    flexDirection: "column",
-                    marginLeft: sizeRatio(10),
-                  }}
-                >
-                  <div>Password</div>
-                  <input
-                    defaultValue="Hiveres"
-                    style={{
-                      borderRadius: sizeRatio(8),
-                      borderWidth: "1px",
-                      fontFamily: "Helvetica",
-                      fontWeight: 400,
-                      fontSize: sizeRatio(20),
-                      marginTop: sizeRatio(16),
-                      paddingLeft: sizeRatio(12),
-                    }}
-                  />
-                </div>
-              </div>
-              <div
+                  >
+                    48
+                  </Typography>
+                </Box>
+              </Box>
+              <Box
                 style={{
-                  width: sizeRatio(isExpand ? 948 : 1080),
                   display: "flex",
-                  backgroundColor: "#FFFFFF",
-                  borderRadius: sizeRatio(12),
-                  justifyContent: "space-between",
-                  paddingBlock: sizeRatio(15),
-                  paddingInline: sizeRatio(24),
-                  marginBlock: sizeRatio(24),
+                  flexDirection: "row",
+                  alignItems: "center",
                 }}
               >
-                <div
+                <ImPower
                   style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    alignItems: "center",
+                    color: "#0F172A",
+                    fontSize: sizeRatio(27),
+                    marginRight: sizeRatio(25),
                   }}
-                >
-                  <FiPercent
-                    style={{
-                      color: "#0F172A",
-                      fontSize: sizeRatio(27),
-                      marginRight: sizeRatio(25),
-                      border: "1.5px solid black",
-                      padding: sizeRatio(2),
-                      borderRadius: 20,
-                    }}
-                  />
-                  <div>
-                    <div
-                      style={{
-                        fontFamily: "Helvetica",
-                        fontWeight: 700,
-                        fontSize: sizeRatio(20),
-                      }}
-                    >
-                      Active Accounts
-                    </div>
-                    <div
-                      style={{
-                        fontFamily: "Helvetica",
-                        fontWeight: 400,
-                        fontSize: sizeRatio(16),
-                      }}
-                    >
-                      12/20
-                    </div>
-                  </div>
-                </div>
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    alignItems: "center",
-                  }}
-                >
-                  <FiAward
-                    style={{
-                      color: "#0F172A",
-                      fontSize: sizeRatio(27),
-                      marginRight: sizeRatio(25),
-                    }}
-                  />
-                  <div>
-                    <div
-                      style={{
-                        fontFamily: "Helvetica",
-                        fontWeight: 700,
-                        fontSize: sizeRatio(20),
-                      }}
-                    >
-                      Yesterday Revenue
-                    </div>
-                    <div
-                      style={{
-                        fontFamily: "Helvetica",
-                        fontWeight: 400,
-                        fontSize: sizeRatio(16),
-                      }}
-                    >
-                      48
-                    </div>
-                  </div>
-                </div>
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    alignItems: "center",
-                  }}
-                >
-                  <ImPower
-                    style={{
-                      color: "#0F172A",
-                      fontSize: sizeRatio(27),
-                      marginRight: sizeRatio(25),
-                    }}
-                  />
-
-                  <div>
-                    <div
-                      style={{
-                        fontFamily: "Helvetica",
-                        fontWeight: 700,
-                        fontSize: sizeRatio(20),
-                      }}
-                    >
-                      Total Payout
-                    </div>
-                    <div
-                      style={{
-                        fontFamily: "Helvetica",
-                        fontWeight: 400,
-                        fontSize: sizeRatio(16),
-                      }}
-                    >
-                      314
-                    </div>
-                  </div>
-                </div>
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    alignItems: "center",
-                  }}
-                >
-                  <BsCashCoin
-                    style={{
-                      color: "#0F172A",
-                      fontSize: sizeRatio(27),
-                      marginRight: sizeRatio(25),
-                    }}
-                  />
-                  <div>
-                    <div
-                      style={{
-                        fontFamily: "Helvetica",
-                        fontWeight: 700,
-                        fontSize: sizeRatio(20),
-                      }}
-                    >
-                      Total Revenue
-                    </div>
-                    <div
-                      style={{
-                        fontFamily: "Helvetica",
-                        fontWeight: 400,
-                        fontSize: sizeRatio(16),
-                      }}
-                    >
-                      314,567
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div
-                style={{
-                  fontFamily: "Helvetica",
-                  fontWeight: 300,
-                  fontSize: sizeRatio(36),
-                }}
-              >
-                Inventory
-              </div>
-
-              <Paper
-                sx={{
-                  width: sizeRatio(isExpand ? 948 : 1080),
-                  borderRadius: sizeRatio(16),
-                  marginTop: sizeRatio(24),
-                  paddingInline: sizeRatio(32),
-                  backgroundColor: "#FFFFFF",
-                  paddingBottom: sizeRatio(16),
-                }}
-              >
-                <TableContainer>
-                  <Table aria-label="collapsible table">
-                    <TableHead>
-                      <TableRow>
-                        <TableCell
-                          align="center"
-                          style={{
-                            fontFamily: "Helvetica",
-                            fontWeight: 700,
-                            fontSize: sizeRatio(16),
-                          }}
-                        >
-                          Name
-                        </TableCell>
-                        <TableCell
-                          align="center"
-                          style={{
-                            fontFamily: "Helvetica",
-                            fontWeight: 700,
-                            fontSize: sizeRatio(16),
-                          }}
-                        >
-                          Class
-                        </TableCell>
-                        <TableCell
-                          align="center"
-                          style={{
-                            fontFamily: "Helvetica",
-                            fontWeight: 700,
-                            fontSize: sizeRatio(16),
-                          }}
-                        >
-                          Stats
-                        </TableCell>
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      {rows
-                        .slice(
-                          page * rowsPerPage,
-                          page * rowsPerPage + rowsPerPage
-                        )
-                        .map((row) => {
-                          return <Row key={row.id} row={row} />;
-                        })}
-                    </TableBody>
-                  </Table>
-                </TableContainer>
-                <TablePagination
-                  rowsPerPageOptions={[5, 25, 100]}
-                  component="div"
-                  count={rows.length}
-                  rowsPerPage={rowsPerPage}
-                  page={page}
-                  onPageChange={handleChangePage}
-                  onRowsPerPageChange={handleChangeRowsPerPage}
                 />
-              </Paper>
-            </div>
-          </div>
-        </div>
+
+                <Box>
+                  <Typography
+                    style={{
+                      fontFamily: "Helvetica",
+                      fontWeight: 700,
+                      fontSize: sizeRatio(20),
+                    }}
+                  >
+                    Total Payout
+                  </Typography>
+                  <Typography
+                    style={{
+                      fontFamily: "Helvetica",
+                      fontWeight: 400,
+                      fontSize: sizeRatio(16),
+                    }}
+                  >
+                    314
+                  </Typography>
+                </Box>
+              </Box>
+              <Box
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "center",
+                }}
+              >
+                <BsCashCoin
+                  style={{
+                    color: "#0F172A",
+                    fontSize: sizeRatio(27),
+                    marginRight: sizeRatio(25),
+                  }}
+                />
+                <Box>
+                  <Typography
+                    style={{
+                      fontFamily: "Helvetica",
+                      fontWeight: 700,
+                      fontSize: sizeRatio(20),
+                    }}
+                  >
+                    Total Revenue
+                  </Typography>
+                  <Typography
+                    style={{
+                      fontFamily: "Helvetica",
+                      fontWeight: 400,
+                      fontSize: sizeRatio(16),
+                    }}
+                  >
+                    314,567
+                  </Typography>
+                </Box>
+              </Box>
+            </Box>
+            <Box
+              style={{
+                fontFamily: "Helvetica",
+                fontWeight: 300,
+                fontSize: sizeRatio(36),
+              }}
+            >
+              Inventory
+            </Box>
+
+            <Paper
+              sx={{
+                width: sizeRatio(isExpand ? 1080 : 1212),
+                borderRadius: sizeRatio(16),
+                marginTop: sizeRatio(24),
+                paddingInline: sizeRatio(32),
+                backgroundColor: "#FFFFFF",
+                paddingBottom: sizeRatio(16),
+              }}
+            >
+              <TableContainer>
+                <Table aria-label="collapsible table">
+                  <TableHead>
+                    <TableRow>
+                      <TableCell
+                        align="center"
+                        style={{
+                          fontFamily: "Helvetica",
+                          fontWeight: 700,
+                          fontSize: sizeRatio(16),
+                        }}
+                      >
+                        Name
+                      </TableCell>
+                      <TableCell
+                        align="center"
+                        style={{
+                          fontFamily: "Helvetica",
+                          fontWeight: 700,
+                          fontSize: sizeRatio(16),
+                        }}
+                      >
+                        Class
+                      </TableCell>
+                      <TableCell
+                        align="center"
+                        style={{
+                          fontFamily: "Helvetica",
+                          fontWeight: 700,
+                          fontSize: sizeRatio(16),
+                        }}
+                      >
+                        Stats
+                      </TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {rows
+                      .slice(
+                        page * rowsPerPage,
+                        page * rowsPerPage + rowsPerPage
+                      )
+                      .map((row) => {
+                        return <Row key={row.id} row={row} />;
+                      })}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+              <TablePagination
+                rowsPerPageOptions={[5, 25, 100]}
+                component="div"
+                count={rows.length}
+                rowsPerPage={rowsPerPage}
+                page={page}
+                onPageChange={handleChangePage}
+                onRowsPerPageChange={handleChangeRowsPerPage}
+              />
+            </Paper>
+          </Box>
+        </Box>
       </Box>
-    </div>
+    </Box>
   );
 };
 export default AccountDetail;

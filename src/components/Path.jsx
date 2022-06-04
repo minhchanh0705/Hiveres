@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { currentSectionAtom } from "@/recoil/atoms";
 import { useRecoilValue } from "recoil";
 
@@ -7,7 +7,7 @@ const Path = () => {
   const currSection = useRecoilValue(currentSectionAtom);
   return (
     <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-      <div className="row">
+      <Box className="row">
         {/* <div
           style={{
             fontFamily: "Archivo",
@@ -26,15 +26,15 @@ const Path = () => {
         >
           {">"}
         </div> */}
-        <div
+        <Typography
           style={{
-            fontFamily: "Archivo",
+            fontFamily: "Helvetica",
             fontWeight: 600,
           }}
         >
           {currSection}
-        </div>
-      </div>
+        </Typography>
+      </Box>
     </Box>
   );
 };

@@ -177,7 +177,7 @@ const Header = () => {
                     })
                   }
                 >
-                  <div style={{ marginTop: sizeRatio(30) }}>
+                  <Box style={{ marginTop: sizeRatio(30) }}>
                     <TextField
                       required
                       fullWidth
@@ -187,8 +187,8 @@ const Header = () => {
                       autoComplete="email"
                       autoFocus
                     />
-                  </div>
-                  <div style={{ marginTop: sizeRatio(30) }}>
+                  </Box>
+                  <Box style={{ marginTop: sizeRatio(30) }}>
                     <TextField
                       required
                       fullWidth
@@ -198,14 +198,14 @@ const Header = () => {
                       id="password"
                       autoComplete="current-password"
                     />
-                  </div>
-                  <div style={{ marginTop: sizeRatio(15) }}>
+                  </Box>
+                  <Box style={{ marginTop: sizeRatio(15) }}>
                     <FormControlLabel
                       control={<Checkbox value="remember" color="primary" />}
                       label={t("rememberMe")}
                     />
-                  </div>
-                  <div style={{ marginTop: sizeRatio(10) }}>
+                  </Box>
+                  <Box style={{ marginTop: sizeRatio(10) }}>
                     <Button
                       type="submit"
                       fullWidth
@@ -214,8 +214,8 @@ const Header = () => {
                     >
                       {t("signIn")}
                     </Button>
-                  </div>
-                  <div style={{ marginTop: sizeRatio(25) }}>
+                  </Box>
+                  <Box style={{ marginTop: sizeRatio(25) }}>
                     <Grid container>
                       <Grid item xs>
                         <Link
@@ -236,7 +236,7 @@ const Header = () => {
                         </Link>
                       </Grid>
                     </Grid>
-                  </div>
+                  </Box>
                 </Box>
               </Modal>
               {/* Modal Sign Up */}
@@ -260,7 +260,7 @@ const Header = () => {
                     })
                   }
                 >
-                  <div style={{ marginTop: sizeRatio(30) }}>
+                  <Box style={{ marginTop: sizeRatio(30) }}>
                     <TextField
                       required
                       fullWidth
@@ -271,8 +271,8 @@ const Header = () => {
                       autoComplete="email"
                       autoFocus
                     />
-                  </div>
-                  <div style={{ marginTop: sizeRatio(30) }}>
+                  </Box>
+                  <Box style={{ marginTop: sizeRatio(30) }}>
                     <TextField
                       required
                       fullWidth
@@ -283,8 +283,8 @@ const Header = () => {
                       id="password"
                       autoComplete="current-password"
                     />
-                  </div>
-                  <div style={{ marginTop: sizeRatio(30) }}>
+                  </Box>
+                  <Box style={{ marginTop: sizeRatio(30) }}>
                     <TextField
                       required
                       fullWidth
@@ -295,9 +295,9 @@ const Header = () => {
                       id="confirmPassword"
                       autoComplete="current-password"
                     />
-                  </div>
+                  </Box>
 
-                  <div style={{ marginTop: sizeRatio(40) }}>
+                  <Box style={{ marginTop: sizeRatio(40) }}>
                     <Button
                       type="submit"
                       fullWidth
@@ -306,8 +306,8 @@ const Header = () => {
                     >
                       {t("signUp")}
                     </Button>
-                  </div>
-                  <div style={{ marginTop: sizeRatio(25) }}>
+                  </Box>
+                  <Box style={{ marginTop: sizeRatio(25) }}>
                     <Grid container style={styles.haveAccount}>
                       <Grid item>
                         <Link
@@ -319,7 +319,7 @@ const Header = () => {
                         </Link>
                       </Grid>
                     </Grid>
-                  </div>
+                  </Box>
                 </Box>
               </Modal>
               {/* Modal Forgot Password */}
