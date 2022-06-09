@@ -2,11 +2,10 @@ import { useNavigate } from "react-router-dom";
 
 import { authAtom } from "@/recoil/atoms";
 import { useRecoilState } from "recoil";
-import companyLogo from "@/assets/icon/logo.png";
+import companyLogo from "../../public/assets/icon/logo.png";
 import { US, VN } from "country-flag-icons/react/3x2";
 import Modal from "react-modal";
 import styles from "./modalStyle";
-import "./Header.css";
 import { Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import { useState } from "react";

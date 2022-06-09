@@ -19,7 +19,6 @@ function useUserActions() {
   };
 
   async function login(email, password) {
-    // console.log({ email, password });
     const user = await fetchWrapper.post(`${baseUrl}/authenticate`, {
       email,
       password,

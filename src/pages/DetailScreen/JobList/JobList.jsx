@@ -17,7 +17,8 @@ import DrawerComponent from "@/components/DrawerComponent";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { currentSectionAtom, isExpandAtom } from "@/recoil/atoms";
 import { useNavigate } from "react-router-dom";
-import { FiAward } from "react-icons/fi";
+import { FiAward, FiSearch } from "react-icons/fi";
+import SearchComponent from "@/components/SearchComponent";
 
 const JobList = () => {
   const isExpand = useRecoilValue(isExpandAtom);
@@ -38,8 +39,9 @@ const JobList = () => {
     setPage(0);
   };
 
-  const searchAccount = (char) => {
-    setKeywordSearch(char);
+  const searchJob = (char) => {
+    console.log(char);
+    // setKeywordSearch(char);
   };
 
   const imgPets = [
@@ -119,8 +121,6 @@ const JobList = () => {
           <TableCell
             style={{
               width: sizeRatio(353.33),
-              fontFamily: "Helvetica",
-              fontWeight: 400,
               fontSize: sizeRatio(16),
             }}
             align="center"
@@ -156,8 +156,6 @@ const JobList = () => {
             align="center"
             style={{
               width: sizeRatio(353.33),
-              fontFamily: "Helvetica",
-              fontWeight: 400,
               fontSize: sizeRatio(16),
             }}
           >
@@ -183,6 +181,7 @@ const JobList = () => {
         style={{
           display: "flex",
           flexDirection: "row",
+          overflow: "scroll",
         }}
       >
         <DrawerComponent />
@@ -193,6 +192,7 @@ const JobList = () => {
             flexDirection: "column",
             alignItems: "center",
             marginBottom: sizeRatio(42),
+            marginInline: sizeRatio(30),
           }}
         >
           <Box
@@ -200,7 +200,6 @@ const JobList = () => {
               width: sizeRatio(isExpand ? 1080 : 1212),
               marginTop: sizeRatio(32),
               marginBottom: sizeRatio(42),
-              fontFamily: "Helvetica",
               fontWeight: 700,
               fontSize: sizeRatio(20),
             }}
@@ -228,24 +227,14 @@ const JobList = () => {
             >
               <Typography
                 style={{
-                  fontFamily: "Helvetica",
                   fontWeight: 700,
                   fontSize: sizeRatio(24),
                 }}
               >
                 Accounts list
               </Typography>
-              <input
-                type="text"
-                name="searchAccount"
-                autoComplete="off"
-                style={{
-                  height: sizeRatio(32),
-                  width: sizeRatio(280),
-                }}
-                placeholder="Search..."
-                onChange={(e) => searchAccount(e.target.value)}
-              />
+
+              <SearchComponent handleSearchChange={searchJob} />
             </Box>
             <TableContainer>
               <Table aria-label="collapsible table">
@@ -255,7 +244,6 @@ const JobList = () => {
                     <TableCell
                       align="center"
                       style={{
-                        fontFamily: "Helvetica",
                         fontWeight: 700,
                         fontSize: sizeRatio(16),
                       }}
@@ -265,7 +253,6 @@ const JobList = () => {
                     <TableCell
                       align="center"
                       style={{
-                        fontFamily: "Helvetica",
                         fontWeight: 700,
                         fontSize: sizeRatio(16),
                       }}
@@ -276,7 +263,6 @@ const JobList = () => {
                     <TableCell
                       align="center"
                       style={{
-                        fontFamily: "Helvetica",
                         fontWeight: 700,
                         fontSize: sizeRatio(16),
                       }}

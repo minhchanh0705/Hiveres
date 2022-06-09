@@ -2,12 +2,65 @@ import DrawerComponent from "@/components/DrawerComponent";
 import NavBar from "@/components/NavBar";
 import { isExpandAtom } from "@/recoil/atoms";
 import { sizeRatio } from "@/theme";
-import { Box, Button, Paper, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  FormControl,
+  MenuItem,
+  Select,
+  TextField,
+  Typography,
+} from "@mui/material";
+import { DesktopDatePicker, LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
+import { useMemo, useState } from "react";
 import { FiLogOut, FiSave } from "react-icons/fi";
+import countryList from "react-select-country-list";
 import { useRecoilValue } from "recoil";
 
 const Profile = () => {
   const isExpand = useRecoilValue(isExpandAtom);
+  const [gender, setGender] = useState("male");
+  const [nationality, setNationality] = useState("valueNull");
+  const [value, setValue] = useState(new Date("2014-08-18T21:11:54"));
+  const options = useMemo(() => countryList().getData(), []);
+  const changeHandler = (v) => {
+    setNationality(v.value);
+  };
+  const handleChange = (newValue) => {
+    setValue(newValue);
+  };
+  const styles = {
+    inputDropdown: {
+      backgroundColor: "#FFF",
+      height: sizeRatio(52),
+      borderRadius: sizeRatio(8),
+      borderWidth: "0px",
+      fontSize: sizeRatio(20),
+      flex: 10,
+    },
+    field: {
+      display: "flex",
+      width: "100%",
+      alignItems: "center",
+      marginTop: sizeRatio(48),
+      paddingInline: sizeRatio(70),
+    },
+    title: {
+      fontSize: sizeRatio(20),
+      color: "#0F172A",
+      flex: 2,
+    },
+    inputWide: {
+      height: sizeRatio(52),
+      borderRadius: sizeRatio(8),
+      borderWidth: "0px",
+      color: "#0F172A",
+      fontSize: sizeRatio(18),
+      paddingLeft: sizeRatio(12),
+      flex: 10,
+    },
+  };
   return (
     <Box style={{ backgroundColor: "#F1F5F9" }}>
       <NavBar />
@@ -15,6 +68,7 @@ const Profile = () => {
         style={{
           display: "flex",
           flexDirection: "row",
+          overflow: "scroll",
         }}
       >
         <DrawerComponent />
@@ -25,6 +79,7 @@ const Profile = () => {
             flexDirection: "column",
             alignItems: "center",
             marginBottom: sizeRatio(42),
+            marginInline: sizeRatio(30),
           }}
         >
           <Box
@@ -54,17 +109,6 @@ const Profile = () => {
                 src="../../../../src/assets/icon/avatar.png"
                 alt=""
               />
-
-              {/* <Box
-                style={{
-                  borderWidth: "1px",
-                  borderColor: "black",
-                  borderStyle: "solid",
-                  borderRadius: 100,
-                  width: sizeRatio(150),
-                  height: sizeRatio(150),
-                }}
-              ></Box> */}
               <Typography
                 style={{
                   marginLeft: sizeRatio(40),
@@ -147,26 +191,10 @@ const Profile = () => {
                 paddingInline: sizeRatio(70),
               }}
             >
-              <Typography
-                style={{
-                  fontSize: sizeRatio(20),
-                  color: "#0F172A",
-                  flex: 2,
-                }}
-              >
-                Email
-              </Typography>
+              <Typography style={styles.title}>Email</Typography>
               <input
                 defaultValue="Hiveres@gmail.com"
-                style={{
-                  height: sizeRatio(52),
-                  borderRadius: sizeRatio(8),
-                  borderWidth: "0px",
-                  color: "#0F172A",
-                  fontSize: sizeRatio(18),
-                  paddingLeft: sizeRatio(12),
-                  flex: 10,
-                }}
+                style={styles.inputWide}
               />
             </Box>
           </Box>
@@ -199,125 +227,122 @@ const Profile = () => {
               Manage your personal info and control what can be seen when you
               use Hiveres Account profile.
             </Typography>
-            <Box
-              style={{
-                display: "flex",
-                width: "100%",
-                alignItems: "center",
-                marginTop: sizeRatio(48),
-                paddingInline: sizeRatio(70),
-              }}
-            >
-              <Typography
-                style={{
-                  fontSize: sizeRatio(20),
-                  color: "#0F172A",
-                  flex: 2,
-                }}
-              >
-                Name
-              </Typography>
-              <input
-                defaultValue="Hiveres"
-                style={{
-                  height: sizeRatio(52),
-                  borderRadius: sizeRatio(8),
-                  borderWidth: "0px",
-                  fontSize: sizeRatio(20),
-                  paddingLeft: sizeRatio(12),
-                  flex: 10,
-                }}
-              />
+            <Box style={styles.field}>
+              <Typography style={styles.title}>Name</Typography>
+              <input defaultValue="Hiveres" style={styles.inputWide} />
             </Box>
-            <Box
-              style={{
-                display: "flex",
-                width: "100%",
-                alignItems: "center",
-                marginTop: sizeRatio(48),
-                paddingInline: sizeRatio(70),
-              }}
-            >
-              <Typography
-                style={{
-                  fontSize: sizeRatio(20),
-                  color: "#0F172A",
-                  flex: 2,
-                }}
-              >
-                Gender
-              </Typography>
-              <input
-                defaultValue="Male"
-                style={{
-                  height: sizeRatio(52),
-                  borderRadius: sizeRatio(8),
-                  borderWidth: "0px",
-                  fontSize: sizeRatio(20),
-                  paddingLeft: sizeRatio(12),
-                  flex: 10,
-                }}
-              />
+            <Box style={styles.field}>
+              <Typography style={styles.title}>Gender</Typography>
+              <FormControl style={styles.inputDropdown}>
+                <Select
+                  value={gender}
+                  onChange={(e) => setGender(e.target.value)}
+                  style={{
+                    height: sizeRatio(50),
+                  }}
+                  sx={{
+                    "& legend": {
+                      display: "none",
+                    },
+                    "& .MuiOutlinedInput-notchedOutline": {
+                      border: "none",
+                    },
+                  }}
+                >
+                  <MenuItem key="m" value="male">
+                    <Typography
+                      style={{
+                        fontSize: sizeRatio(20),
+                      }}
+                    >
+                      Male
+                    </Typography>
+                  </MenuItem>
+                  <MenuItem key="f" value="female">
+                    <Typography
+                      style={{
+                        fontSize: sizeRatio(20),
+                      }}
+                    >
+                      Female
+                    </Typography>
+                  </MenuItem>
+                </Select>
+              </FormControl>
             </Box>
-            <Box
-              style={{
-                display: "flex",
-                width: "100%",
-                alignItems: "center",
-                marginTop: sizeRatio(48),
-                paddingInline: sizeRatio(70),
-              }}
-            >
-              <Typography
+            <Box style={styles.field}>
+              <Typography style={styles.title}>Nation</Typography>
+              <FormControl
                 style={{
-                  fontSize: sizeRatio(20),
-                  color: "#0F172A",
-                  flex: 2,
-                }}
-              >
-                Nation
-              </Typography>
-              <input
-                defaultValue="Việt Nam"
-                style={{
+                  backgroundColor: "#FFF",
                   height: sizeRatio(52),
                   borderRadius: sizeRatio(8),
                   borderWidth: "0px",
                   fontSize: sizeRatio(20),
-                  paddingLeft: sizeRatio(12),
                   flex: 10,
                 }}
-              />
+              >
+                <Select
+                  value={nationality}
+                  onChange={(e) => changeHandler(e.target)}
+                  style={styles.inputDropdown}
+                  sx={{
+                    "& legend": {
+                      display: "none",
+                    },
+                    "& .MuiOutlinedInput-notchedOutline": {
+                      border: "none",
+                    },
+                  }}
+                >
+                  <MenuItem key="valueNull" value="valueNull" disabled>
+                    <Typography
+                      style={{
+                        fontSize: sizeRatio(18),
+                      }}
+                    >
+                      Choose Nationality
+                    </Typography>
+                  </MenuItem>
+                  {options.map((nationality) => (
+                    <MenuItem key={nationality.value} value={nationality.value}>
+                      <Typography
+                        style={{
+                          fontSize: sizeRatio(18),
+                        }}
+                      >
+                        {nationality.label}
+                      </Typography>
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
             </Box>
-            <Box
-              style={{
-                display: "flex",
-                width: "100%",
-                alignItems: "center",
-                marginTop: sizeRatio(48),
-                paddingInline: sizeRatio(70),
-              }}
-            >
-              <Typography
-                style={{
-                  fontSize: sizeRatio(20),
-                  color: "#0F172A",
-                  flex: 2,
-                }}
-              >
-                Date of birth
-              </Typography>
-              <input
-                defaultValue="24 - 06 - 1998"
-                style={{
-                  height: sizeRatio(52),
-                  borderRadius: sizeRatio(8),
-                  borderWidth: "0px",
-                  fontSize: sizeRatio(20),
-                  paddingLeft: sizeRatio(12),
-                  flex: 10,
-                }}
-              />
+            <Box style={styles.field}>
+              <Typography style={styles.title}>Date of birth</Typography>
+              <Box style={styles.inputDropdown}>
+                <LocalizationProvider
+                  dateAdapter={AdapterMoment}
+                  style={styles.inputDropdown}
+                >
+                  <DesktopDatePicker
+                    inputFormat="MM/DD/yyyy"
+                    value={value}
+                    onChange={handleChange}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        sx={{
+                          width: sizeRatio(318),
+                          "& .MuiOutlinedInput-notchedOutline": {
+                            border: "none",
+                          },
+                        }}
+                      />
+                    )}
+                  />
+                </LocalizationProvider>
+              </Box>
             </Box>
           </Box>
 

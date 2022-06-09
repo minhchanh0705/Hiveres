@@ -1,5 +1,5 @@
 import React from "react";
-import "@/assets/fonts/helveticaneue.ttf";
+import "../public/assets/fonts/Helvetica/helveticaneue.ttf";
 import ReactDOM from "react-dom/client";
 import { RecoilRoot } from "recoil";
 import { ThemeProvider } from "@mui/material/styles";

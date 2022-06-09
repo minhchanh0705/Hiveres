@@ -1,24 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useRecoilState } from "recoil";
-import { useNavigate, useLocation } from "react-router-dom";
 import { authAtom } from "@/recoil/atoms";
-import companyLogo from "@/assets/icon/logo.png";
 import { useTranslation } from "react-i18next";
 import { sizeRatio } from "@/theme";
-import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 
-import {
-  Box,
-  Button,
-  FormControl,
-  MenuItem,
-  Select,
-  TextField,
-  Typography,
-} from "@mui/material";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-
-import { DesktopDatePicker } from "@mui/x-date-pickers";
+import { Box, Button, Typography } from "@mui/material";
 const PWD_REGEX = /^.{6,}$/;
 
 const ConfirmNewPassword = ({ email }) => {
@@ -63,7 +49,6 @@ const ConfirmNewPassword = ({ email }) => {
     }
   }, [confirmPwdFocus]);
 
-  let navigate = useNavigate();
   const { t, i18n } = useTranslation();
 
   const [auth, setAuth] = useRecoilState(authAtom);

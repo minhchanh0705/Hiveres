@@ -50,7 +50,14 @@ const AccountDetail = () => {
   const searchAccount = (char) => {
     setKeywordSearch(char);
   };
-
+  const lstSkills = [
+    "aquatic-eyes-04",
+    "aquatic-back-04",
+    "aquatic-back-06",
+    "aquatic-horn-06",
+    "aquatic-tail-04",
+    "aquatic-tail-06",
+  ];
   const imgPets = [
     "https://pngset.com/images-original/axie-marketplace-white-aqua-axie-egg-food-animal-fish-transparent-png-2568119.png",
     "https://pngset.com/images-original/axie-marketplace-axie-chopsuey-food-birthday-cake-dessert-egg-transparent-png-2614883.png",
@@ -225,8 +232,6 @@ const AccountDetail = () => {
           <TableCell
             style={{
               width: sizeRatio(369),
-              fontFamily: "Helvetica",
-              fontWeight: 400,
               fontSize: sizeRatio(16),
               borderWidth: "0px",
             }}
@@ -254,8 +259,6 @@ const AccountDetail = () => {
             align="center"
             style={{
               width: sizeRatio(369),
-              fontFamily: "Helvetica",
-              fontWeight: 400,
               fontSize: sizeRatio(16),
               borderWidth: "0px",
             }}
@@ -266,8 +269,6 @@ const AccountDetail = () => {
             align="center"
             style={{
               width: sizeRatio(426),
-              fontFamily: "Helvetica",
-              fontWeight: 400,
               fontSize: sizeRatio(16),
               borderWidth: "0px",
             }}
@@ -321,7 +322,7 @@ const AccountDetail = () => {
                 width: sizeRatio(65),
               }}
             />
-            <span style={{}}>{row.stats.fire}</span>
+            <span>{row.stats.fire}</span>
           </TableCell>
         </TableRow>
         <TableRow
@@ -339,9 +340,18 @@ const AccountDetail = () => {
           >
             <Collapse in={open} timeout="auto" unmountOnExit>
               <Box sx={{ margin: 1 }}>
-                <Typography variant="h6" gutterBottom component="div">
-                  History
-                </Typography>
+                {lstSkills.map((e) => (
+                  <img
+                    style={{
+                      width: sizeRatio(160),
+                      height: sizeRatio(230),
+                    }}
+                    src={`
+                    https://cdn.axieinfinity.com/game/origin-cards/base/version-20220527/${e}.png
+                    `}
+                    alt=""
+                  />
+                ))}
               </Box>
             </Collapse>
           </TableCell>
@@ -375,8 +385,6 @@ const AccountDetail = () => {
         setCurrentSectionAtom("JobList");
       }}
       style={{
-        fontFamily: "Helvetica",
-        fontWeight: 400,
         fontSize: sizeRatio(20),
         color: "#061123",
       }}
@@ -387,7 +395,6 @@ const AccountDetail = () => {
       key="2"
       color="text.primary"
       style={{
-        fontFamily: "Helvetica",
         fontWeight: 700,
         fontSize: sizeRatio(20),
         color: "#ECAE13",
@@ -403,6 +410,7 @@ const AccountDetail = () => {
         style={{
           display: "flex",
           flexDirection: "row",
+          overflow: "scroll",
         }}
       >
         <DrawerComponent />
@@ -420,6 +428,7 @@ const AccountDetail = () => {
               width: sizeRatio(isExpand ? 1080 : 1212),
               marginTop: sizeRatio(32),
               marginBottom: sizeRatio(42),
+              marginInline: sizeRatio(30),
             }}
           >
             <Breadcrumbs
@@ -441,7 +450,6 @@ const AccountDetail = () => {
             />
             <Box
               style={{
-                fontFamily: "Helvetica",
                 fontWeight: 700,
                 fontSize: sizeRatio(16),
               }}
@@ -451,7 +459,6 @@ const AccountDetail = () => {
             </Box>
             <Box
               style={{
-                fontFamily: "Helvetica",
                 fontWeight: 300,
                 fontSize: sizeRatio(48),
               }}
@@ -477,7 +484,6 @@ const AccountDetail = () => {
                 justifyContent: "center",
                 borderRadius: sizeRatio(8),
                 color: "#6EE787",
-                fontFamily: "Helvetica",
                 fontWeight: 700,
                 fontSize: sizeRatio(12),
               }}
@@ -494,7 +500,6 @@ const AccountDetail = () => {
                 marginTop: sizeRatio(40),
                 display: "flex",
                 flex: 1,
-                fontFamily: "Helvetica",
                 fontWeight: 300,
                 fontSize: sizeRatio(20),
               }}
@@ -513,8 +518,7 @@ const AccountDetail = () => {
                   style={{
                     borderRadius: sizeRatio(8),
                     borderWidth: "1px",
-                    fontFamily: "Helvetica",
-                    fontWeight: 400,
+
                     fontSize: sizeRatio(20),
                     marginTop: sizeRatio(16),
                     paddingLeft: sizeRatio(12),
@@ -535,8 +539,6 @@ const AccountDetail = () => {
                   style={{
                     borderRadius: sizeRatio(8),
                     borderWidth: "1px",
-                    fontFamily: "Helvetica",
-                    fontWeight: 400,
                     fontSize: sizeRatio(20),
                     marginTop: sizeRatio(16),
                     paddingLeft: sizeRatio(12),
@@ -576,7 +578,6 @@ const AccountDetail = () => {
                 <Box>
                   <Typography
                     style={{
-                      fontFamily: "Helvetica",
                       fontWeight: 700,
                       fontSize: sizeRatio(20),
                     }}
@@ -585,8 +586,6 @@ const AccountDetail = () => {
                   </Typography>
                   <Typography
                     style={{
-                      fontFamily: "Helvetica",
-                      fontWeight: 400,
                       fontSize: sizeRatio(16),
                     }}
                   >
@@ -611,7 +610,6 @@ const AccountDetail = () => {
                 <Box>
                   <Typography
                     style={{
-                      fontFamily: "Helvetica",
                       fontWeight: 700,
                       fontSize: sizeRatio(20),
                     }}
@@ -620,8 +618,6 @@ const AccountDetail = () => {
                   </Typography>
                   <Typography
                     style={{
-                      fontFamily: "Helvetica",
-                      fontWeight: 400,
                       fontSize: sizeRatio(16),
                     }}
                   >
@@ -647,7 +643,6 @@ const AccountDetail = () => {
                 <Box>
                   <Typography
                     style={{
-                      fontFamily: "Helvetica",
                       fontWeight: 700,
                       fontSize: sizeRatio(20),
                     }}
@@ -656,8 +651,6 @@ const AccountDetail = () => {
                   </Typography>
                   <Typography
                     style={{
-                      fontFamily: "Helvetica",
-                      fontWeight: 400,
                       fontSize: sizeRatio(16),
                     }}
                   >
@@ -682,7 +675,6 @@ const AccountDetail = () => {
                 <Box>
                   <Typography
                     style={{
-                      fontFamily: "Helvetica",
                       fontWeight: 700,
                       fontSize: sizeRatio(20),
                     }}
@@ -691,8 +683,6 @@ const AccountDetail = () => {
                   </Typography>
                   <Typography
                     style={{
-                      fontFamily: "Helvetica",
-                      fontWeight: 400,
                       fontSize: sizeRatio(16),
                     }}
                   >
@@ -703,7 +693,6 @@ const AccountDetail = () => {
             </Box>
             <Box
               style={{
-                fontFamily: "Helvetica",
                 fontWeight: 300,
                 fontSize: sizeRatio(36),
               }}
@@ -728,7 +717,6 @@ const AccountDetail = () => {
                       <TableCell
                         align="center"
                         style={{
-                          fontFamily: "Helvetica",
                           fontWeight: 700,
                           fontSize: sizeRatio(16),
                         }}
@@ -738,7 +726,6 @@ const AccountDetail = () => {
                       <TableCell
                         align="center"
                         style={{
-                          fontFamily: "Helvetica",
                           fontWeight: 700,
                           fontSize: sizeRatio(16),
                         }}
@@ -748,7 +735,6 @@ const AccountDetail = () => {
                       <TableCell
                         align="center"
                         style={{
-                          fontFamily: "Helvetica",
                           fontWeight: 700,
                           fontSize: sizeRatio(16),
                         }}

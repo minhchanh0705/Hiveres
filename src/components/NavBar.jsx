@@ -1,9 +1,7 @@
 import { Fragment, useState } from "react";
-import Container from "@mui/material/Container";
 import { useTranslation } from "react-i18next";
-import { Dropdown, Nav, NavDropdown } from "react-bootstrap";
-import logo from "@/assets/icon/logo.png";
 import moment from "moment";
+import logo from "../../public/assets/icon/logo.png";
 import { FiBell, FiLogIn, FiLogOut, FiSettings } from "react-icons/fi";
 import { MdOutlinePrivacyTip } from "react-icons/md";
 import { useSetRecoilState, useRecoilValue, useRecoilState } from "recoil";
@@ -28,6 +26,7 @@ import {
   MenuItem,
   Modal,
   Select,
+  Slider,
   TextField,
   Typography,
 } from "@mui/material";
@@ -86,7 +85,13 @@ const NavBar = () => {
     typeof tab == "string" && !tab.includes("/") && setCurrentTab(tab);
   };
   let navigate = useNavigate();
-
+  const [value, setValue] = useState([20, 37]);
+  function valuetext(value) {
+    return `${value}%`;
+  }
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
   const [anchorEl, setAnchorEl] = useState(null);
   const [anchorNoti, setAnchorNoti] = useState(null);
   const open = Boolean(anchorEl);
@@ -123,11 +128,11 @@ const NavBar = () => {
   };
 
   const setSubmit = () => {
-    console.log("hello");
     setShowSupportModal(false);
   };
 
-  const lstSupportType = ["Type 1", "Type 2"];
+  const lstSupportType = ["Choose an area", "Type 1", "Type 2"];
+
   return (
     <Box
       activeKey="/"
@@ -135,8 +140,9 @@ const NavBar = () => {
       style={{
         height: sizeRatio(80),
         display: "flex",
+        flex: 1,
+
         alignItems: "center",
-        backgroundColor: "#FFFFFF",
         boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.2)",
       }}
     >
@@ -603,7 +609,7 @@ const NavBar = () => {
                   width: sizeRatio(32),
                   height: sizeRatio(32),
                 }}
-                src="../../../../src/assets/icon/avatar.png"
+                src="../../../../public/assets/icon/avatar.png"
                 alt=""
               />
               <Box
@@ -647,7 +653,7 @@ const NavBar = () => {
                     width: sizeRatio(32),
                     height: sizeRatio(32),
                   }}
-                  src="../../../../src/assets/icon/avatar.png"
+                  src="../../../../public/assets/icon/avatar.png"
                   alt=""
                 />
                 <Box

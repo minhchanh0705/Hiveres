@@ -1,4 +1,3 @@
-import * as React from "react";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
@@ -7,14 +6,10 @@ import ListItemText from "@mui/material/ListItemText";
 import Checkbox from "@mui/material/Checkbox";
 import { sizeRatio } from "@/theme";
 import { Typography } from "@mui/material";
+import { useState } from "react";
 
-export default function CheckboxList({
-  bgcolor,
-  txtColor,
-  lstItems,
-  nameCheckbox,
-}) {
-  const [checked, setChecked] = React.useState([0]);
+const CheckboxList = ({ bgcolor, txtColor, lstItems, nameCheckbox }) => {
+  const [checked, setChecked] = useState([0]);
 
   const handleToggle = (value) => () => {
     const currentIndex = checked.indexOf(value);
@@ -46,18 +41,20 @@ export default function CheckboxList({
     <List sx={{ width: "100%" }}>
       {lstItems.map((value) => {
         const labelId = `checkbox-list-label-${value}`;
-        console.log(imgName(value));
         return (
           <ListItem key={value} disablePadding>
             <ListItemButton
-              role={undefined}
+              sx={{
+                paddingLeft: 0,
+              }}
               onClick={handleToggle(value)}
               dense
             >
               <ListItemIcon>
                 <Checkbox
-                  edge="start"
                   sx={{
+                    padding: 0,
+                    margin: 0,
                     backgroundColor: txtColor,
                     borderRadius: "4px",
                     width: sizeRatio(20),
@@ -99,12 +96,12 @@ export default function CheckboxList({
                             height: sizeRatio(12),
                             marginRight: sizeRatio(8),
                           }}
-                          src={`../../../src/assets/icon/${value}.png`}
+                          src={`../../../public/assets/icon/${value}.png`}
                           alt=""
                         />
                         {imgName(value)}
                       </>
-                    ) : (
+                    ) : nameCheckbox === "Action" ? (
                       <>
                         <img
                           style={{
@@ -112,15 +109,16 @@ export default function CheckboxList({
                             height: sizeRatio(12),
                             marginRight: sizeRatio(8),
                           }}
-                          src={`../../../src/assets/icon/${value}.png`}
+                          src={`../../../public/assets/icon/${value}.png`}
                           alt=""
                         />
                         {value}
                       </>
+                    ) : (
+                      <>{value}</>
                     )}
                   </Typography>
                 }
-                // primary={`Line item ${value + 1}`}
               />
             </ListItemButton>
           </ListItem>
@@ -128,4 +126,5 @@ export default function CheckboxList({
       })}
     </List>
   );
-}
+};
+export default CheckboxList;

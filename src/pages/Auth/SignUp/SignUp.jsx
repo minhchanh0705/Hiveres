@@ -1,8 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useRecoilState } from "recoil";
 import { useNavigate } from "react-router-dom";
-import { sentEmailSignUpAtom, verifiedCodeSignUpAtom } from "@/recoil/atoms";
-import companyLogo from "@/assets/icon/logo.png";
+import companyLogo from "../../../../public/assets/icon/logo.png";
 import { useTranslation } from "react-i18next";
 import { sizeRatio } from "@/theme";
 import { Box, Button, Link, Typography } from "@mui/material";
@@ -26,7 +24,7 @@ const SignUp = () => {
   step === 2 &&
     setTimeout(() => {
       setTimer(true);
-    }, 3000);
+    }, 60000);
 
   useEffect(() => {
     step === 2 && timer && setStep(1);
