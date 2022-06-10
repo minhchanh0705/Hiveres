@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import companyLogo from "../../../../public/assets/icon/logo.png";
+import companyLogo from "/assets/icon/logo.png";
 import { useTranslation } from "react-i18next";
 import { sizeRatio } from "@/theme";
 import { Box, Button, Link, Typography } from "@mui/material";

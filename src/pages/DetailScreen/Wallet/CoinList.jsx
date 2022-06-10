@@ -28,7 +28,7 @@ const ImgLogo = ({ name }) => {
         height: sizeRatio(40),
         marginRight: sizeRatio(25),
       }}
-      src={`../../../public/assets/icon/${name}.png`}
+      src={`/assets/icon/${name}.png`}
       alt=""
     />
   );
@@ -72,15 +72,22 @@ const RowsCoinList = ({ r1 }) => {
           >
             <Icon iconName={r1.asset[0]} />
             <Box>
-              <Box
+              <Typography
                 style={{
                   fontWeight: 700,
                   fontSize: sizeRatio(16),
                 }}
               >
                 {r1.asset[0]}
-              </Box>
-              <Typography>{r1.asset[1]}</Typography>
+              </Typography>
+              <Typography
+                style={{
+                  fontWeight: 700,
+                  fontSize: sizeRatio(12),
+                }}
+              >
+                {r1.asset[1]}
+              </Typography>
             </Box>
           </Box>
         </TableCell>
@@ -93,21 +100,27 @@ const RowsCoinList = ({ r1 }) => {
             fontSize: sizeRatio(14),
           }}
         >
-          <Box
+          <Typography
             style={{
               fontWeight: 700,
               fontSize: sizeRatio(16),
             }}
           >
             {r1.reason[0]}
-          </Box>
-          <Typography>{r1.reason[1]}</Typography>
+          </Typography>
+          <Typography
+            style={{
+              fontWeight: 400,
+              fontSize: sizeRatio(14),
+            }}
+          >
+            {r1.reason[1]}
+          </Typography>
         </TableCell>
         <TableCell
           align="right"
           style={{
             width: sizeRatio(229.6),
-
             fontWeight: 700,
             fontSize: sizeRatio(16),
             color: "#B91C1C",

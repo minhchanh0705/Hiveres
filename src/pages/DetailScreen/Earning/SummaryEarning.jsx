@@ -97,7 +97,7 @@ const SummaryEarning = ({ tabEarning }) => {
             width: sizeRatio(27),
             marginRight: sizeRatio(25),
           }}
-          src="../../../public/assets/icon/SLP.png"
+          src="/assets/icon/SLP.png"
           alt=""
         />
 

@@ -1,7 +1,7 @@
 import { Fragment, useState } from "react";
 import { useTranslation } from "react-i18next";
 import moment from "moment";
-import logo from "../../public/assets/icon/logo.png";
+import logo from "/assets/icon/logo.png";
 import { FiBell, FiLogIn, FiLogOut, FiSettings } from "react-icons/fi";
 import { MdOutlinePrivacyTip } from "react-icons/md";
 import { useSetRecoilState, useRecoilValue, useRecoilState } from "recoil";
@@ -609,7 +609,7 @@ const NavBar = () => {
                   width: sizeRatio(32),
                   height: sizeRatio(32),
                 }}
-                src="../../../../public/assets/icon/avatar.png"
+                src="/assets/icon/avatar.png"
                 alt=""
               />
               <Box
@@ -653,7 +653,7 @@ const NavBar = () => {
                     width: sizeRatio(32),
                     height: sizeRatio(32),
                   }}
-                  src="../../../../public/assets/icon/avatar.png"
+                  src="/assets/icon/avatar.png"
                   alt=""
                 />
                 <Box

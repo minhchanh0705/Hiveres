@@ -339,7 +339,12 @@ const AccountDetail = () => {
             colSpan={7}
           >
             <Collapse in={open} timeout="auto" unmountOnExit>
-              <Box sx={{ margin: 1 }}>
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-around",
+                }}
+              >
                 {lstSkills.map((e) => (
                   <img
                     style={{

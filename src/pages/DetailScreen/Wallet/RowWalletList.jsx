@@ -23,7 +23,7 @@ const RowWalletList = ({ row }) => {
               width: sizeRatio(40),
               height: sizeRatio(40),
             }}
-            src={`../../../public/assets/icon/${row.asset}.png`}
+            src={`/assets/icon/${row.asset}.png`}
             alt=""
           />
           {row.asset}

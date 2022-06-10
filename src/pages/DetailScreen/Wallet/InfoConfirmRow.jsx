@@ -38,7 +38,7 @@ const InfoConfirmRow = ({ keys, value, value2 }) => {
               height: sizeRatio(30),
               marginRight: sizeRatio(5),
             }}
-            src={`../../../public/assets/icon/${value}.png`}
+            src={`/assets/icon/${value}.png`}
             alt=""
           />
         )}

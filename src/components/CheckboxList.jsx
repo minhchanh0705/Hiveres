@@ -96,7 +96,7 @@ const CheckboxList = ({ bgcolor, txtColor, lstItems, nameCheckbox }) => {
                             height: sizeRatio(12),
                             marginRight: sizeRatio(8),
                           }}
-                          src={`../../../public/assets/icon/${value}.png`}
+                          src={`/assets/icon/${value}.png`}
                           alt=""
                         />
                         {imgName(value)}
@@ -109,7 +109,7 @@ const CheckboxList = ({ bgcolor, txtColor, lstItems, nameCheckbox }) => {
                             height: sizeRatio(12),
                             marginRight: sizeRatio(8),
                           }}
-                          src={`../../../public/assets/icon/${value}.png`}
+                          src={`/assets/icon/${value}.png`}
                           alt=""
                         />
                         {value}

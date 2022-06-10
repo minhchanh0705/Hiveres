@@ -70,7 +70,7 @@ const ImgLogo = ({ name }) => {
         height: sizeRatio(40),
         marginRight: sizeRatio(25),
       }}
-      src={`../../../public/assets/icon/${name}.png`}
+      src={`/assets/icon/${name}.png`}
       alt=""
     />
   );
@@ -263,7 +263,7 @@ const ChartBalance = () => {
                     width: sizeRatio(160),
                     height: sizeRatio(160),
                   }}
-                  src="../../../public/assets/icon/qr.png"
+                  src="/assets/icon/qr.png"
                   alt=""
                 />
               </Box>

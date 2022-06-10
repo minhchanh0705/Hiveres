@@ -24,7 +24,7 @@ const ListWallet = ({ wallet, walletId }) => {
             height: sizeRatio(30),
             marginRight: sizeRatio(5),
           }}
-          src={`../../../public/assets/icon/${wallet}.png`}
+          src={`/assets/icon/${wallet}.png`}
           alt=""
         />
         <Typography>{wallet}</Typography>

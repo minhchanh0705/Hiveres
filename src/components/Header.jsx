@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 
 import { authAtom } from "@/recoil/atoms";
 import { useRecoilState } from "recoil";
-import companyLogo from "../../public/assets/icon/logo.png";
+import companyLogo from "/assets/icon/logo.png";
 import { US, VN } from "country-flag-icons/react/3x2";
 import Modal from "react-modal";
 import styles from "./modalStyle";
