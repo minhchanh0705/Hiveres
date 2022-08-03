@@ -1,13 +1,11 @@
 import { atom } from "recoil";
+import { recoilPersist } from "recoil-persist";
+const { persistAtom } = recoilPersist();
 
 const usersAtom = atom({
   key: "users",
   default: null,
-});
-
-const authAtom = atom({
-  key: "auth",
-  default: localStorage.getItem("user"),
+  effects_UNSTABLE: [persistAtom],
 });
 
 const sentEmailSignUpAtom = atom({
@@ -30,11 +28,6 @@ const verifiedCodeForgotAtom = atom({
   default: localStorage.getItem("verifiedCodeForgot"),
 });
 
-const currentTabAtom = atom({
-  key: "tab",
-  default: "Market",
-});
-
 const currentSectionAtom = atom({
   key: "section",
   default: "Wallet",
@@ -45,8 +38,6 @@ const isExpandAtom = atom({
 });
 export {
   usersAtom,
-  authAtom,
-  currentTabAtom,
   currentSectionAtom,
   isExpandAtom,
   sentEmailSignUpAtom,

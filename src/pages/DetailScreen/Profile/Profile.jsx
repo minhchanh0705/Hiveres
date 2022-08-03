@@ -1,12 +1,14 @@
 import DrawerComponent from "@/components/DrawerComponent";
 import NavBar from "@/components/NavBar";
+import { useUserActions } from "@/recoil/actions";
 import { isExpandAtom } from "@/recoil/atoms";
-import { sizeRatio } from "@/theme";
+import { colors, sizeRatio, styleModal676, text } from "@/theme";
 import {
   Box,
   Button,
   FormControl,
   MenuItem,
+  Modal,
   Select,
   TextField,
   Typography,
@@ -22,8 +24,22 @@ const Profile = () => {
   const isExpand = useRecoilValue(isExpandAtom);
   const [gender, setGender] = useState("male");
   const [nationality, setNationality] = useState("valueNull");
+  const [showModalCofirm, setShowModalCofirm] = useState(false);
   const [value, setValue] = useState(new Date("2014-08-18T21:11:54"));
   const options = useMemo(() => countryList().getData(), []);
+  const { logOut } = useUserActions();
+  const {
+    NeutralDay000,
+    NeutralDay900,
+    NeutralDay500,
+    NeutralDay700,
+    PrimaryBlue900,
+  } = colors;
+  const { S20W700, S16W700, S32W500 } = text;
+
+  const signOut = () => {
+    setShowModalCofirm(true);
+  };
   const changeHandler = (v) => {
     setNationality(v.value);
   };
@@ -33,13 +49,13 @@ const Profile = () => {
   const styles = {
     inputDropdown: {
       backgroundColor: "#FFF",
-      height: sizeRatio(52),
       borderRadius: sizeRatio(8),
       borderWidth: "0px",
       fontSize: sizeRatio(20),
-      flex: 10,
+      flex: 1,
     },
     field: {
+      height: sizeRatio(60),
       display: "flex",
       width: "100%",
       alignItems: "center",
@@ -48,17 +64,17 @@ const Profile = () => {
     },
     title: {
       fontSize: sizeRatio(20),
-      color: "#0F172A",
-      flex: 2,
+      color: NeutralDay000,
+      width: sizeRatio(150),
     },
     inputWide: {
-      height: sizeRatio(52),
+      height: sizeRatio(60),
       borderRadius: sizeRatio(8),
       borderWidth: "0px",
-      color: "#0F172A",
+      color: NeutralDay000,
       fontSize: sizeRatio(18),
       paddingLeft: sizeRatio(12),
-      flex: 10,
+      flex: 1,
     },
   };
   return (
@@ -106,7 +122,7 @@ const Profile = () => {
                   width: sizeRatio(150),
                   height: sizeRatio(150),
                 }}
-                src="../../../../src/assets/icon/avatar.png"
+                src="/assets/icon/avatar.png"
                 alt=""
               />
               <Typography
@@ -127,6 +143,7 @@ const Profile = () => {
             >
               <Button
                 style={{
+                  outline: "none",
                   border: "1px solid #061123",
                   borderRadius: "10px",
                   display: "flex",
@@ -134,6 +151,9 @@ const Profile = () => {
                   paddingInline: sizeRatio(20),
                   paddingBlock: sizeRatio(6),
                   color: "#061123",
+                }}
+                onClick={() => {
+                  signOut();
                 }}
               >
                 <Typography
@@ -167,7 +187,7 @@ const Profile = () => {
               style={{
                 fontSize: sizeRatio(36),
                 marginLeft: sizeRatio(70),
-                color: "#0F172A",
+                color: NeutralDay000,
               }}
             >
               Account's Info
@@ -211,7 +231,7 @@ const Profile = () => {
               style={{
                 fontSize: sizeRatio(36),
                 marginLeft: sizeRatio(70),
-                color: "#0F172A",
+                color: NeutralDay000,
               }}
             >
               Personal Info
@@ -231,55 +251,76 @@ const Profile = () => {
               <Typography style={styles.title}>Name</Typography>
               <input defaultValue="Hiveres" style={styles.inputWide} />
             </Box>
-            <Box style={styles.field}>
-              <Typography style={styles.title}>Gender</Typography>
-              <FormControl style={styles.inputDropdown}>
-                <Select
-                  value={gender}
-                  onChange={(e) => setGender(e.target.value)}
-                  style={{
-                    height: sizeRatio(50),
-                  }}
-                  sx={{
-                    "& legend": {
-                      display: "none",
-                    },
-                    "& .MuiOutlinedInput-notchedOutline": {
-                      border: "none",
-                    },
-                  }}
-                >
-                  <MenuItem key="m" value="male">
-                    <Typography
-                      style={{
-                        fontSize: sizeRatio(20),
-                      }}
-                    >
-                      Male
-                    </Typography>
-                  </MenuItem>
-                  <MenuItem key="f" value="female">
-                    <Typography
-                      style={{
-                        fontSize: sizeRatio(20),
-                      }}
-                    >
-                      Female
-                    </Typography>
-                  </MenuItem>
-                </Select>
-              </FormControl>
+            <Box style={{ display: "flex" }}>
+              <Box style={styles.field}>
+                <Typography style={styles.title}>Gender</Typography>
+                <FormControl style={styles.inputDropdown}>
+                  <Select
+                    value={gender}
+                    onChange={(e) => setGender(e.target.value)}
+                    sx={{
+                      "& legend": {
+                        display: "none",
+                      },
+                      "& .MuiOutlinedInput-notchedOutline": {
+                        border: "none",
+                      },
+                    }}
+                  >
+                    <MenuItem key="m" value="male">
+                      <Typography
+                        style={{
+                          fontSize: sizeRatio(20),
+                        }}
+                      >
+                        Male
+                      </Typography>
+                    </MenuItem>
+                    <MenuItem key="f" value="female">
+                      <Typography
+                        style={{
+                          fontSize: sizeRatio(20),
+                        }}
+                      >
+                        Female
+                      </Typography>
+                    </MenuItem>
+                  </Select>
+                </FormControl>
+              </Box>
+              <Box style={styles.field}>
+                <Typography style={styles.title}>Date of birth</Typography>
+                <Box style={styles.inputDropdown}>
+                  <LocalizationProvider dateAdapter={AdapterMoment}>
+                    <DesktopDatePicker
+                      inputFormat="MM/DD/yyyy"
+                      value={value}
+                      onChange={handleChange}
+                      renderInput={(params) => (
+                        <TextField
+                          {...params}
+                          sx={{
+                            width: sizeRatio(318),
+                            "& .MuiOutlinedInput-notchedOutline": {
+                              border: "none",
+                            },
+                          }}
+                        />
+                      )}
+                    />
+                  </LocalizationProvider>
+                </Box>
+              </Box>
             </Box>
             <Box style={styles.field}>
               <Typography style={styles.title}>Nation</Typography>
               <FormControl
                 style={{
                   backgroundColor: "#FFF",
-                  height: sizeRatio(52),
                   borderRadius: sizeRatio(8),
                   borderWidth: "0px",
                   fontSize: sizeRatio(20),
-                  flex: 10,
+                  flex: 1,
                 }}
               >
                 <Select
@@ -318,32 +359,6 @@ const Profile = () => {
                 </Select>
               </FormControl>
             </Box>
-            <Box style={styles.field}>
-              <Typography style={styles.title}>Date of birth</Typography>
-              <Box style={styles.inputDropdown}>
-                <LocalizationProvider
-                  dateAdapter={AdapterMoment}
-                  style={styles.inputDropdown}
-                >
-                  <DesktopDatePicker
-                    inputFormat="MM/DD/yyyy"
-                    value={value}
-                    onChange={handleChange}
-                    renderInput={(params) => (
-                      <TextField
-                        {...params}
-                        sx={{
-                          width: sizeRatio(318),
-                          "& .MuiOutlinedInput-notchedOutline": {
-                            border: "none",
-                          },
-                        }}
-                      />
-                    )}
-                  />
-                </LocalizationProvider>
-              </Box>
-            </Box>
           </Box>
 
           <Box
@@ -357,6 +372,7 @@ const Profile = () => {
           >
             <Button
               style={{
+                outline: "none",
                 width: sizeRatio(210),
                 height: sizeRatio(48),
                 backgroundColor: "#061123",
@@ -385,6 +401,48 @@ const Profile = () => {
           </Box>
         </Box>
       </Box>
+      <Modal open={showModalCofirm} onClose={() => setShowModalCofirm(false)}>
+        <Box sx={{ ...styleModal676, backgroundColor: "white" }}>
+          <Typography style={{ ...S20W700, textAlign: "center" }}>
+            Sign out
+          </Typography>
+          <Typography style={{ ...S32W500, textAlign: "center" }}>
+            Are you sure?
+          </Typography>
+          <Box style={{ display: "flex", justifyContent: "center" }}>
+            <Button
+              style={{
+                ...S16W700,
+                width: sizeRatio(92),
+                height: sizeRatio(32),
+                backgroundColor: NeutralDay700,
+                marginTop: sizeRatio(30),
+                marginInline: sizeRatio(10),
+                color: NeutralDay500,
+              }}
+              onClick={() => {
+                setShowModalCofirm(false);
+              }}
+            >
+              Cancel
+            </Button>
+            <Button
+              style={{
+                ...S16W700,
+                width: sizeRatio(92),
+                height: sizeRatio(32),
+                backgroundColor: PrimaryBlue900,
+                marginTop: sizeRatio(30),
+                marginInline: sizeRatio(10),
+                color: NeutralDay900,
+              }}
+              onClick={logOut}
+            >
+              Sure
+            </Button>
+          </Box>
+        </Box>
+      </Modal>
     </Box>
   );
 };

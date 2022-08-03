@@ -1,0 +1,16 @@
+{
+  "lstWallet": [
+    {
+      "name": "Ronin",
+      "detail": "ronin:13612263a7619ed817007524760274c86277d922"
+    },
+    {
+      "name": "MetaMask",
+      "detail": "0xE42540E579122B03f6A37810Ae3879bd38236315"
+    },
+    {
+      "name": "Fantom",
+      "detail": "0xf9ef17ea44c2813e564100728781cdb5887a2363fd"
+    }
+  ]
+}

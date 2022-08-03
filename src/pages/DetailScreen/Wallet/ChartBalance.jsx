@@ -12,8 +12,6 @@ import {
   Box,
   Typography,
   Paper,
-  TableRow,
-  TableCell,
   ButtonGroup,
   Button,
   Modal,
@@ -22,77 +20,97 @@ import {
   MenuItem,
   Checkbox,
 } from "@mui/material";
-import { sizeRatio } from "@/theme";
+import { colors, sizeRatio, space, styleModal700, text } from "@/theme";
 import NetworkSelect from "./NetworkSelect";
-const data = {
-  labels: ["HVR 0,314", "SLP 0,314", "BTC 0,314", "STEPN 0,314"],
-  datasets: [
-    {
-      label: "# of Votes",
-      data: [12, 8, 7, 5],
-      backgroundColor: ["#0F172A", "#475569", "#CBD5E1", "#94A3BB"],
-      borderColor: "#FFFFFF",
-      borderWidth: 1,
-    },
-  ],
-};
-const lstToken = {
-  BTC: "Bitcoin",
-  ETH: "Entherium",
-  SLP: "Smooth Love Potion",
-};
-const ItemToken = ({ token }) => {
-  return (
-    <Box
-      style={{
-        display: "flex",
-        alignItems: "center",
-      }}
-    >
-      <Icon iconName={token} />
-      <Typography
-        style={{
-          fontWeight: 700,
-          fontSize: sizeRatio(16),
-        }}
-      >
-        {token} - {lstToken[token]}
-      </Typography>
-    </Box>
-  );
-};
 
-const ImgLogo = ({ name }) => {
-  return (
-    <img
-      style={{
-        width: sizeRatio(40),
-        height: sizeRatio(40),
-        marginRight: sizeRatio(25),
-      }}
-      src={`/assets/icon/${name}.png`}
-      alt=""
-    />
-  );
-};
-const Icon = ({ iconName }) => {
-  if (iconName === "HVR") {
-    return <ImgLogo name="HVR" />;
-  } else if (iconName === "SLP") {
-    return <ImgLogo name="SLP" />;
-  } else if (iconName === "BTC") {
-    return <ImgLogo name="BTC" />;
-  } else if (iconName === "STEPN") {
-    return <ImgLogo name="STEPN" />;
-  } else if (iconName === "ETH") {
-    return <ImgLogo name="ETH" />;
-  }
-};
-
-const ChartBalance = () => {
+const ChartBalance = ({ lstWallet }) => {
   const [modalTransaction, setModalTransaction] = useState("");
   const [typeWithdraw, setTypeWithdraw] = useState("Outside");
-  const [valueTokenDeposit, setValueTokenDeposit] = useState("BTC");
+  const [typeToken, setTypeToken] = useState("BTC");
+  const [idWallet, setIdWallet] = useState("chooseWallet");
+  const {
+    NeutralDay000,
+    NeutralDay300,
+    NeutralDay400,
+    NeutralDay500,
+    NeutralDay600,
+    NeutralDay700,
+    NeutralDay900,
+    PrimaryBlue900,
+  } = colors;
+  const { S16W400, S16W700, S24W700, S12W700, S20W700, S10W400, S14W400 } =
+    text;
+  const { FlexCol, RowFlexEnd, RowFlexStart, Row, RowCenter, RowSpaceBetween } =
+    space;
+
+  const data = {
+    labels: ["HVR 0,314", "SLP 0,314", "BTC 0,314", "STEPN 0,314"],
+    datasets: [
+      {
+        label: "# of Votes",
+        data: [12, 8, 7, 5],
+        backgroundColor: [
+          NeutralDay000,
+          NeutralDay300,
+          NeutralDay600,
+          NeutralDay500,
+        ],
+        borderColor: "#FFFFFF",
+        borderWidth: 1,
+      },
+    ],
+  };
+  const lstToken = [
+    {
+      name: "BTC",
+      detail: "Bitcoin",
+    },
+    {
+      name: "ETH",
+      detail: "Entherium",
+    },
+    {
+      name: "SLP",
+      detail: "Smooth Love Potion",
+    },
+  ];
+  const ItemToken = ({ name, detail }) => {
+    return (
+      <Box
+        style={{
+          display: "flex",
+          alignItems: "center",
+        }}
+      >
+        <Icon iconName={name} />
+        <Typography
+          style={{
+            fontSize: sizeRatio(14),
+          }}
+        >
+          {name} - {detail}
+        </Typography>
+      </Box>
+    );
+  };
+
+  const ImgLogo = ({ name }) => {
+    return (
+      <img
+        style={{
+          width: sizeRatio(40),
+          height: sizeRatio(40),
+          marginRight: sizeRatio(25),
+        }}
+        src={`/assets/icon/${name}.png`}
+        alt=""
+      />
+    );
+  };
+  const Icon = ({ iconName }) => {
+    return <ImgLogo name={iconName} />;
+  };
+
   const props = {
     inputStyle: {
       width: sizeRatio(40),
@@ -108,6 +126,40 @@ const ChartBalance = () => {
     },
   };
 
+  const styles = {
+    inputStyle: {
+      height: sizeRatio(48),
+      width: "100%",
+      borderRadius: "8px",
+      borderWidth: "1px",
+      borderColor: "#64748B",
+      borderStyle: "solid",
+      paddingLeft: sizeRatio(10),
+      paddingRight: sizeRatio(100),
+    },
+    btnStyle: {
+      ...S14W400,
+      outline: "none",
+      width: sizeRatio(120),
+      height: sizeRatio(30),
+      marginInline: sizeRatio(12),
+      borderRadius: "4px",
+      borderWidth: "1px",
+      borderStyle: "solid",
+      borderColor: NeutralDay300,
+      color: NeutralDay300,
+    },
+    btnWithdraw: {
+      display: "flex",
+      flex: 1,
+      borderRadius: sizeRatio(8),
+      height: sizeRatio(56),
+      justifyContent: "flex-start",
+      paddingLeft: sizeRatio(14),
+      outline: "none",
+      boxShadow: "none",
+    },
+  };
   return (
     <Box
       style={{
@@ -124,18 +176,7 @@ const ChartBalance = () => {
         }}
       >
         <Button
-          style={{
-            width: sizeRatio(120),
-            height: sizeRatio(30),
-            marginInline: sizeRatio(12),
-            borderRadius: "4px",
-            borderWidth: "1px",
-            borderStyle: "solid",
-            borderColor: "#475569",
-            color: "#475569",
-            fontWeight: 700,
-            fontSize: sizeRatio(14),
-          }}
+          style={styles.btnStyle}
           onClick={() => setModalTransaction("Deposit")}
         >
           Deposit
@@ -144,41 +185,22 @@ const ChartBalance = () => {
           open={modalTransaction === "Deposit"}
           onClose={() => setModalTransaction("")}
         >
-          <Box
-            sx={{
-              position: "absolute",
-              top: "50%",
-              left: "50%",
-              transform: "translate(-50%, -50%)",
-              width: sizeRatio(676),
-              bgcolor: "#FFF",
-              paddingBlock: sizeRatio(35),
-              paddingInline: sizeRatio(70),
-              borderRadius: "12px",
-            }}
-          >
-            <Typography
-              style={{
-                fontWeight: 700,
-                fontSize: sizeRatio(24),
-                textAlign: "center",
-              }}
-            >
+          <Box sx={styleModal700}>
+            <Typography style={{ ...S24W700, textAlign: "center" }}>
               Deposit
             </Typography>
             <Typography
               style={{
-                marginTop: sizeRatio(15),
-                fontWeight: 700,
-                fontSize: sizeRatio(16),
+                ...S16W700,
+                S16W400,
               }}
             >
               Asset
             </Typography>
             <FormControl fullWidth style={{ marginTop: sizeRatio(10) }}>
               <Select
-                value={valueTokenDeposit}
-                onChange={(e) => setValueTokenDeposit(e.target.value)}
+                value={typeToken}
+                onChange={(e) => setTypeToken(e.target.value)}
                 style={{
                   height: sizeRatio(65),
                   borderRadius: "8px",
@@ -189,18 +211,17 @@ const ChartBalance = () => {
                   },
                 }}
               >
-                {Object.keys(lstToken).map((t) => (
-                  <MenuItem key={t} value={t}>
-                    <ItemToken key={t} token={t} />
+                {lstToken.map((t) => (
+                  <MenuItem key={t.name} value={t.name}>
+                    <ItemToken key={t.name} detail={t.detail} name={t.name} />
                   </MenuItem>
                 ))}
               </Select>
             </FormControl>
             <Typography
               style={{
+                ...S16W700,
                 marginTop: sizeRatio(15),
-                fontWeight: 700,
-                fontSize: sizeRatio(16),
               }}
             >
               Deposit to network
@@ -208,9 +229,8 @@ const ChartBalance = () => {
             <NetworkSelect />
             <Typography
               style={{
+                ...S16W700,
                 marginTop: sizeRatio(15),
-                fontWeight: 700,
-                fontSize: sizeRatio(16),
               }}
             >
               Account's Address
@@ -218,24 +238,17 @@ const ChartBalance = () => {
             <Box style={{ marginTop: sizeRatio(10) }}>
               <Box
                 style={{
-                  display: "flex",
-                  alignItems: "center",
+                  ...RowCenter,
                   paddingBlock: sizeRatio(12),
-                  justifyContent: "center",
-                  backgroundColor: "#E2E8F0",
+                  backgroundColor: NeutralDay700,
                   borderRadius: "8px 8px 0px 0px",
                 }}
               >
-                <Typography
-                  style={{
-                    fontSize: sizeRatio(16),
-                    color: "#0F172A",
-                  }}
-                >
+                <Typography style={{ ...S16W400, color: NeutralDay000 }}>
                   #00000012123asasadsger
                 </Typography>
                 <Box
-                  sx={{
+                  style={{
                     marginLeft: sizeRatio(8),
                   }}
                   onClick={() => {}}
@@ -244,18 +257,16 @@ const ChartBalance = () => {
                     style={{
                       width: sizeRatio(16),
                       height: sizeRatio(16),
-                      color: "#0F172A",
+                      color: NeutralDay000,
                     }}
                   ></ImCopy>
                 </Box>
               </Box>
               <Box
                 style={{
-                  display: "flex",
-                  alignItems: "center",
+                  ...RowCenter,
                   paddingBlock: sizeRatio(24),
-                  justifyContent: "center",
-                  backgroundColor: "#F8FAFC",
+                  backgroundColor: NeutralDay900,
                 }}
               >
                 <img
@@ -268,10 +279,10 @@ const ChartBalance = () => {
                 />
               </Box>
             </Box>
+
             <Box
               style={{
-                fontWeight: 700,
-                fontSize: sizeRatio(16),
+                ...S16W700,
                 marginTop: sizeRatio(15),
               }}
             >
@@ -291,18 +302,7 @@ const ChartBalance = () => {
           </Box>
         </Modal>
         <Button
-          style={{
-            width: sizeRatio(120),
-            height: sizeRatio(30),
-            marginInline: sizeRatio(12),
-            borderRadius: "4px",
-            borderWidth: "1px",
-            borderStyle: "solid",
-            borderColor: "#475569",
-            color: "#475569",
-            fontWeight: 700,
-            fontSize: sizeRatio(14),
-          }}
+          style={styles.btnStyle}
           onClick={() => setModalTransaction("Withdraw")}
         >
           Withdraw
@@ -311,47 +311,20 @@ const ChartBalance = () => {
           open={modalTransaction === "Withdraw"}
           onClose={() => setModalTransaction("")}
         >
-          <Box
-            sx={{
-              position: "absolute",
-              top: "50%",
-              left: "50%",
-              transform: "translate(-50%, -50%)",
-              width: sizeRatio(676),
-              bgcolor: "#FFF",
-              paddingBlock: sizeRatio(35),
-              paddingInline: sizeRatio(70),
-              borderRadius: "12px",
-            }}
-          >
-            <Typography
-              style={{
-                fontWeight: 700,
-                fontSize: sizeRatio(24),
-                textAlign: "center",
-              }}
-            >
+          <Box sx={styleModal700}>
+            <Typography style={{ ...S24W700, textAlign: "center" }}>
               {typeWithdraw === "Outside" ? "Withdraw" : "Transfer"}
             </Typography>
-            <Box
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                marginTop: sizeRatio(15),
-              }}
-            >
+            <Box style={{ ...FlexCol, marginTop: sizeRatio(15) }}>
               <Box style={{ display: "flex" }}>
                 <Button
                   style={{
-                    display: "flex",
-                    flex: 1,
-                    backgroundColor:
-                      typeWithdraw === "Outside" ? "#CBD5E1" : "#F8FAFC",
-                    borderRadius: sizeRatio(8),
-                    height: sizeRatio(56),
-                    justifyContent: "flex-start",
+                    ...styles.btnWithdraw,
                     marginRight: sizeRatio(6),
-                    paddingLeft: sizeRatio(14),
+                    backgroundColor:
+                      typeWithdraw === "Outside"
+                        ? NeutralDay600
+                        : NeutralDay900,
                   }}
                   onClick={() => {
                     setTypeWithdraw("Outside");
@@ -368,14 +341,8 @@ const ChartBalance = () => {
                       textAlign: "start",
                     }}
                   >
-                    <Typography
-                      style={{
-                        fontSize: sizeRatio(16),
-                      }}
-                    >
-                      Wallet
-                    </Typography>
-                    <Typography style={{ fontSize: sizeRatio(10) }}>
+                    <Typography style={S16W400}>Wallet</Typography>
+                    <Typography style={S10W400}>
                       Withdraw to address outside Hiveres
                     </Typography>
                   </Box>
@@ -383,15 +350,12 @@ const ChartBalance = () => {
 
                 <Button
                   style={{
-                    display: "flex",
-                    flex: 1,
-                    backgroundColor:
-                      typeWithdraw === "Hiverian" ? "#CBD5E1" : "#F8FAFC",
-                    borderRadius: sizeRatio(8),
-                    height: sizeRatio(56),
-                    justifyContent: "flex-start",
+                    ...styles.btnWithdraw,
                     marginLeft: sizeRatio(6),
-                    paddingLeft: sizeRatio(14),
+                    backgroundColor:
+                      typeWithdraw === "Hiverian"
+                        ? NeutralDay600
+                        : NeutralDay900,
                   }}
                   onClick={() => {
                     setTypeWithdraw("Hiverian");
@@ -408,10 +372,8 @@ const ChartBalance = () => {
                       textAlign: "start",
                     }}
                   >
-                    <Typography style={{ fontSize: sizeRatio(16) }}>
-                      Hiverian
-                    </Typography>
-                    <Typography style={{ fontSize: sizeRatio(10) }}>
+                    <Typography style={S16W400}>Hiverian</Typography>
+                    <Typography style={S10W400}>
                       Send to Hiveres user
                     </Typography>
                   </Box>
@@ -421,17 +383,16 @@ const ChartBalance = () => {
               <Box>
                 <Typography
                   style={{
+                    ...S16W700,
                     marginTop: sizeRatio(15),
-                    fontWeight: 700,
-                    fontSize: sizeRatio(16),
                   }}
                 >
                   Asset
                 </Typography>
                 <FormControl fullWidth style={{ marginTop: sizeRatio(10) }}>
                   <Select
-                    value={valueTokenDeposit}
-                    onChange={(e) => setValueTokenDeposit(e.target.value)}
+                    value={typeToken}
+                    onChange={(e) => setTypeToken(e.target.value)}
                     style={{
                       height: sizeRatio(65),
                       borderRadius: "8px",
@@ -442,70 +403,85 @@ const ChartBalance = () => {
                       },
                     }}
                   >
-                    {Object.keys(lstToken).map((t) => (
-                      <MenuItem key={t} value={t}>
-                        <ItemToken key={t} token={t} />
+                    {lstToken.map((t) => (
+                      <MenuItem key={t.name} value={t.name}>
+                        <ItemToken
+                          key={t.name}
+                          detail={t.detail}
+                          name={t.name}
+                        />
                       </MenuItem>
                     ))}
                   </Select>
                 </FormControl>
-                <Box
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                  }}
-                >
+                <Box style={FlexCol}>
                   <Typography
                     style={{
+                      ...S16W700,
                       marginTop: sizeRatio(15),
-                      fontWeight: 700,
-                      fontSize: sizeRatio(16),
                     }}
                   >
-                    Recipient Email
+                    {typeWithdraw === "Outside"
+                      ? "Recipient Email"
+                      : "Recipient Wallet"}
                   </Typography>
-                  <input
-                    type="text"
-                    name="recipientEmail"
-                    style={{
-                      height: sizeRatio(48),
-                      marginTop: sizeRatio(10),
-                      borderRadius: "8px",
-                      borderWidth: "1px",
-                      borderStyle: "solid",
-                      borderColor: "#64748B",
-                    }}
-                  />
+                  {typeWithdraw === "Outside" ? (
+                    <input
+                      type="text"
+                      name="recipientEmail"
+                      style={{ ...styles.inputStyle, marginTop: sizeRatio(10) }}
+                    />
+                  ) : (
+                    <FormControl fullWidth style={{ marginTop: sizeRatio(10) }}>
+                      <Select
+                        value={idWallet}
+                        onChange={(e) => setIdWallet(e.target.value)}
+                        style={{
+                          height: sizeRatio(65),
+                          borderRadius: "8px",
+                        }}
+                        sx={{
+                          "& legend": {
+                            display: "none",
+                          },
+                        }}
+                      >
+                        <MenuItem
+                          key={"chooseWallet"}
+                          value={"chooseWallet"}
+                          disabled
+                        >
+                          <Typography
+                            style={{
+                              ...S16W400,
+                              color: NeutralDay500,
+                            }}
+                          >
+                            Choose Wallet
+                          </Typography>
+                        </MenuItem>
+                        {lstWallet.map((wallet) => (
+                          <MenuItem key={wallet.name} value={wallet.name}>
+                            <ItemToken
+                              key={wallet.detail}
+                              detail={wallet.detail}
+                              name={wallet.name}
+                            />
+                          </MenuItem>
+                        ))}
+                      </Select>
+                    </FormControl>
+                  )}
                 </Box>
 
-                <Box
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                  }}
-                >
-                  <Box
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      marginTop: sizeRatio(15),
-                    }}
-                  >
+                <Box style={FlexCol}>
+                  <Box style={{ ...RowSpaceBetween, marginTop: sizeRatio(15) }}>
+                    <Typography style={S16W700}>Amount</Typography>
                     <Typography
                       style={{
-                        fontWeight: 700,
-                        fontSize: sizeRatio(16),
-                      }}
-                    >
-                      Amount
-                    </Typography>
-                    <Typography
-                      style={{
-                        fontWeight: 700,
-                        fontSize: sizeRatio(16),
+                        ...S16W700,
+                        ...FlexCol,
                         color: "#047857",
-                        display: "flex",
-                        flexDirection: "column",
                       }}
                     >
                       Usable 0.314
@@ -520,21 +496,13 @@ const ChartBalance = () => {
                   >
                     <input
                       type="text"
-                      name="recipientEmail"
-                      style={{
-                        height: sizeRatio(48),
-                        width: "100%",
-                        paddingRight: "60px",
-                        borderRadius: "8px",
-                        borderWidth: "1px",
-                        borderColor: "#64748B",
-                        borderStyle: "solid",
-                        // marginTop: sizeRatio(10),
-                      }}
+                      name="amount"
+                      style={styles.inputStyle}
                     />
                     <Button
                       style={{
                         position: "absolute",
+                        outline: "none",
                         right: sizeRatio(13),
                         width: sizeRatio(64),
                         height: sizeRatio(24),
@@ -544,9 +512,8 @@ const ChartBalance = () => {
                     >
                       <Typography
                         style={{
-                          fontWeight: 700,
-                          fontSize: sizeRatio(12),
-                          color: "#64748B",
+                          ...S12W700,
+                          color: NeutralDay400,
                         }}
                       >
                         MAX
@@ -554,39 +521,14 @@ const ChartBalance = () => {
                     </Button>
                   </Box>
                 </Box>
-                <Box
-                  style={{
-                    display: "flex",
-                    justifyContent: "flex-end",
-                    marginTop: sizeRatio(15),
-                  }}
-                >
-                  <Typography
-                    style={{
-                      fontSize: sizeRatio(16),
-                      marginRight: sizeRatio(5),
-                    }}
-                  >
+                <Box style={{ ...RowFlexEnd, marginTop: sizeRatio(15) }}>
+                  <Typography style={{ ...S16W400, marginRight: sizeRatio(5) }}>
                     Transaction fee:
                   </Typography>
-                  <Typography
-                    style={{
-                      fontSize: sizeRatio(16),
-                      fontWeight: 700,
-                    }}
-                  >
-                    0.000 BTC
-                  </Typography>
+                  <Typography style={S16W700}>0.000 BTC</Typography>
                 </Box>
 
-                <Box
-                  style={{
-                    display: "flex",
-                    justifyContent: "flex-start",
-                    alignItems: "center",
-                    marginTop: sizeRatio(10),
-                  }}
-                >
+                <Box style={{ ...RowFlexStart, marginTop: sizeRatio(10) }}>
                   <Checkbox
                     sx={{
                       padding: 0,
@@ -595,11 +537,10 @@ const ChartBalance = () => {
 
                   <Typography
                     style={{
-                      fontSize: sizeRatio(16),
-                      fontWeight: 700,
+                      ...S16W700,
                       marginLeft: sizeRatio(8),
                       marginRight: sizeRatio(5),
-                      color: "#0F172A",
+                      color: NeutralDay000,
                     }}
                   >
                     I agree with
@@ -607,12 +548,10 @@ const ChartBalance = () => {
                   <Button
                     variant="text"
                     style={{
+                      ...S16W700,
                       padding: 0,
-
-                      fontSize: sizeRatio(16),
-                      fontWeight: 700,
                       textDecoration: "underline",
-                      color: "#0F172A",
+                      color: NeutralDay000,
                     }}
                     onClick={() => {}}
                   >
@@ -621,8 +560,7 @@ const ChartBalance = () => {
                 </Box>
                 <Typography
                   style={{
-                    fontSize: sizeRatio(12),
-                    fontWeight: 700,
+                    ...S12W700,
                     marginRight: sizeRatio(5),
                     marginTop: sizeRatio(5),
                   }}
@@ -641,38 +579,21 @@ const ChartBalance = () => {
           open={modalTransaction === "VerificationCode"}
           onClose={() => setModalTransaction("")}
         >
-          <Box
-            sx={{
-              position: "absolute",
-              top: "50%",
-              left: "50%",
-              transform: "translate(-50%, -50%)",
-              width: sizeRatio(676),
-              bgcolor: "#FFF",
-              paddingBlock: sizeRatio(35),
-              paddingInline: sizeRatio(70),
-              borderRadius: "12px",
-            }}
-          >
-            <Box
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-              }}
-            >
-              <IoArrowBackCircleOutline
-                style={{
-                  fontSize: sizeRatio(30),
-                }}
+          <Box sx={styleModal700}>
+            <Box style={{ ...Row, justifyContent: "space-between" }}>
+              <Button
+                style={{}}
                 onClick={() => setModalTransaction("Withdraw")}
-              />
-              <Typography
-                style={{
-                  fontWeight: 700,
-                  fontSize: sizeRatio(24),
-                }}
               >
+                <IoArrowBackCircleOutline
+                  style={{
+                    fontSize: sizeRatio(30),
+                    color: NeutralDay000,
+                  }}
+                />
+              </Button>
+
+              <Typography style={S24W700}>
                 {typeWithdraw === "Outside" ? "Withdraw" : "Transfer"}
               </Typography>
               <Box
@@ -684,30 +605,22 @@ const ChartBalance = () => {
             </Box>
             <Typography
               style={{
-                fontWeight: 700,
-                fontSize: sizeRatio(20),
+                ...S20W700,
                 marginTop: sizeRatio(30),
               }}
             >
               Enter verification code
             </Typography>
-            <Box
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                marginTop: sizeRatio(30),
-              }}
-            >
+            <Box style={{ ...RowCenter, marginTop: sizeRatio(30) }}>
               <ReactCodeInput type="text" fields={6} {...props} />
             </Box>
 
             <Button
               variant="text"
               style={{
-                fontWeight: 700,
-                fontSize: sizeRatio(12),
+                ...S12W700,
                 marginTop: sizeRatio(30),
-                color: "#0F172A",
+                color: NeutralDay000,
               }}
             >
               Resend
@@ -722,40 +635,15 @@ const ChartBalance = () => {
           open={modalTransaction === "confirmTransaction"}
           onClose={() => setModalTransaction("")}
         >
-          <Box
-            sx={{
-              position: "absolute",
-              top: "50%",
-              left: "50%",
-              transform: "translate(-50%, -50%)",
-              width: sizeRatio(676),
-              bgcolor: "#FFF",
-              paddingBlock: sizeRatio(35),
-              paddingInline: sizeRatio(70),
-              borderRadius: "12px",
-            }}
-          >
-            <Box
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-              }}
-            >
-              <IoArrowBackCircleOutline
-                style={{
-                  fontSize: sizeRatio(30),
-                }}
-                onClick={() => setModalTransaction("VerificationCode")}
-              />
-              <Typography
-                style={{
-                  fontWeight: 700,
-                  fontSize: sizeRatio(24),
-                }}
-              >
-                {typeWithdraw === "Outside" ? "Withdraw" : "Transfer"}{" "}
-                information
+          <Box sx={styleModal700}>
+            <Box style={RowSpaceBetween}>
+              <Button onClick={() => setModalTransaction("VerificationCode")}>
+                <IoArrowBackCircleOutline style={S24W700} />
+              </Button>
+
+              <Typography style={S24W700}>
+                {typeWithdraw === "Outside" ? "Withdraw " : "Transfer "}
+                Information
               </Typography>
               <Box
                 style={{
@@ -764,13 +652,7 @@ const ChartBalance = () => {
                 }}
               />
             </Box>
-            <Box
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                marginTop: sizeRatio(15),
-              }}
-            >
+            <Box style={{ ...FlexCol, marginTop: sizeRatio(15) }}>
               <InfoConfirmRow keys="ID" value="#0000123456" />
               <InfoConfirmRow keys="Asset" value="BTC" />
               <InfoConfirmRow keys="Recipient:" value="#0000123456" />
@@ -785,9 +667,9 @@ const ChartBalance = () => {
               <Button
                 variant="contained"
                 sx={{
-                  backgroundColor: "#061123",
+                  backgroundColor: PrimaryBlue900,
                   marginTop: sizeRatio(30),
-                  color: "#F8FAFC",
+                  color: NeutralDay900,
                   borderRadius: "8px",
                 }}
                 onClick={() => setModalTransaction(false)}
@@ -842,7 +724,7 @@ const ChartBalance = () => {
                 display: true,
                 text: "#wallet code",
                 align: "start",
-                color: "#0F172A",
+                color: NeutralDay000,
                 font: {
                   family: "Helvetica",
                   weight: 700,

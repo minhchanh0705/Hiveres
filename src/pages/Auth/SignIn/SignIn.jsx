@@ -1,12 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useRecoilState } from "recoil";
 import { useNavigate } from "react-router-dom";
-import { authAtom } from "@/recoil/atoms";
 import companyLogo from "/assets/icon/logo.png";
 import { useTranslation } from "react-i18next";
-
-import { sizeRatio } from "@/theme";
+import { colors, sizeRatio } from "@/theme";
 import { Box, Button, Link, Typography } from "@mui/material";
+import { useUserActions } from "@/recoil/actions";
+import { FiEye, FiEyeOff } from "react-icons/fi";
+import axios from "axios";
 
 const EMAIL_REGEX = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
 const PWD_REGEX = /^.{6,}$/;
@@ -14,19 +15,20 @@ const PWD_REGEX = /^.{6,}$/;
 const SignIn = () => {
   // React States
   const emailRef = useRef();
-  const errorRef = useRef();
+  const { NeutralDay000 } = colors;
 
   const [email, setEmail] = useState("");
   const [validEmail, setValidEmail] = useState(false);
   const [emailFocus, setEmailFocus] = useState(false);
   const [showErrEmail, setShowErrEmail] = useState(false);
   const [showErrPass, setShowErrPass] = useState(false);
-
   const [pwd, setPwd] = useState("");
   const [validPwd, setValidPwd] = useState(false);
   const [pwdFocus, setPwdFocus] = useState(false);
-
+  const [pwdShown, setPwdShown] = useState(false);
   const [errMsg, setErrMsg] = useState("");
+
+  const { signIn } = useUserActions();
 
   useEffect(() => {
     emailRef.current.focus();
@@ -59,8 +61,6 @@ const SignIn = () => {
     }
   }, [emailFocus, pwdFocus]);
 
-  const [auth, setAuth] = useRecoilState(authAtom);
-
   let navigate = useNavigate();
   const { t } = useTranslation();
 
@@ -80,6 +80,11 @@ const SignIn = () => {
     },
   ];
 
+  const success = () => {};
+  const fail = () => {
+    setErrMsg("Email or password was wrong");
+  };
+
   const handleSubmit = async (event) => {
     //Prevent page reload
     event.preventDefault();
@@ -90,22 +95,7 @@ const SignIn = () => {
       return;
     }
     try {
-      console.log(email);
-      const indexFoundEmail = database.findIndex((e) => e.email === email);
-      if (indexFoundEmail !== -1) {
-        if (database[indexFoundEmail].password === pwd) {
-          database.push({ email: email, pass: pwd });
-          setAuth(JSON.stringify({ email: email, pass: pwd }));
-          localStorage.setItem(
-            "user",
-            JSON.stringify({ email: email, pass: pwd })
-          );
-        } else {
-          setErrMsg("Email or password was wrong");
-        }
-      } else {
-        setErrMsg("Email or password was wrong");
-      }
+      signIn(email, pwd, fail);
     } catch (error) {}
   };
 
@@ -134,7 +124,7 @@ const SignIn = () => {
               marginBottom: sizeRatio(6),
               paddingLeft: sizeRatio(18),
               borderRadius: "12px",
-              borderColor: "#0F172A",
+              borderColor: NeutralDay000,
               borderWidth: "1px",
             }}
             onChange={(e) => setEmail(e.target.value)}
@@ -162,24 +152,47 @@ const SignIn = () => {
           >
             Password
           </Typography>
-          <input
-            type="password"
-            name="password"
-            required
+          <Box
             style={{
-              width: sizeRatio(530),
-              height: sizeRatio(50),
-              marginTop: sizeRatio(4),
-              marginBottom: sizeRatio(6),
-              paddingLeft: sizeRatio(18),
-              borderRadius: "12px",
-              borderColor: "#0F172A",
-              borderWidth: "1px",
+              position: "relative",
+              marginTop: sizeRatio(10),
             }}
-            onChange={(e) => setPwd(e.target.value)}
-            onFocus={() => setPwdFocus(true)}
-            onBlur={() => setPwdFocus(false)}
-          />
+          >
+            <input
+              type={pwdShown ? "text" : "password"}
+              name="password"
+              required
+              style={{
+                width: sizeRatio(530),
+                height: sizeRatio(50),
+                marginTop: sizeRatio(4),
+                marginBottom: sizeRatio(6),
+                paddingLeft: sizeRatio(18),
+                borderRadius: "12px",
+                borderColor: NeutralDay000,
+                borderWidth: "1px",
+              }}
+              onChange={(e) => setPwd(e.target.value)}
+              onFocus={() => setPwdFocus(true)}
+              onBlur={() => setPwdFocus(false)}
+            />
+            <Button
+              style={{
+                position: "absolute",
+                outline: "none",
+                right: sizeRatio(18),
+                height: sizeRatio(24),
+                top: sizeRatio(16),
+                minWidth: 0,
+                padding: sizeRatio(8),
+                margin: 0,
+                color: NeutralDay000,
+              }}
+              onClick={() => setPwdShown(!pwdShown)}
+            >
+              {pwdShown ? <FiEyeOff /> : <FiEye />}
+            </Button>
+          </Box>
         </Box>
         {showErrPass && (
           <Box
@@ -196,6 +209,7 @@ const SignIn = () => {
           <Button
             style={{
               display: "flex",
+              outline: "none",
               fontSize: sizeRatio(24),
               fontWeight: 700,
               height: sizeRatio(60),
@@ -230,6 +244,7 @@ const SignIn = () => {
         <Button
           style={{
             display: "flex",
+            outline: "none",
             height: sizeRatio(80),
             marginLeft: sizeRatio(70),
           }}
@@ -272,13 +287,12 @@ const SignIn = () => {
                 style={{
                   fontSize: sizeRatio(36),
                   marginBottom: sizeRatio(30),
-                  color: "#0F172A",
+                  color: NeutralDay000,
                 }}
               >
                 {t("signIn").toUpperCase()}
               </Box>
               <Typography
-                ref={errorRef}
                 style={{
                   display: "flex",
                   flex: 1,

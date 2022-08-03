@@ -1,5 +1,5 @@
 import { isExpandAtom } from "@/recoil/atoms";
-import { sizeRatio } from "@/theme";
+import { colors, sizeRatio } from "@/theme";
 import { Box, Typography } from "@mui/material";
 import { BsCashCoin, BsPersonCheck } from "react-icons/bs";
 import { IoSchoolOutline } from "react-icons/io5";
@@ -7,6 +7,7 @@ import { useRecoilValue } from "recoil";
 
 const SummaryEarning = ({ tabEarning }) => {
   const isExpand = useRecoilValue(isExpandAtom);
+  const { NeutralDay000 } = colors;
 
   return (
     <Box
@@ -30,7 +31,7 @@ const SummaryEarning = ({ tabEarning }) => {
       >
         <BsPersonCheck
           style={{
-            color: "#0F172A",
+            color: NeutralDay000,
             fontSize: sizeRatio(27),
             marginRight: sizeRatio(25),
           }}
@@ -62,7 +63,7 @@ const SummaryEarning = ({ tabEarning }) => {
       >
         <IoSchoolOutline
           style={{
-            color: "#0F172A",
+            color: NeutralDay000,
             fontSize: sizeRatio(27),
             marginRight: sizeRatio(25),
           }}
@@ -128,7 +129,7 @@ const SummaryEarning = ({ tabEarning }) => {
       >
         <BsCashCoin
           style={{
-            color: "#0F172A",
+            color: NeutralDay000,
             fontSize: sizeRatio(27),
             marginRight: sizeRatio(25),
           }}

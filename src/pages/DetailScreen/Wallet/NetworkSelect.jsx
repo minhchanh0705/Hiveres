@@ -1,10 +1,12 @@
-import { sizeRatio } from "@/theme";
-import { FormControl, MenuItem, Select, Typography } from "@mui/material";
+import { sizeRatio, text, colors } from "@/theme";
+import { Box, FormControl, MenuItem, Select, Typography } from "@mui/material";
 import { useState } from "react";
 
 const NetworkSelect = () => {
-  const [valueTokenNetwork, setValueNetwork] = useState("Ronin");
+  const [valueTokenNetwork, setValueNetwork] = useState("chooseNetwork");
   const lstNetwork = ["Ronin", "Etherium"];
+  const { NeutralDay000, NeutralDay500 } = colors;
+  const { SecondaryHeading5 } = text;
   return (
     <FormControl fullWidth style={{ marginTop: sizeRatio(10) }}>
       <Select
@@ -20,9 +22,26 @@ const NetworkSelect = () => {
           },
         }}
       >
+        <MenuItem key={"chooseNetwork"} value={"chooseNetwork"} disabled>
+          <Typography
+            style={{
+              ...SecondaryHeading5,
+              color: NeutralDay500,
+            }}
+          >
+            Choose Network
+          </Typography>
+        </MenuItem>
         {lstNetwork.map((network) => (
           <MenuItem key={network} value={network}>
-            <Typography>{network}</Typography>
+            <Typography
+              style={{
+                ...SecondaryHeading5,
+                color: NeutralDay000,
+              }}
+            >
+              {network}
+            </Typography>
           </MenuItem>
         ))}
       </Select>

@@ -11,6 +11,7 @@ import ListWallet from "./ListWallet";
 import Activity from "./Activities";
 import CoinList from "./CoinList";
 import ChartBalance from "./ChartBalance";
+import { lstWallet } from "./jsonData/lstWallet";
 const Wallet = () => {
   Chart.register(...registerables);
   const isExpand = useRecoilValue(isExpandAtom);
@@ -18,23 +19,8 @@ const Wallet = () => {
   const setCurrentSectionAtom = useSetRecoilState(currentSectionAtom);
 
   useEffect(() => {
-    setCurrentSectionAtom("Wallet");
-  });
-
-  const lstWallet = [
-    {
-      walletName: "Ronin",
-      walletId: "ronin:13612263a7619ed817007524760274c86277d922",
-    },
-    {
-      walletName: "MetaMask",
-      walletId: "0xE42540E579122B03f6A37810Ae3879bd38236315",
-    },
-    {
-      walletName: "Fantom",
-      walletId: "0xf9ef17ea44c2813e564100728781cdb5887a2363fd",
-    },
-  ];
+    currentSectionAtom !== "Wallet" && setCurrentSectionAtom("Wallet");
+  }, []);
 
   return (
     <Box style={{ backgroundColor: "#F1F5F9" }}>
@@ -77,7 +63,7 @@ const Wallet = () => {
             }}
           >
             <CoinList />
-            <ChartBalance />
+            <ChartBalance lstWallet={lstWallet} />
           </Box>
           <WalletList />
           <Paper
@@ -91,11 +77,7 @@ const Wallet = () => {
             }}
           >
             {lstWallet.map((w, indx) => (
-              <ListWallet
-                wallet={w.walletName}
-                walletId={w.walletId}
-                key={indx}
-              />
+              <ListWallet wallet={w.name} walletId={w.detail} key={indx} />
             ))}
           </Paper>
 

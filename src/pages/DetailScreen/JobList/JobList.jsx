@@ -27,9 +27,11 @@ const JobList = () => {
   const [keywordSearch, setKeywordSearch] = useState("");
   const setCurrentSectionAtom = useSetRecoilState(currentSectionAtom);
   let navigate = useNavigate();
+
   useEffect(() => {
-    setCurrentSectionAtom("JobList");
-  });
+    currentSectionAtom !== "JobList" && setCurrentSectionAtom("JobList");
+  }, []);
+
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -49,6 +51,7 @@ const JobList = () => {
     "https://pngset.com/images-original/axie-marketplace-axie-chopsuey-food-birthday-cake-dessert-egg-transparent-png-2614883.png",
     "https://pngset.com/images-original/axie-marketplace-nimo-axie-egg-food-animal-sea-life-transparent-png-2920166.png",
   ];
+
   const createData = (id, isAward, name, pets, kpi) => {
     return {
       id,
@@ -70,6 +73,7 @@ const JobList = () => {
       ],
     };
   };
+
   const rows = [
     createData(1, true, "Axie #1", imgPets, 60),
     createData(2, false, "Axie #2", imgPets, 60),
@@ -96,17 +100,20 @@ const JobList = () => {
   ];
 
   const Row = ({ row }) => {
-    const [open, setOpen] = useState(false);
-
+    const handleJobsAccountDetail = () => {
+      navigate(`/JobsAccountDetail`, {
+        state: {
+          id: row.id,
+          walletId: "3ea702b8335e98adbc6f8fc9af43750c92bb8489",
+        },
+      });
+    };
     return (
       <Fragment>
         <TableRow
           hover
           sx={{ "& > *": { borderWidth: "0px" }, height: sizeRatio(83) }}
-          onClick={() => {
-            navigate(`/AccountDetail`);
-            setCurrentSectionAtom("JobList");
-          }}
+          onClick={handleJobsAccountDetail}
         >
           <TableCell align="center">
             {row.isAward && (
@@ -164,14 +171,6 @@ const JobList = () => {
         </TableRow>
       </Fragment>
     );
-  };
-
-  Row.propTypes = {
-    row: PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      pets: PropTypes.array.isRequired,
-      kpi: PropTypes.number.isRequired,
-    }).isRequired,
   };
 
   return (

@@ -7,7 +7,6 @@ const SearchComponent = ({ handleSearchChange }) => {
     <Box
       style={{
         height: sizeRatio(32),
-
         width: sizeRatio(280),
         display: "flex",
         alignItems: "center",
@@ -23,9 +22,13 @@ const SearchComponent = ({ handleSearchChange }) => {
         name="searchAccount"
         autoComplete="off"
         style={{
+          outline: "none",
           height: sizeRatio(30),
+          width: sizeRatio(240),
           borderWidth: "0px",
           paddingLeft: sizeRatio(10),
+          fontSize: sizeRatio(14),
+          fontWeight: sizeRatio(400),
         }}
         placeholder="Search..."
         onChange={(e) => handleSearchChange(e.target.value)}

@@ -1,9 +1,8 @@
-import { sizeRatio } from "@/theme";
+import { colors, sizeRatio } from "@/theme";
 import {
   Box,
   Button,
   Menu,
-  Slider,
   Table,
   TableBody,
   TableCell,
@@ -15,68 +14,18 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 
-import { FiFilter } from "react-icons/fi";
+import { FiGitPullRequest } from "react-icons/fi";
 import { rows } from "./jsonData/rows.json";
 import RowWalletList from "./RowWalletList";
-import ActivityFilter from "./ActivityFilter";
 import { styled, alpha } from "@mui/material/styles";
 import CheckboxList from "@/components/CheckboxList";
 import SearchComponent from "@/components/SearchComponent";
-const StyledMenu = styled((props) => (
-  <Menu
-    elevation={0}
-    anchorOrigin={{
-      vertical: "bottom",
-      horizontal: "right",
-    }}
-    transformOrigin={{
-      vertical: "top",
-      horizontal: "right",
-    }}
-    {...props}
-  />
-))(({ theme }) => ({
-  "& .MuiPaper-root": {
-    backgroundColor: "#1E293B",
-    borderRadius: 6,
-    marginTop: theme.spacing(1),
-    minWidth: sizeRatio(270),
-    color:
-      theme.palette.mode === "light"
-        ? "rgb(55, 65, 81)"
-        : theme.palette.grey[300],
-    boxShadow:
-      "rgb(255, 255, 255) 0px 0px 0px 0px, rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px",
-    "& .MuiMenu-list": {
-      paddingTop: sizeRatio(24),
-      paddingBottom: sizeRatio(24),
-    },
-    "& .MuiMenuItem-root": {
-      "&:active": {
-        backgroundColor: alpha(
-          theme.palette.primary.main,
-          theme.palette.action.selectedOpacity
-        ),
-      },
-    },
-    "*::-webkit-scrollbar": {
-      width: sizeRatio(4),
-    },
-    "*::-webkit-scrollbar-track": {
-      backgroundColor: "#FFF",
-      borderRadius: "4px",
-    },
-    "*::-webkit-scrollbar-thumb": {
-      backgroundColor: "#ECAE13",
-      borderRadius: "4px",
-    },
-  },
-}));
 
 const Activity = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [page, setPage] = useState(0);
+  const { NeutralDay000 } = colors;
 
   const lstAssets = ["HVR", "SLP", "BTC", "ETH", "STEPN"];
   const lstActions = ["Deposit", "Withdraw", "Lock", "Staking"];
@@ -85,6 +34,57 @@ const Activity = () => {
     fontWeight: 700,
     fontSize: sizeRatio(16),
   };
+
+  const StyledMenu = styled((props) => (
+    <Menu
+      elevation={0}
+      anchorOrigin={{
+        vertical: "bottom",
+        horizontal: "right",
+      }}
+      transformOrigin={{
+        vertical: "top",
+        horizontal: "right",
+      }}
+      {...props}
+    />
+  ))(({ theme }) => ({
+    "& .MuiPaper-root": {
+      backgroundColor: "#1E293B",
+      borderRadius: 6,
+      marginTop: theme.spacing(1),
+      minWidth: sizeRatio(270),
+      color:
+        theme.palette.mode === "light"
+          ? "rgb(55, 65, 81)"
+          : theme.palette.grey[300],
+      boxShadow:
+        "rgb(255, 255, 255) 0px 0px 0px 0px, rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px",
+      "& .MuiMenu-list": {
+        paddingTop: sizeRatio(24),
+        paddingBottom: sizeRatio(24),
+      },
+      "& .MuiMenuItem-root": {
+        "&:active": {
+          backgroundColor: alpha(
+            theme.palette.primary.main,
+            theme.palette.action.selectedOpacity
+          ),
+        },
+      },
+      "*::-webkit-scrollbar": {
+        width: sizeRatio(4),
+      },
+      "*::-webkit-scrollbar-track": {
+        backgroundColor: "#FFF",
+        borderRadius: "4px",
+      },
+      "*::-webkit-scrollbar-thumb": {
+        backgroundColor: "#ECAE13",
+        borderRadius: "4px",
+      },
+    },
+  }));
 
   const searchActivities = (char) => {
     console.log(char);
@@ -133,9 +133,10 @@ const Activity = () => {
             <SearchComponent handleSearchChange={searchActivities} />
           </Box>
           <Button
-            id="profile-button"
+            id="filter-button"
             style={{
               width: sizeRatio(116),
+              outline: "none",
               backgroundColor: "#061123",
               borderRadius: "8px",
             }}
@@ -143,7 +144,7 @@ const Activity = () => {
             disableElevation
             onClick={handleClick}
             endIcon={
-              <FiFilter
+              <FiGitPullRequest
                 style={{
                   color: "#FFFFFF",
                   fontSize: sizeRatio(20),
@@ -241,14 +242,16 @@ const Activity = () => {
             >
               <Button
                 style={{
+                  outline: "none",
                   width: sizeRatio(232),
                   height: sizeRatio(32),
                   paddingInline: sizeRatio(24),
-                  color: "#0F172A",
+                  color: NeutralDay000,
                   fontWeight: 400,
                   fontSize: sizeRatio(14),
                   backgroundColor: "#FFB600",
                 }}
+                onClick={handleClose}
               >
                 Confirm
               </Button>

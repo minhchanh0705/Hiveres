@@ -2,9 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import companyLogo from "/assets/icon/logo.png";
 import { useTranslation } from "react-i18next";
-import { sizeRatio } from "@/theme";
+import { colors, sizeRatio } from "@/theme";
 import { Box, Button, Link, Typography } from "@mui/material";
-import VerifyCode from "../VerifyCode/VerifyCode";
 import ConfirmNewPassword from "./ConfirmNewPassword";
 
 const EMAIL_REGEX = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
@@ -13,7 +12,7 @@ const ForgotPassword = () => {
   // React States
   const emailRef = useRef();
   const errorRef = useRef();
-
+  const { NeutralDay000 } = colors;
   const [email, setEmail] = useState("");
   const [validEmail, setValidEmail] = useState(false);
   const [emailFocus, setEmailFocus] = useState(false);
@@ -100,7 +99,7 @@ const ForgotPassword = () => {
               marginBottom: sizeRatio(6),
               paddingLeft: sizeRatio(18),
               borderRadius: "12px",
-              borderColor: "#0F172A",
+              borderColor: NeutralDay000,
               borderWidth: "1px",
             }}
             onChange={(e) => setEmail(e.target.value)}
@@ -122,6 +121,7 @@ const ForgotPassword = () => {
         <Button
           style={{
             display: "flex",
+            outline: "none",
             fontSize: sizeRatio(24),
             fontWeight: 700,
             height: sizeRatio(60),
@@ -154,6 +154,7 @@ const ForgotPassword = () => {
         <Button
           style={{
             display: "flex",
+            outline: "none",
             height: sizeRatio(80),
             marginLeft: sizeRatio(70),
           }}
@@ -197,7 +198,7 @@ const ForgotPassword = () => {
                 style={{
                   fontSize: sizeRatio(36),
                   marginBottom: sizeRatio(30),
-                  color: "#0F172A",
+                  color: NeutralDay000,
                 }}
               >
                 ACCOUNT RECOVERY
@@ -215,41 +216,42 @@ const ForgotPassword = () => {
                 {errMsg}
               </Typography>
               {step === 1 && renderForm}
-              {step === 2 && <VerifyCode setStep={setStep} />}
-              {step === 3 && <ConfirmNewPassword email={email} />}
+              {step === 2 && <ConfirmNewPassword email={email} />}
 
-              <Box
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  width: sizeRatio(530),
-                  justifyContent: "space-between",
-                  marginTop: sizeRatio(22),
-                }}
-              >
-                <Link
+              {step === 1 && (
+                <Box
                   style={{
-                    textDecoration: "none",
-                    fontSize: sizeRatio(16),
-                    fontWeight: 700,
-                    color: "#061123",
+                    display: "flex",
+                    flexDirection: "row",
+                    width: sizeRatio(530),
+                    justifyContent: "space-between",
+                    marginTop: sizeRatio(22),
                   }}
-                  href="/signUp"
                 >
-                  {t("signUp")}
-                </Link>
-                <Link
-                  style={{
-                    textDecoration: "none",
-                    fontSize: sizeRatio(16),
-                    fontWeight: 700,
-                    color: "#061123",
-                  }}
-                  href="/signIn"
-                >
-                  {t("signIn")}
-                </Link>
-              </Box>
+                  <Link
+                    style={{
+                      textDecoration: "none",
+                      fontSize: sizeRatio(16),
+                      fontWeight: 700,
+                      color: "#061123",
+                    }}
+                    href="/signUp"
+                  >
+                    {t("signUp")}
+                  </Link>
+                  <Link
+                    style={{
+                      textDecoration: "none",
+                      fontSize: sizeRatio(16),
+                      fontWeight: 700,
+                      color: "#061123",
+                    }}
+                    href="/signIn"
+                  >
+                    {t("signIn")}
+                  </Link>
+                </Box>
+              )}
             </Box>
           </Box>
         </Box>

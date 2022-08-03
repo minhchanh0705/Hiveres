@@ -1,5 +1,5 @@
 import { isExpandAtom } from "@/recoil/atoms";
-import { sizeRatio } from "@/theme";
+import { colors, sizeRatio } from "@/theme";
 import { Box, Button, ButtonGroup } from "@mui/material";
 import { useState } from "react";
 import { Bar } from "react-chartjs-2";
@@ -8,6 +8,7 @@ import { useRecoilValue } from "recoil";
 const ChartEarning = ({ tabEarning }) => {
   const isExpand = useRecoilValue(isExpandAtom);
   const [period, setPeriod] = useState("monthly");
+  const { NeutralDay000 } = colors;
   const profitBarChart = (period) =>
     Array.from(
       {
@@ -83,7 +84,7 @@ const ChartEarning = ({ tabEarning }) => {
                   : "Revenue overview",
 
               align: "start",
-              color: "#0F172A",
+              color: NeutralDay000,
               font: {
                 family: "Helvetica",
                 weight: 700,
@@ -128,6 +129,7 @@ const ChartEarning = ({ tabEarning }) => {
       >
         <Button
           style={{
+            outline: "none",
             width: sizeRatio(105),
             borderRadius: "8px",
             backgroundColor: period === "7days" ? "#061123" : "#E2E8F0",
@@ -141,6 +143,7 @@ const ChartEarning = ({ tabEarning }) => {
         </Button>
         <Button
           style={{
+            outline: "none",
             width: sizeRatio(105),
             marginInline: sizeRatio(12),
             borderRadius: "8px",
@@ -155,6 +158,7 @@ const ChartEarning = ({ tabEarning }) => {
         </Button>
         <Button
           style={{
+            outline: "none",
             width: sizeRatio(105),
             borderRadius: "8px",
             backgroundColor: period === "yearly" ? "#061123" : "#E2E8F0",

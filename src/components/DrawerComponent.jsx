@@ -1,26 +1,17 @@
 import { useEffect, useState } from "react";
 import { styled } from "@mui/material/styles";
-import {
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  Typography,
-} from "@mui/material";
+import { Box, Typography } from "@mui/material";
+import { colors, space, text, sizeRatio } from "@/theme";
 
 import MuiDrawer from "@mui/material/Drawer";
 import { Button } from "react-bootstrap";
-import { FiEye, FiCreditCard, FiCommand } from "react-icons/fi";
+import { FiCreditCard, FiCommand } from "react-icons/fi";
 import { AiOutlineMenuFold } from "react-icons/ai";
-
 import { IoList } from "react-icons/io5";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { currentSectionAtom, isExpandAtom } from "@/recoil/atoms";
-import { MdAccountCircle } from "react-icons/md";
+import { currentSectionAtom, isExpandAtom, usersAtom } from "@/recoil/atoms";
 import { useNavigate } from "react-router-dom";
-import { sizeRatio } from "@/theme";
 const drawerWidth = sizeRatio(220);
-
 const openedMixin = (theme) => ({
   width: drawerWidth,
   transition: theme.transitions.create("width", {
@@ -59,16 +50,19 @@ const Drawer = styled(MuiDrawer, {
 const DrawerComponent = () => {
   const setIsExpand = useSetRecoilState(isExpandAtom);
   const isExpand = useRecoilValue(isExpandAtom);
-
+  const { Row } = space;
+  const { NeutralDay100, NeutralDay600, NeutralDay800 } = colors;
+  const { S20W400 } = text;
   let navigate = useNavigate();
-
-  const setCurrentSectionAtom = useSetRecoilState(currentSectionAtom);
-  // const currTab = useRecoilValue(currentTabAtom);
+  const users = useRecoilValue(usersAtom);
   const currSection = useRecoilValue(currentSectionAtom);
+  const [lstDrawer, setLstDrawer] = useState([]);
 
-  // useEffect(() => {
-  //   setCurrentSectionAtom(currTab === "Dashboard" ? "JobList" : "Account");
-  // }, [currTab]);
+  useEffect(() => {
+    users
+      ? setLstDrawer(["Wallet", "Earning", "Job List"])
+      : setLstDrawer(["Job List"]);
+  }, [users]);
 
   const handleDrawerOpen = () => {
     setIsExpand(true);
@@ -77,9 +71,62 @@ const DrawerComponent = () => {
   const handleDrawerClose = () => {
     setIsExpand(false);
   };
+
   const handleChooseSection = (section) => {
     navigate(`/${section}`);
-    setCurrentSectionAtom(section);
+  };
+
+  const btnSection = (sectionName) => {
+    const styleViewIcon = {
+      display: "flex",
+      alignItems: "center",
+      marginRight: sizeRatio(12),
+    };
+    const styleIcon = { fontSize: sizeRatio(26) };
+    return (
+      <Button
+        style={{
+          ...Row,
+          color:
+            currSection === sectionName.replace(" ", "")
+              ? NeutralDay100
+              : NeutralDay600,
+          backgroundColor:
+            currSection === sectionName.replace(" ", "")
+              ? NeutralDay800
+              : NeutralDay100,
+          height: sizeRatio(50),
+          borderRadius: 0,
+          borderWidth: "0px",
+          boxShadow: "none",
+          textAlign: "left",
+          paddingLeft: sizeRatio(32),
+          marginTop: sizeRatio(15),
+        }}
+        onClick={() => handleChooseSection(sectionName.replace(" ", ""))}
+      >
+        {sectionName === "Wallet" && (
+          <Box style={styleViewIcon}>
+            <FiCreditCard style={styleIcon} />
+          </Box>
+        )}
+        {sectionName === "Earning" && (
+          <Box style={styleViewIcon}>
+            <FiCommand style={styleIcon} />
+          </Box>
+        )}
+        {sectionName === "Job List" && (
+          <Box style={styleViewIcon}>
+            <IoList style={styleIcon} />
+          </Box>
+        )}
+        {isExpand && (
+          <Box style={styleViewIcon}>
+            <Typography style={S20W400}>{sectionName}</Typography>
+          </Box>
+        )}
+      </Button>
+    );
   };
 
   return (
@@ -89,7 +136,7 @@ const DrawerComponent = () => {
       sx={{
         "& .MuiDrawer-paper": {
           position: "relative",
-          marginTop: sizeRatio,
+          marginTop: sizeRatio(1),
           minHeight: "100vh",
           height: "99.8%",
           borderWidth: "0px",
@@ -99,9 +146,10 @@ const DrawerComponent = () => {
     >
       <Button
         style={{
+          outline: "none",
+          boxShadow: "none",
           backgroundColor: "#1E293B",
           borderWidth: "0px",
-          boxShadow: "none",
           textAlign: "left",
           paddingLeft: sizeRatio(32),
           marginTop: sizeRatio(15),
@@ -117,106 +165,7 @@ const DrawerComponent = () => {
           }}
         />
       </Button>
-      <List>
-        {/* {currTab === "Dashboard"?  */}
-        {["Wallet", "Earning", "Job List"].map((text, index) => (
-          <ListItem
-            key={text.replace(" ", "")}
-            disablePadding
-            sx={{
-              paddingLeft: sizeRatio(32),
-              minHeight: sizeRatio(48),
-              "&.Mui-selected": {
-                backgroundColor: "#e2e8f0",
-              },
-              "&.Mui-selected:hover": {
-                backgroundColor: "#e2e8f0",
-              },
-            }}
-            onClick={() => handleChooseSection(text.replace(" ", ""))}
-            selected={text.replace(" ", "") === currSection}
-          >
-            {/* <ListItemButton> */}
-            <ListItemIcon
-              sx={{
-                minWidth: 0,
-                color: "white",
-                mr: isExpand ? sizeRatio(12) : "auto",
-              }}
-            >
-              {index === 0 ? (
-                <FiCreditCard
-                  style={{
-                    borderWidth: sizeRatio(2),
-                    width: sizeRatio(22),
-                    height: sizeRatio(22),
-                    color:
-                      currSection === text.replace(" ", "")
-                        ? "#33414D"
-                        : "#94A3BB",
-                  }}
-                />
-              ) : index === 1 ? (
-                <FiCommand
-                  style={{
-                    borderWidth: sizeRatio(2),
-                    width: sizeRatio(22),
-                    height: sizeRatio(22),
-                    color:
-                      currSection === text.replace(" ", "")
-                        ? "#33414D"
-                        : "#94A3BB",
-                  }}
-                />
-              ) : index === 2 ? (
-                <IoList
-                  style={{
-                    borderWidth: sizeRatio(2),
-                    width: sizeRatio(22),
-                    height: sizeRatio(22),
-                    color:
-                      currSection === text.replace(" ", "")
-                        ? "#33414D"
-                        : "#94A3BB",
-                  }}
-                />
-              ) : (
-                <MdAccountCircle
-                  style={{
-                    borderWidth: sizeRatio(2),
-                    width: sizeRatio(22),
-                    height: sizeRatio(22),
-                    color:
-                      currSection === text.replace(" ", "")
-                        ? "#33414D"
-                        : "#94A3BB",
-                  }}
-                />
-              )}
-            </ListItemIcon>
-
-            <ListItemText
-              primary={
-                <Typography
-                  style={{
-                    fontSize: sizeRatio(20),
-                    fontFamily: "Helvetica",
-                    fontWeight: sizeRatio(400),
-                  }}
-                >
-                  {text}
-                </Typography>
-              }
-              sx={{
-                opacity: isExpand ? 1 : 0,
-                color:
-                  currSection === text.replace(" ", "") ? "#33414D" : "#94A3BB",
-              }}
-            />
-            {/* </ListItemButton> */}
-          </ListItem>
-        ))}
-      </List>
+      {lstDrawer.map((e) => btnSection(e))}
     </Drawer>
   );
 };

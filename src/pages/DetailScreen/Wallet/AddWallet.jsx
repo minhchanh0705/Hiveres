@@ -1,35 +1,32 @@
-import { sizeRatio } from "@/theme";
+import { colors, sizeRatio, space, styleModal676, text } from "@/theme";
 
 import { Modal, Box, Button, Typography, Checkbox } from "@mui/material";
 import CancelSubmitRow from "../SubComponents/CancelSubmitRow";
 import NetworkSelect from "./NetworkSelect";
 
 const AddWallet = ({ showModalAddNetwork, setShowModalAddNetwork }) => {
+  const { NeutralDay000 } = colors;
+  const { S20W400, S16W700, S24W700, S12W700 } = text;
+  const { FlexCol, Row } = space;
+  const styles = {
+    inputStyle: {
+      ...S20W400,
+      borderRadius: sizeRatio(8),
+      height: sizeRatio(48),
+      borderWidth: "1px",
+      fontSize: sizeRatio(20),
+      marginTop: sizeRatio(16),
+      paddingLeft: sizeRatio(12),
+      color: NeutralDay000,
+    },
+  };
   return (
     <Modal
       open={showModalAddNetwork}
       onClose={() => setShowModalAddNetwork(false)}
     >
-      <Box
-        sx={{
-          position: "absolute",
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-          width: sizeRatio(676),
-          bgcolor: "#FFF",
-          paddingBlock: sizeRatio(35),
-          paddingInline: sizeRatio(70),
-          borderRadius: "12px",
-        }}
-      >
-        <Typography
-          style={{
-            fontWeight: 700,
-            fontSize: sizeRatio(24),
-            textAlign: "center",
-          }}
-        >
+      <Box sx={styleModal676}>
+        <Typography style={{ ...S24W700, textAlign: "center" }}>
           Add Network
         </Typography>
         <Box
@@ -42,25 +39,18 @@ const AddWallet = ({ showModalAddNetwork, setShowModalAddNetwork }) => {
           <Box>
             <Typography
               style={{
+                ...S16W700,
                 marginTop: sizeRatio(15),
-                fontWeight: 700,
-                fontSize: sizeRatio(16),
               }}
             >
               Network
             </Typography>
             <NetworkSelect />
-            <Box
-              style={{
-                display: "flex",
-                flexDirection: "column",
-              }}
-            >
+            <Box style={FlexCol}>
               <Typography
                 style={{
+                  ...S16W700,
                   marginTop: sizeRatio(15),
-                  fontWeight: 700,
-                  fontSize: sizeRatio(16),
                 }}
               >
                 Address
@@ -68,14 +58,7 @@ const AddWallet = ({ showModalAddNetwork, setShowModalAddNetwork }) => {
               <input
                 type="text"
                 name="recipientEmail"
-                style={{
-                  height: sizeRatio(48),
-                  marginTop: sizeRatio(10),
-                  borderRadius: "8px",
-                  borderWidth: "1px",
-                  borderStyle: "solid",
-                  borderColor: "#64748B",
-                }}
+                style={styles.inputStyle}
               />
             </Box>
 
@@ -94,21 +77,13 @@ const AddWallet = ({ showModalAddNetwork, setShowModalAddNetwork }) => {
               >
                 Transaction fee:
               </Typography>
-              <Typography
-                style={{
-                  fontSize: sizeRatio(16),
-                  fontWeight: 700,
-                }}
-              >
-                0.000 BTC
-              </Typography>
+              <Typography style={S16W700}>0.000 BTC</Typography>
             </Box>
 
             <Box
               style={{
-                display: "flex",
+                ...Row,
                 justifyContent: "flex-start",
-                alignItems: "center",
                 marginTop: sizeRatio(10),
               }}
             >
@@ -120,11 +95,10 @@ const AddWallet = ({ showModalAddNetwork, setShowModalAddNetwork }) => {
 
               <Typography
                 style={{
-                  fontSize: sizeRatio(16),
-                  fontWeight: 700,
+                  ...S16W700,
                   marginLeft: sizeRatio(8),
                   marginRight: sizeRatio(5),
-                  color: "#0F172A",
+                  color: NeutralDay000,
                 }}
               >
                 I agree with
@@ -132,11 +106,10 @@ const AddWallet = ({ showModalAddNetwork, setShowModalAddNetwork }) => {
               <Button
                 variant="text"
                 style={{
+                  ...S16W700,
                   padding: 0,
-                  fontSize: sizeRatio(16),
-                  fontWeight: 700,
                   textDecoration: "underline",
-                  color: "#0F172A",
+                  color: NeutralDay000,
                 }}
                 onClick={() => {}}
               >
@@ -145,8 +118,7 @@ const AddWallet = ({ showModalAddNetwork, setShowModalAddNetwork }) => {
             </Box>
             <Typography
               style={{
-                fontSize: sizeRatio(12),
-                fontWeight: 700,
+                ...S12W700,
                 marginRight: sizeRatio(5),
                 marginTop: sizeRatio(5),
               }}

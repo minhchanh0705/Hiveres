@@ -1,4 +1,4 @@
-import { sizeRatio } from "@/theme";
+import { colors, sizeRatio } from "@/theme";
 import { styled, alpha } from "@mui/material/styles";
 import { Box, Button, Menu, Modal, Slider, Typography } from "@mui/material";
 // import CheckboxList from "@/components/CheckboxList";
@@ -7,12 +7,15 @@ import CheckboxList from "@/components/CheckboxList";
 
 const ActivityFilter = ({ anchorEl, setAnchorEl }) => {
   const [value, setValue] = useState([20, 37]);
+  const { NeutralDay000 } = colors;
+
   function valuetext(value) {
     return `${value}%`;
   }
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+
   const StyledMenu = styled((props) => (
     <Menu
       elevation={0}
@@ -160,7 +163,7 @@ const ActivityFilter = ({ anchorEl, setAnchorEl }) => {
             width: sizeRatio(232),
             height: sizeRatio(32),
             paddingInline: sizeRatio(24),
-            color: "#0F172A",
+            color: NeutralDay000,
             fontWeight: 400,
             fontSize: sizeRatio(14),
             backgroundColor: "#FFB600",

@@ -1,4 +1,4 @@
-import { sizeRatio } from "@/theme";
+import { colors, sizeRatio } from "@/theme";
 import { Box, Button, Typography } from "@mui/material";
 import { isExpandAtom } from "@/recoil/atoms";
 import { useRecoilValue } from "recoil";
@@ -9,6 +9,7 @@ import AddWallet from "./AddWallet";
 const WalletList = () => {
   const isExpand = useRecoilValue(isExpandAtom);
   const [showModalAddNetwork, setShowModalAddNetwork] = useState(false);
+  const { NeutralDay000 } = colors;
 
   return (
     <Box
@@ -23,7 +24,7 @@ const WalletList = () => {
       <Typography
         style={{
           display: "flex",
-          color: "#0F172A",
+          color: NeutralDay000,
           fontWeight: 700,
           fontSize: sizeRatio(16),
           alignItems: "center",

@@ -2,16 +2,29 @@ import { sizeRatio } from "@/theme";
 import { Box, TableCell, TableRow } from "@mui/material";
 import { Fragment } from "react";
 import { FiAward } from "react-icons/fi";
+import { useNavigate } from "react-router-dom";
 
-const AccountListRow = ({ row }) => {
+const AccountListRow = ({ row, tabEarning }) => {
+  let navigate = useNavigate();
+
   const valueStyle = {
     textAlign: "center",
     width: sizeRatio(229.6),
     fontSize: sizeRatio(16),
   };
+  const handleEarningAccountDetail = () => {
+    navigate(`/EarningAccountDetail`, {
+      state: {
+        id: row.id,
+        tabEarning: tabEarning,
+        walletId: "eb62eec22ccf13f60a9c3352ec507f00720b00e0",
+      },
+    });
+  };
+
   return (
     <Fragment>
-      <TableRow hover>
+      <TableRow hover onClick={handleEarningAccountDetail}>
         <TableCell style={valueStyle}>
           <FiAward
             style={{

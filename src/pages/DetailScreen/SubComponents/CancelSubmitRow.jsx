@@ -12,8 +12,9 @@ const CancelSubmitRow = ({ setModal, condition }) => {
     >
       <Button
         variant="contained"
-        sx={{
+        style={{
           backgroundColor: "#E2E8F0",
+          outline: "none",
           color: "#64748B",
           marginRight: sizeRatio(16),
           width: sizeRatio(101),
@@ -25,8 +26,9 @@ const CancelSubmitRow = ({ setModal, condition }) => {
       </Button>
       <Button
         variant="contained"
-        sx={{
+        style={{
           backgroundColor: "#061123",
+          outline: "none",
           color: "#F8FAFC",
           width: sizeRatio(101),
           borderRadius: "8px",

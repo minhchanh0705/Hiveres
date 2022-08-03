@@ -8,17 +8,17 @@ import NavBar from "@/components/NavBar";
 import DrawerComponent from "@/components/DrawerComponent";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { currentSectionAtom, isExpandAtom } from "@/recoil/atoms";
-import SummaryEarning from "./SummaryEarning";
-import ChartEarning from "./ChartEarning";
-import AccountListEarning from "./AccountListEarning";
+import SummaryEarning from "./SummaryEarning/SummaryEarning";
+import ChartEarning from "./ChartEarning/ChartEarning";
+import AccountListEarning from "./AccountListEarning/AccountListEarning";
 const Earning = () => {
   Chart.register(...registerables);
   const isExpand = useRecoilValue(isExpandAtom);
   const [tabEarning, setTabEarning] = useState("invest");
   const setCurrentSectionAtom = useSetRecoilState(currentSectionAtom);
   useEffect(() => {
-    setCurrentSectionAtom("Earning");
-  });
+    currentSectionAtom !== "Earning" && setCurrentSectionAtom("Earning");
+  }, []);
 
   return (
     <Box style={{ backgroundColor: "#F1F5F9" }}>
@@ -55,6 +55,7 @@ const Earning = () => {
           <ButtonGroup variant="light">
             <Button
               style={{
+                outline: "none",
                 width: sizeRatio(198),
                 height: sizeRatio(34),
                 marginInline: sizeRatio(12),
@@ -76,6 +77,7 @@ const Earning = () => {
             </Button>
             <Button
               style={{
+                outline: "none",
                 width: sizeRatio(198),
                 height: sizeRatio(34),
                 marginInline: sizeRatio(12),

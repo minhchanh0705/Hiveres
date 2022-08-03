@@ -1,8 +1,13 @@
-import { sizeRatio } from "@/theme";
+import { colors, sizeRatio } from "@/theme";
 
 import { Box, Typography, Button } from "@mui/material";
+import { useEffect, useState } from "react";
+import { FiEye, FiEyeOff } from "react-icons/fi";
 
 const AddAccountStep1EnterInfo = ({ setShowAddAccountModal, setStep }) => {
+  const { NeutralDay000, NeutralDay400, NeutralDay900 } = colors;
+  const [pwdShown, setPwdShown] = useState(false);
+
   const labelStyle = {
     marginTop: sizeRatio(15),
     fontWeight: 700,
@@ -10,12 +15,14 @@ const AddAccountStep1EnterInfo = ({ setShowAddAccountModal, setStep }) => {
   };
   const inputStyle = {
     height: sizeRatio(48),
-    marginTop: sizeRatio(10),
+    marginTop: sizeRatio(4),
     borderRadius: "8px",
     borderWidth: "1px",
     borderStyle: "solid",
-    borderColor: "#64748B",
+    paddingLeft: sizeRatio(18),
+    borderColor: NeutralDay400,
   };
+
   return (
     <Box>
       <Typography
@@ -47,7 +54,33 @@ const AddAccountStep1EnterInfo = ({ setShowAddAccountModal, setStep }) => {
           <Typography style={labelStyle}>Email</Typography>
           <input type="text" name="email" style={inputStyle} />
           <Typography style={labelStyle}>Password</Typography>
-          <input type="text" name="password" style={inputStyle} />
+          <Box
+            style={{
+              position: "relative",
+            }}
+          >
+            <input
+              type={pwdShown ? "text" : "password"}
+              name="password"
+              style={{ ...inputStyle, width: "100%" }}
+            />
+            <Button
+              style={{
+                position: "absolute",
+                outline: "none",
+                right: sizeRatio(18),
+                height: sizeRatio(24),
+                top: sizeRatio(16),
+                minWidth: 0,
+                padding: sizeRatio(8),
+                margin: 0,
+                color: NeutralDay000,
+              }}
+              onClick={() => setPwdShown(!pwdShown)}
+            >
+              {pwdShown ? <FiEyeOff /> : <FiEye />}
+            </Button>
+          </Box>
         </Box>
         <Box
           style={{
@@ -58,7 +91,8 @@ const AddAccountStep1EnterInfo = ({ setShowAddAccountModal, setStep }) => {
         >
           <Button
             variant="contained"
-            sx={{
+            style={{
+              outline: "none",
               backgroundColor: "#E2E8F0",
               color: "#64748B",
               marginRight: sizeRatio(16),
@@ -71,7 +105,8 @@ const AddAccountStep1EnterInfo = ({ setShowAddAccountModal, setStep }) => {
           </Button>
           <Button
             variant="contained"
-            sx={{
+            style={{
+              outline: "none",
               backgroundColor: "#061123",
               color: "#F8FAFC",
               width: sizeRatio(101),

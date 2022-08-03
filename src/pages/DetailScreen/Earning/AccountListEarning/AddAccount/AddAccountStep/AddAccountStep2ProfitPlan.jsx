@@ -1,4 +1,4 @@
-import { sizeRatio } from "@/theme";
+import { colors, sizeRatio, space, text } from "@/theme";
 
 import { Box, Typography, Button, Link, Checkbox } from "@mui/material";
 import { useState } from "react";
@@ -11,6 +11,11 @@ import {
 const AddAccountStep2ProfitPlan = ({ setStep }) => {
   const [percentage, setPercentage] = useState(0);
   const [dailyRequires, setDailyRequires] = useState(0);
+  const [axsReward, setAxsReward] = useState(0);
+
+  const { NeutralDay000, NeutralDay400 } = colors;
+  const { SecondaryHeading5, S14W700, S24W400, S14W400, S16W700 } = text;
+  const { Row } = space;
 
   const pets = [
     "https://pngset.com/images-original/axie-marketplace-white-aqua-axie-egg-food-animal-fish-transparent-png-2568119.png",
@@ -19,13 +24,7 @@ const AddAccountStep2ProfitPlan = ({ setStep }) => {
   ];
   return (
     <Box>
-      <Typography
-        style={{
-          fontSize: sizeRatio(24),
-        }}
-      >
-        10 Axies
-      </Typography>
+      <Typography style={S24W400}>10 Axies</Typography>
       <Box
         style={{
           display: "flex",
@@ -52,71 +51,75 @@ const AddAccountStep2ProfitPlan = ({ setStep }) => {
       >
         <Button
           style={{
+            ...S16W700,
             color: "#0B3E8E",
-            fontSize: sizeRatio(16),
-            fontWeight: 700,
+            outline: "none",
             textDecoration: "underline",
           }}
         >
           {"Show more >"}
         </Button>
       </Box>
-      <Typography
-        style={{
-          color: "#0F172A",
-          fontSize: sizeRatio(24),
-        }}
-      >
+      <Typography style={{ ...S24W400, color: NeutralDay000 }}>
         Profit Plan
       </Typography>
       <Box
         style={{
-          display: "flex",
-          width: sizeRatio(300),
+          ...Row,
+          width: sizeRatio(330),
           justifyContent: "space-between",
           marginTop: sizeRatio(24),
         }}
       >
-        <Typography>Percentage (%)</Typography>
+        <Typography style={{ ...S16W700, color: NeutralDay000 }}>
+          Percentage (%)
+        </Typography>
         <input
           type="text"
           name="percentage"
           value={percentage}
           autoComplete="off"
           style={{
+            ...SecondaryHeading5,
             height: sizeRatio(32),
             width: sizeRatio(44),
             textAlign: "center",
-            border: "1px solid #0F172A",
+            border: `1px solid ${NeutralDay400}`,
             borderRadius: "8px",
           }}
           onChange={(e) => setPercentage(e.target.value)}
         />
       </Box>
+
       <Box
         style={{
-          display: "flex",
-          width: sizeRatio(300),
+          ...Row,
+
+          width: sizeRatio(330),
           justifyContent: "space-between",
           marginTop: sizeRatio(24),
         }}
       >
-        <Typography>Daily requires (SLP)</Typography>
+        <Typography style={{ ...S16W700, color: NeutralDay000 }}>
+          Daily requires (SLP)
+        </Typography>
         <input
           type="text"
           name="dailyRequires"
           value={dailyRequires}
           autoComplete="off"
           style={{
+            ...SecondaryHeading5,
             height: sizeRatio(32),
             width: sizeRatio(44),
             textAlign: "center",
-            border: "1px solid #0F172A",
+            border: `1px solid ${NeutralDay400}`,
             borderRadius: "8px",
           }}
           onChange={(e) => setDailyRequires(e.target.value)}
         />
       </Box>
+
       <Box
         style={{
           width: "100%",
@@ -126,9 +129,9 @@ const AddAccountStep2ProfitPlan = ({ setStep }) => {
       >
         <Button
           style={{
+            ...S16W700,
             color: "#0B3E8E",
-            fontSize: sizeRatio(16),
-            fontWeight: 700,
+            outline: "none",
             textDecoration: "underline",
           }}
         >
@@ -137,55 +140,45 @@ const AddAccountStep2ProfitPlan = ({ setStep }) => {
         <Box
           style={{
             display: "flex",
-            width: sizeRatio(300),
+            width: sizeRatio(330),
             justifyContent: "space-between",
             marginTop: sizeRatio(24),
           }}
         >
-          <Box
-            style={{
-              display: "flex",
-              alignItems: "center",
-            }}
-          >
+          <Box style={Row}>
             <Checkbox
               sx={{
                 padding: 0,
               }}
             />
 
-            <Typography
-              style={{
-                fontSize: sizeRatio(16),
-                fontWeight: 700,
-                color: "#0F172A",
-              }}
-            >
+            <Typography style={{ ...S16W700, color: NeutralDay000 }}>
               AXS Reward (%)
             </Typography>
             <FiAward />
           </Box>
+
           <input
             type="text"
-            name="dailyRequires"
-            value={dailyRequires}
+            name="axsReward"
+            value={axsReward}
             autoComplete="off"
             style={{
+              ...SecondaryHeading5,
               height: sizeRatio(32),
               width: sizeRatio(44),
               textAlign: "center",
-              border: "1px solid #0F172A",
+              border: `1px solid ${NeutralDay400}`,
               borderRadius: "8px",
             }}
-            onChange={(e) => setDailyRequires(e.target.value)}
+            onChange={(e) => setAxsReward(e.target.value)}
           />
         </Box>
       </Box>
 
       <Typography
         style={{
-          fontWeight: 700,
-          fontSize: sizeRatio(14),
+          ...S14W700,
           color: "#B91C1C",
           marginTop: sizeRatio(32),
           textAlign: "center",
@@ -203,9 +196,9 @@ const AddAccountStep2ProfitPlan = ({ setStep }) => {
       >
         <Button
           style={{
+            ...S16W700,
             color: "#0B3E8E",
-            fontSize: sizeRatio(16),
-            fontWeight: 700,
+            outline: "none",
             textDecoration: "underline",
           }}
         >
@@ -222,11 +215,11 @@ const AddAccountStep2ProfitPlan = ({ setStep }) => {
       >
         <Button
           style={{
+            ...S16W700,
             backgroundColor: "#061123",
+            outline: "none",
             color: "#F8FAFC",
             width: sizeRatio(119),
-            fontSize: sizeRatio(16),
-            fontWeight: 700,
             borderRadius: "8px",
           }}
           onClick={() => setStep(1)}
@@ -241,11 +234,11 @@ const AddAccountStep2ProfitPlan = ({ setStep }) => {
         </Button>
         <Button
           style={{
+            ...S16W700,
             backgroundColor: "#061123",
+            outline: "none",
             color: "#F8FAFC",
             width: sizeRatio(119),
-            fontSize: sizeRatio(16),
-            fontWeight: 700,
             borderRadius: "8px",
           }}
           onClick={() => setStep(3)}

@@ -1,9 +1,11 @@
-import { sizeRatio } from "@/theme";
+import { colors, sizeRatio } from "@/theme";
 import { Box, Button, Typography } from "@mui/material";
 import { FiEdit } from "react-icons/fi";
 import { MdOutlineContentCopy, MdOutlineDelete } from "react-icons/md";
 
 const ListWallet = ({ wallet, walletId }) => {
+  const { NeutralDay000 } = colors;
+
   return (
     <Box
       style={{
@@ -22,12 +24,19 @@ const ListWallet = ({ wallet, walletId }) => {
           style={{
             width: sizeRatio(30),
             height: sizeRatio(30),
-            marginRight: sizeRatio(5),
+            marginRight: sizeRatio(12),
           }}
           src={`/assets/icon/${wallet}.png`}
           alt=""
         />
-        <Typography>{wallet}</Typography>
+        <Typography
+          style={{
+            fontWeight: sizeRatio(700),
+            fontSize: sizeRatio(16),
+          }}
+        >
+          {wallet}
+        </Typography>
       </Box>
       <Box
         style={{
@@ -37,13 +46,20 @@ const ListWallet = ({ wallet, walletId }) => {
           justifyContent: "space-between",
         }}
       >
-        <Typography>{walletId}</Typography>
+        <Typography
+          style={{
+            fontWeight: sizeRatio(400),
+            fontSize: sizeRatio(16),
+          }}
+        >
+          {walletId}
+        </Typography>
         <MdOutlineContentCopy
           cursor="pointer"
           style={{
             width: sizeRatio(16),
             height: sizeRatio(16),
-            color: "#0F172A",
+            color: NeutralDay000,
           }}
         ></MdOutlineContentCopy>
       </Box>
@@ -58,6 +74,7 @@ const ListWallet = ({ wallet, walletId }) => {
       <Button
         style={{
           display: "flex",
+          outline: "none",
           alignItems: "center",
           justifyContent: "center",
           flex: 2,
@@ -83,6 +100,7 @@ const ListWallet = ({ wallet, walletId }) => {
       <Button
         style={{
           display: "flex",
+          outline: "none",
           alignItems: "center",
           flex: 2,
         }}

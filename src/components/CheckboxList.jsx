@@ -4,13 +4,13 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import Checkbox from "@mui/material/Checkbox";
-import { sizeRatio } from "@/theme";
+import { sizeRatio, text } from "@/theme";
 import { Typography } from "@mui/material";
 import { useState } from "react";
 
 const CheckboxList = ({ bgcolor, txtColor, lstItems, nameCheckbox }) => {
   const [checked, setChecked] = useState([0]);
-
+  const { S14W400 } = text;
   const handleToggle = (value) => () => {
     const currentIndex = checked.indexOf(value);
     const newChecked = [...checked];
@@ -80,14 +80,7 @@ const CheckboxList = ({ bgcolor, txtColor, lstItems, nameCheckbox }) => {
                 }}
                 id={labelId}
                 primary={
-                  <Typography
-                    type="body2"
-                    style={{
-                      fontFamily: "Helvetica",
-                      fontWeight: 400,
-                      fontSize: sizeRatio(14),
-                    }}
-                  >
+                  <Typography type="body2" style={S14W400}>
                     {nameCheckbox === "Asset" ? (
                       <>
                         <img

@@ -1,5 +1,5 @@
 import { isExpandAtom } from "@/recoil/atoms";
-import { sizeRatio } from "@/theme";
+import { colors, sizeRatio } from "@/theme";
 import {
   Box,
   Button,
@@ -19,77 +19,79 @@ import { useState } from "react";
 import { IoIosAddCircleOutline } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
-import AccountListRow from "./AccountListRow";
-import AddAccount from "./AddAccount";
-import { accountList } from "./jsonData/accountList.json";
+import AccountListRow from "./AccountListRow/AccountListRow";
+import AddAccount from "./AddAccount/AddAccount";
+import { accountList } from "../jsonData/accountList.json";
 import { styled, alpha } from "@mui/material/styles";
 import CheckboxList from "@/components/CheckboxList";
-import { FiFilter } from "react-icons/fi";
+import { FiGitPullRequest } from "react-icons/fi";
 import SearchComponent from "@/components/SearchComponent";
-const StyledMenu = styled((props) => (
-  <Menu
-    elevation={0}
-    anchorOrigin={{
-      vertical: "bottom",
-      horizontal: "right",
-    }}
-    transformOrigin={{
-      vertical: "top",
-      horizontal: "right",
-    }}
-    {...props}
-  />
-))(({ theme }) => ({
-  "& .MuiPaper-root": {
-    backgroundColor: "#1E293B",
-    borderRadius: 6,
-    marginTop: theme.spacing(1),
-    minWidth: sizeRatio(270),
-
-    color:
-      theme.palette.mode === "light"
-        ? "rgb(55, 65, 81)"
-        : theme.palette.grey[300],
-    boxShadow:
-      "rgb(255, 255, 255) 0px 0px 0px 0px, rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px",
-    "& .MuiMenu-list": {
-      paddingTop: sizeRatio(24),
-      paddingBottom: sizeRatio(24),
-    },
-    "& .MuiSlider-markLabel": {
-      color: "white",
-      fontSize: sizeRatio(10),
-    },
-    "& .MuiMenuItem-root": {
-      "&:active": {
-        backgroundColor: alpha(
-          theme.palette.primary.main,
-          theme.palette.action.selectedOpacity
-        ),
-      },
-    },
-    "*::-webkit-scrollbar": {
-      width: sizeRatio(4),
-    },
-    "*::-webkit-scrollbar-track": {
-      backgroundColor: "#FFF",
-      borderRadius: "4px",
-    },
-    "*::-webkit-scrollbar-thumb": {
-      backgroundColor: "#ECAE13",
-      borderRadius: "4px",
-    },
-  },
-}));
 
 const AccountListEarning = ({ tabEarning }) => {
   const isExpand = useRecoilValue(isExpandAtom);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [valueMain, setValueMain] = useState([0, 100]);
   const [showAddAccountModal, setShowAddAccountModal] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
-  const [value, setValue] = useState([0, 100]);
+  const { NeutralDay000 } = colors;
   const navigate = useNavigate();
+
+  const StyledMenu = styled((props) => (
+    <Menu
+      elevation={0}
+      anchorOrigin={{
+        vertical: "bottom",
+        horizontal: "right",
+      }}
+      transformOrigin={{
+        vertical: "top",
+        horizontal: "right",
+      }}
+      {...props}
+    />
+  ))(({ theme }) => ({
+    "& .MuiPaper-root": {
+      backgroundColor: "#1E293B",
+      borderRadius: 6,
+      marginTop: theme.spacing(1),
+      minWidth: sizeRatio(270),
+
+      color:
+        theme.palette.mode === "light"
+          ? "rgb(55, 65, 81)"
+          : theme.palette.grey[300],
+      boxShadow:
+        "rgb(255, 255, 255) 0px 0px 0px 0px, rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px",
+      "& .MuiMenu-list": {
+        paddingTop: sizeRatio(24),
+        paddingBottom: sizeRatio(24),
+      },
+      "& .MuiSlider-markLabel": {
+        color: "white",
+        fontSize: sizeRatio(10),
+      },
+      "& .MuiMenuItem-root": {
+        "&:active": {
+          backgroundColor: alpha(
+            theme.palette.primary.main,
+            theme.palette.action.selectedOpacity
+          ),
+        },
+      },
+      "*::-webkit-scrollbar": {
+        width: sizeRatio(4),
+      },
+      "*::-webkit-scrollbar-track": {
+        backgroundColor: "#FFF",
+        borderRadius: "4px",
+      },
+      "*::-webkit-scrollbar-thumb": {
+        backgroundColor: "#ECAE13",
+        borderRadius: "4px",
+      },
+    },
+  }));
 
   const open = Boolean(anchorEl);
 
@@ -110,16 +112,11 @@ const AccountListEarning = ({ tabEarning }) => {
   };
 
   const searchAccount = (char) => {
-    console.log(char);
     // setKeywordSearch(char);
   };
 
   const valuetext = (value) => {
     return `${value}%`;
-  };
-
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
   };
 
   const handleClose = () => {
@@ -139,6 +136,105 @@ const AccountListEarning = ({ tabEarning }) => {
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(+event.target.value);
     setPage(0);
+  };
+
+  const FilterMenu = () => {
+    const [value, setValue] = useState(valueMain);
+    const handleChange = (event, newValue) => {
+      setValue(newValue);
+    };
+    return (
+      <StyledMenu
+        id="filter-menu"
+        MenuListProps={{
+          "aria-labelledby": "filter-button",
+        }}
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+      >
+        <Box
+          style={{
+            display: "flex",
+            padding: 0,
+            flexDirection: "column",
+            alignItems: "flex-start",
+            marginInline: sizeRatio(24),
+          }}
+        >
+          <Typography
+            style={{
+              fontWeight: 700,
+              fontSize: sizeRatio(16),
+              color: "#FFFFFF",
+            }}
+          >
+            Status
+          </Typography>
+
+          <Box
+            style={{
+              width: "100%",
+              backgroundColor: "#1E293B",
+              maxHeight: sizeRatio(176),
+            }}
+          >
+            <CheckboxList
+              bgcolor="#1E293B"
+              txtColor="#FFF"
+              lstItems={lstStatus}
+              nameCheckbox="Status"
+            />
+          </Box>
+          <Typography
+            style={{
+              fontWeight: 700,
+              fontSize: sizeRatio(16),
+              color: "#FFFFFF",
+            }}
+          >
+            Percentage
+          </Typography>
+
+          <Slider
+            getAriaLabel={() => "Percentage range"}
+            value={value}
+            onChange={handleChange}
+            valueLabelDisplay="auto"
+            getAriaValueText={valuetext}
+            sx={{
+              color: "#ECAE13",
+            }}
+            marks={marks}
+          />
+        </Box>
+        <Box
+          style={{
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          <Button
+            style={{
+              outline: "none",
+              width: sizeRatio(232),
+              height: sizeRatio(32),
+              paddingInline: sizeRatio(24),
+              color: NeutralDay000,
+              fontWeight: 400,
+              fontSize: sizeRatio(14),
+              backgroundColor: "#FFB600",
+            }}
+            onClick={() => {
+              setValueMain(value);
+              handleClose();
+            }}
+          >
+            Confirm
+          </Button>
+        </Box>
+      </StyledMenu>
+    );
   };
 
   return (
@@ -185,8 +281,9 @@ const AccountListEarning = ({ tabEarning }) => {
           }}
         >
           <Button
-            id="profile-button"
+            id="filter-button"
             style={{
+              outline: "none",
               height: sizeRatio(32),
               backgroundColor: "#061123",
               borderRadius: "8px",
@@ -196,7 +293,7 @@ const AccountListEarning = ({ tabEarning }) => {
             disableElevation
             onClick={handleClick}
             endIcon={
-              <FiFilter
+              <FiGitPullRequest
                 style={{
                   color: "#FFFFFF",
                   fontSize: sizeRatio(20),
@@ -215,97 +312,14 @@ const AccountListEarning = ({ tabEarning }) => {
               Filter
             </Typography>
           </Button>
-          <StyledMenu
-            id="filter-menu"
-            MenuListProps={{
-              "aria-labelledby": "filter-button",
-            }}
-            anchorEl={anchorEl}
-            open={open}
-            onClose={handleClose}
-          >
-            <Box
-              style={{
-                display: "flex",
-                padding: 0,
-                flexDirection: "column",
-                alignItems: "flex-start",
-                marginInline: sizeRatio(24),
-              }}
-            >
-              <Typography
-                style={{
-                  fontWeight: 700,
-                  fontSize: sizeRatio(16),
-                  color: "#FFFFFF",
-                }}
-              >
-                Status
-              </Typography>
-
-              <Box
-                style={{
-                  width: "100%",
-                  backgroundColor: "#1E293B",
-                  maxHeight: sizeRatio(176),
-                }}
-              >
-                <CheckboxList
-                  bgcolor="#1E293B"
-                  txtColor="#FFF"
-                  lstItems={lstStatus}
-                  nameCheckbox="Status"
-                />
-              </Box>
-              <Typography
-                style={{
-                  fontWeight: 700,
-                  fontSize: sizeRatio(16),
-                  color: "#FFFFFF",
-                }}
-              >
-                Percentage
-              </Typography>
-
-              <Slider
-                getAriaLabel={() => "Percentage range"}
-                value={value}
-                onChange={handleChange}
-                valueLabelDisplay="auto"
-                getAriaValueText={valuetext}
-                sx={{
-                  color: "#ECAE13",
-                }}
-                marks={marks}
-              />
-            </Box>
-            <Box
-              style={{
-                display: "flex",
-                justifyContent: "center",
-              }}
-            >
-              <Button
-                style={{
-                  width: sizeRatio(232),
-                  height: sizeRatio(32),
-                  paddingInline: sizeRatio(24),
-                  color: "#0F172A",
-                  fontWeight: 400,
-                  fontSize: sizeRatio(14),
-                  backgroundColor: "#FFB600",
-                }}
-              >
-                Confirm
-              </Button>
-            </Box>
-          </StyledMenu>
+          <FilterMenu />
 
           <Button
             style={{
+              outline: "none",
               height: sizeRatio(32),
               borderRadius: "8px",
-              backgroundColor: "#0F172A",
+              backgroundColor: NeutralDay000,
               marginLeft: sizeRatio(5),
               paddingInline: sizeRatio(15),
             }}
@@ -352,7 +366,13 @@ const AccountListEarning = ({ tabEarning }) => {
             {accountList
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row) => {
-                return <AccountListRow key={row.id} row={row} />;
+                return (
+                  <AccountListRow
+                    key={row.id}
+                    row={row}
+                    tabEarning={tabEarning}
+                  />
+                );
               })}
           </TableBody>
         </Table>
