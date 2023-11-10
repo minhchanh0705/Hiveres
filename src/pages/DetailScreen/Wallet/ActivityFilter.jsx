@@ -9,9 +9,10 @@ const ActivityFilter = ({ anchorEl, setAnchorEl }) => {
   const [value, setValue] = useState([20, 37]);
   const { NeutralDay000 } = colors;
 
-  function valuetext(value) {
+  const valuetext = (value) => {
     return `${value}%`;
   }
+  
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
